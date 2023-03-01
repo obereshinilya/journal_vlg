@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BusinessMessage>
+   <HeaderSection>
+     <Sender id="ГП ДБ Надым"/>
+     <Receiver id="М АСДУ ЕСГ"/>
+     <Generated at="2022-04-13T20:03:31"/>
+     <Comment>Сеансовые данные (24ч)</Comment>
+     <ReferenceTime time="2022-04-13T10:00:00+03:00"/>
+     <Scale>PT24H</Scale>
+     <Template id="D_NDM.PT24H.RT.V1"/>
+   </HeaderSection>
+   <DataSection>
+     <Identifier type="ASDU_ESG">40304C84-896B-4075-8A32-28F427D201D7</Identifier>
+     <Value>1</Value>
+     <Source>2</Source>
+     <Dimension></Dimension>
+   </DataSection>
+   <DataSection>
+     <Identifier type="ASDU_ESG">8EB0CC71-B794-4F61-9D20-815A4C399CE2</Identifier>
+     <Value>9</Value>
+     <Source>2</Source>
+     <Dimension></Dimension>
+   </DataSection>
+   <DataSection>
+     <Identifier type="ASDU_ESG">CEEB36FD-3B56-4388-81D5-3788ADF0BD51</Identifier>
+     <Value>2</Value>
+     <Source>2</Source>
+     <Dimension></Dimension>
+   </DataSection>
+   <DataSection>
+     <Identifier type="ASDU_ESG">1FB0AE84-0001-4C32-A83D-A320AC444BA5</Identifier>
+     <Value>9</Value>
+     <Source>2</Source>
+     <Dimension></Dimension>
+   </DataSection>
+   <DataSection>
+     <Identifier type="ASDU_ESG">1FD5D0E3-5CE7-435A-A144-B1ACA531A777</Identifier>
+     <Value>9</Value>
+     <Source>2</Source>
+     <Dimension></Dimension>
+   </DataSection>
+   <DataSection>
+     <Identifier type="ASDU_ESG">8950328D-FD73-4B1D-9C7A-8F90B08C3503</Identifier>
+     <Value>8</Value>
+     <Source>2</Source>
+     <Dimension></Dimension>
+   </DataSection>
+   <DataSection>
+     <Identifier type="ASDU_ESG">F3759493-736F-4B21-983D-0222815235A6</Identifier>
+     <Value>9</Value>
+     <Source>2</Source>
+     <Dimension></Dimension>
+   </DataSection>
+   <DataSection>
+     <Identifier type="ASDU_ESG">BA2DA12E-36F3-4AE0-9F02-CC0BF04A481A</Identifier>
+     <Value>9</Value>
+     <Source>2</Source>
+     <Dimension></Dimension>
+   </DataSection>
+   <DataSection>
+     <Identifier type="ASDU_ESG">2476BB31-2C5B-4203-A0BE-67F37746C074</Identifier>
+     <Value>9</Value>
+     <Source>2</Source>
+     <Dimension></Dimension>
+   </DataSection>
+   <DataSection>
+     <Identifier type="ASDU_ESG">685E6029-1FCE-44AE-A013-93199D04DD44</Identifier>
+     <Value>5</Value>
+     <Source>2</Source>
+     <Dimension></Dimension>
+   </DataSection>
+   <DataSection>
+     <Identifier type="ASDU_ESG">89563B1F-D2D8-4656-A892-4223B5970A31</Identifier>
+     <Value>9</Value>
+     <Source>2</Source>
+     <Dimension></Dimension>
+   </DataSection>
+   <DataSection>
+     <Identifier type="ASDU_ESG">771A03D1-6B1E-4C7C-8643-1A9422D8AF70</Identifier>
+     <Value>9</Value>
+     <Source>2</Source>
+     <Dimension></Dimension>
+   </DataSection>
+   <DataSection>
+     <Identifier type="ASDU_ESG">01DC20BC-DEF0-4D85-8355-77F4EE9D9FAA</Identifier>
+     <Value>1</Value>
+     <Source>2</Source>
+     <Dimension></Dimension>
+   </DataSection>
+   <DataSection>
+     <Identifier type="ASDU_ESG">59652AD4-CA1A-4B24-A17D-E0941F639D2E</Identifier>
+     <Value>1</Value>
+     <Source>2</Source>
+     <Dimension></Dimension>
+   </DataSection>
+   <DataSection>
+     <Identifier type="ASDU_ESG">BD3BA4A6-D734-44EC-BCEB-4BE9E381F2C3</Identifier>
+     <Value>6</Value>
+     <Source>2</Source>
+     <Dimension></Dimension>
+   </DataSection>
+   <DataSection>
+     <Identifier type="ASDU_ESG">1722FE48-03BB-4524-96E4-2644724DE5F0</Identifier>
+     <Value>2</Value>
+     <Source>2</Source>
+     <Dimension></Dimension>
+   </DataSection>
+   <DataSection>
+     <Identifier type="ASDU_ESG">EE989968-0CA5-4D02-BF4C-E530801D11DC</Identifier>
+     <Value>1</Value>
+     <Source>2</Source>
+     <Dimension></Dimension>
+   </DataSection>
+   <DataSection>
+     <Identifier type="ASDU_ESG">B23CA378-36BD-40A3-8087-B7E47382D848</Identifier>
+     <Value>9</Value>
+     <Source>2</Source>
+     <Dimension></Dimension>
+   </DataSection>
+   <DataSection>
+     <Identifier type="ASDU_ESG">BC0D989A-07B0-4688-8642-F68499A93D09</Identifier>
+     <Value>7</Value>
+     <Source>2</Source>
+     <Dimension></Dimension>
+   </DataSection>
+   <DataSection>
+     <Identifier type="ASDU_ESG">4632B3C3-61D2-4613-9210-196B51EAA486</Identifier>
+     <Value>2</Value>
+     <Source>2</Source>
+     <Dimension></Dimension>
+   </DataSection>
+   <DataSection>
+     <Identifier type="ASDU_ESG">3538B1E4-3E35-4BD0-9358-681C4E0AB500</Identifier>
+     <Value>1</Value>
+     <Source>2</Source>
+     <Dimension></Dimension>
+   </DataSection>
+   <DataSection>
+     <Identifier type="ASDU_ESG">DCACCF3D-74C6-4B43-8D75-7A2467CC6D23</Identifier>
+     <Value>9</Value>
+     <Source>2</Source>
+     <Dimension></Dimension>
+   </DataSection>
+   <DataSection>
+     <Identifier type="ASDU_ESG">5320B89B-8756-4D86-94D2-8D57E2BF2524</Identifier>
+     <Value>9</Value>
+     <Source>2</Source>
+     <Dimension></Dimension>
+   </DataSection>
+   <DataSection>
+     <Identifier type="ASDU_ESG">7E76C22B-9B93-4432-AD23-0BB939699F8B</Identifier>
+     <Value>3</Value>
+     <Source>2</Source>
+     <Dimension></Dimension>
+   </DataSection>
+   <DataSection>
+     <Identifier type="ASDU_ESG">8948E9E8-A937-492F-A468-9934AF496540</Identifier>
+     <Value>1</Value>
+     <Source>2</Source>
+     <Dimension></Dimension>
+   </DataSection>
+   <DataSection>
+     <Identifier type="ASDU_ESG">4D1C76B5-4C84-40A5-BD82-96D24F0020EF</Identifier>
+     <Value>1</Value>
+     <Source>2</Source>
+     <Dimension></Dimension>
+   </DataSection>
+   <DataSection>
+     <Identifier type="ASDU_ESG">BB5FB6AB-C6B4-47B1-A1DB-6529F15D466D</Identifier>
+     <Value>1</Value>
+     <Source>2</Source>
+     <Dimension></Dimension>
+   </DataSection>
+   <DataSection>
+     <Identifier type="ASDU_ESG">D9FBE85A-E899-47DE-9812-15979A088E3C</Identifier>
+     <Value>1</Value>
+     <Source>2</Source>
+     <Dimension></Dimension>
+   </DataSection>
+   <DataSection>
+     <Identifier type="ASDU_ESG">EF991DC3-DE08-4570-8334-98C127FB8ACE</Identifier>
+     <Value>9</Value>
+     <Source>2</Source>
+     <Dimension></Dimension>
+   </DataSection>
+   <DataSection>
+     <Identifier type="ASDU_ESG">1C65BC6C-400E-43AA-87AC-1EC1FB0C2C24</Identifier>
+     <Value>1</Value>
+     <Source>2</Source>
+     <Dimension></Dimension>
+   </DataSection>
+   <DataSection>
+     <Identifier type="ASDU_ESG">56E635A0-8475-4BF7-81EC-57274DD31A16</Identifier>
+     <Value>9</Value>
+     <Source>2</Source>
+     <Dimension></Dimension>
+   </DataSection>
+   <DataSection>
+     <Identifier type="ASDU_ESG">BF0792F1-451F-499D-AAE0-5D58468DC7F0</Identifier>
+     <Value>1</Value>
+     <Source>2</Source>
+     <Dimension></Dimension>
+   </DataSection>
+   <DataSection>
+     <Identifier type="ASDU_ESG">59A422D1-3BAB-4009-9D6D-05E92907BC82</Identifier>
+     <Value>4</Value>
+     <Source>2</Source>
+     <Dimension></Dimension>
+   </DataSection>
+   <DataSection>
+     <Identifier type="ASDU_ESG">548BE376-4CA3-4363-BF00-3E900384ED3A</Identifier>
+     <Value>9</Value>
+     <Source>2</Source>
+     <Dimension></Dimension>
+   </DataSection>
+   <DataSection>
+     <Identifier type="ASDU_ESG">13E0418B-976E-4BB6-8758-3D1C817E322C</Identifier>
+     <Value>9</Value>
+     <Source>2</Source>
+     <Dimension></Dimension>
+   </DataSection>
+   <DataSection>
+     <Identifier type="ASDU_ESG">C805E3F5-1D4C-498C-91BF-8FF16C1585C8</Identifier>
+     <Value>1</Value>
+     <Source>2</Source>
+     <Dimension></Dimension>
+   </DataSection>
+   <DataSection>
+     <Identifier type="ASDU_ESG">704CD24F-885E-4645-B5D9-1A12122CF130</Identifier>
+     <Value>1</Value>
+     <Source>2</Source>
+     <Dimension></Dimension>
+   </DataSection>
+   <DataSection>
+     <Identifier type="ASDU_ESG">3CEE9369-3812-42C5-AD51-D8A17EF4E240</Identifier>
+     <Value>1</Value>
+     <Source>2</Source>
+     <Dimension></Dimension>
+   </DataSection>
+   <DataSection>
+     <Identifier type="ASDU_ESG">28639E38-AC83-4A8B-9DA0-888D7FA0F12D</Identifier>
+     <Value>1</Value>
+     <Source>2</Source>
+     <Dimension></Dimension>
+   </DataSection>
+   <DataSection>
+     <Identifier type="ASDU_ESG">BA53577D-036B-4A27-B459-BC8F1A028C74</Identifier>
+     <Value>1</Value>
+     <Source>2</Source>
+     <Dimension></Dimension>
+   </DataSection>
+   <DataSection>
+     <Identifier type="ASDU_ESG">2F6447A8-F26F-446C-96C5-1BBB571D3604</Identifier>
+     <Value>9</Value>
+     <Source>2</Source>
+     <Dimension></Dimension>
+   </DataSection>
+   <DataSection>
+     <Identifier type="ASDU_ESG">E0924065-BEAE-4AF9-8B6F-661D6476B3BF</Identifier>
+     <Value>9</Value>
+     <Source>2</Source>
+     <Dimension></Dimension>
+   </DataSection>
+   <DataSection>
+     <Identifier type="ASDU_ESG">3A8DA704-EBA6-4585-AD74-ECBAC6275407</Identifier>
+     <Value>9</Value>
+     <Source>2</Source>
+     <Dimension></Dimension>
+   </DataSection>
+   <DataSection>
+     <Identifier type="ASDU_ESG">90314005-A675-4BCE-B468-A5D1C8234EB6</Identifier>
+     <Value>1</Value>
+     <Source>2</Source>
+     <Dimension></Dimension>
+   </DataSection>
+   <DataSection>
+     <Identifier type="ASDU_ESG">6C778DEC-5C9D-410A-B2B1-7AEE97A42ADB</Identifier>
+     <Value>1</Value>
+     <Source>2</Source>
+     <Dimension></Dimension>
+   </DataSection>
+   <DataSection>
+     <Identifier type="ASDU_ESG">7DD32455-60F6-4164-A319-DDEEB608F1D7</Identifier>
+     <Value>9</Value>
+     <Source>2</Source>
+     <Dimension></Dimension>
+   </DataSection>
+   <DataSection>
+     <Identifier type="ASDU_ESG">4C010682-D7F3-48D6-A8A6-01269EC3CD02</Identifier>
+     <Value>1</Value>
+     <Source>2</Source>
+     <Dimension></Dimension>
+   </DataSection>
+   <DataSection>
+     <Identifier type="ASDU_ESG">3B14B9B6-BE93-4514-B429-51FBD5348201</Identifier>
+     <Value>1</Value>
+     <Source>2</Source>
+     <Dimension></Dimension>
+   </DataSection>
+   <DataSection>
+     <Identifier type="ASDU_ESG">D8600922-A52E-46F5-A35D-0CF65888373A</Identifier>
+     <Value>1</Value>
+     <Source>2</Source>
+     <Dimension></Dimension>
+   </DataSection>
+   <DataSection>
+     <Identifier type="ASDU_ESG">E79772DE-DA85-41FD-9D20-3E1FD2B64CA4</Identifier>
+     <Value>1</Value>
+     <Source>2</Source>
+     <Dimension></Dimension>
+   </DataSection>
+</BusinessMessage>

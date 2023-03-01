@@ -1,0 +1,386 @@
+#tableDiv{
+    /*overflow-x: auto;*/
+    /*width: 100%;*/
+    height: calc(100% - 180px);
+    /*overflow-y: auto;*/
+}
+
+#tableDiv table{
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+    max-height: calc(100% - 20px);
+    /*width: 50%;*/
+    /*float: left;*/
+}
+
+
+.itemInfoTable span,
+.itemInfoTable select{
+    line-height: 22px;
+    display: inline-block;
+    padding: 10px 15px;
+    vertical-align: top;
+    width: calc(100% - 30px);
+    text-align: right;
+}
+.itemInfoTable select{
+    width: 100%;
+    min-width: 30px;
+    background-color: rgba(0,0,0,0);
+    padding: 10px 0;
+    border: 0;
+    outline: 0;
+}
+
+
+.objCell { min-width: 150px; width: 100%; }
+.idCell{
+    max-width: 100px;
+    min-width: 80px;
+}
+.timeCell{ min-width: 50px }
+.itemInfoTable {
+    width: 100%;
+    border: none;
+    margin-bottom: 20px;
+}
+.itemInfoTable thead th {
+    font-weight: bold;
+    text-align: left;
+    border: none;
+    padding: 10px 15px;
+    background: #d8d8d8;
+    font-size: 14px;
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    width: 100%;
+    position: sticky;
+    top: 0;
+}
+.itemInfoTable tbody td {
+    text-align: left;
+    /*border-left: 1px solid #ddd;*/
+    /*border-right: 1px solid #ddd;*/
+    /*padding: 10px 15px;*/
+    font-size: 14px;
+    /*vertical-align: top;*/
+    min-width: 80px;
+    border: 1px solid #ddd;
+}
+
+.itemInfoTable thead tr th:first-child, .table tbody tr td:first-child {
+    border-left: none;
+}
+.itemInfoTable thead tr th:last-child, .table tbody tr td:last-child {
+    border-right: none;
+}
+.itemInfoTable tbody tr:nth-child(even){
+    background: #f3f3f3;
+}
+
+.id-td th{
+    width: 30px;
+}
+
+.changeable_td-edit-controls {
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    text-align: right;
+}
+.changeable_td-edit-control{
+    margin-left: 10px;
+    width: 75px;
+    margin-top: 10px;
+
+    text-decoration: none;
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+    border: none;
+    border-radius: 3px;
+    color: white;
+    transition: .2s ease-in-out;
+}
+#changeable_td-edit-ok{
+    background: #0079c2;
+}
+
+#changeable_td-edit-cancel{
+    background: lightcoral;
+}
+
+.changeable_td-edit-control:before {
+    content: "";
+    background: linear-gradient(90deg, rgba(255, 255, 255, .1), rgba(255, 255, 255, .5));
+    height: 50px;
+    width: 50px;
+    position: absolute;
+    top: -8px;
+    left: -75px;
+    transform: skewX(-45deg);
+}
+.changeable_td-edit-control:hover {
+    background: #fe6637;
+    color: #fff;
+}
+.changeable_td-edit-control:hover:before {
+    left: 150px;
+    transition: .5s ease-in-out;
+}
+
+.changeable_td{
+    background-color: white;
+}
+
+
+.dataTables_filter{
+    float:right;
+    /*width: 20%;*/
+    /*max-width: 400px;*/
+    /*min-width: 100px;*/
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 0 0 20px;
+}
+
+.dataTables_filter input{
+    outline: none;
+    background: rgba(0, 0, 0, 0.1);
+    width: 100%;
+    border: 0;
+    border-radius: 4px;
+    box-sizing: border-box;
+    padding: 10px 10px;
+    color: rgba(0, 0, 0, 0.6);
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: 500;
+    line-height: inherit;
+    transition: 0.3s ease;
+}
+
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration { display: none; }
+
+.dataTables_length{
+    float:left;
+    width: 20%;
+    max-width: 400px;
+    min-width: 100px;
+    /*display: flex;*/
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 0 0 20px;
+}
+
+#itemInfoTable_length{
+    width: 15%;
+}
+
+.dataTables_length select{
+    outline: none;
+    background: rgba(0, 0, 0, 0.1);
+    width: 100%;
+    border: none;
+    border-radius: 4px;
+    box-sizing: border-box;
+    padding: 10px 10px;
+    color: rgba(0, 0, 0, 0.6);
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: 500;
+    line-height: inherit;
+    transition: 0.3s ease;
+
+    /*for firefox*/
+    -moz-appearance: none;
+    /*for chrome*/
+    -webkit-appearance:none;
+
+    appearance: none;
+}
+
+.dataTables_info{
+    float:left;
+}
+
+.dataTables_paginate{
+    float:right;
+    padding-bottom: 20px;
+}
+
+.paginate_button{
+    box-sizing: border-box;
+    display: inline-block;
+    min-width: 1.5em;
+    padding: .5em 1em;
+    text-align: center;
+    text-decoration: none !important;
+    cursor: pointer;
+    color: #fff;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    background-color: #0079c2;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.paginate_button:hover{
+    background-color: #4391f1;
+}
+
+.disabled.paginate_button{
+    background-color: #666666;
+}
+
+.current.paginate_button{
+    background-color: #4391f1;
+}
+
+
+.sorting,
+table.dataTable thead .sorting,
+table.dataTable thead .sorting_asc,
+table.dataTable thead .sorting_desc,
+table.dataTable thead .sorting_asc_disabled,
+table.dataTable thead .sorting_desc_disabled {
+    cursor:pointer;
+    *cursor:hand;
+    background-repeat:no-repeat;
+    background-position:center right;
+}
+
+th h4{
+    margin-right: 15px;
+}
+
+table.dataTable thead .sorting{
+     background-image:url("../images/sort_both.png")
+}
+table.dataTable thead .sorting_asc{
+    background-image:url("../images/sort_asc.png") !important
+}
+table.dataTable thead .sorting_desc{
+    background-image:url("../images/sort_desc.png") !important
+}
+/*table.dataTable thead .sorting_asc_disabled{*/
+/*    background-image:url("../images/sort_asc_disabled.png")*/
+/*}*/
+/*table.dataTable thead .sorting_desc_disabled{*/
+/*    background-image:url("../images/sort_desc_disabled.png")*/
+/*}*/
+
+
+
+
+
+/*ADD FORM*/
+.form-group-all-width {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 0 0 20px;
+}
+.form-group-half-width{
+    width: calc(50% - 10px);
+    margin-bottom: 20px;
+    float: left;
+}
+.onright {
+    margin-left: 10px;
+}
+.onleft {
+    margin-right: 10px;
+}
+
+.form-group-all-width:last-child {
+    margin: 0;
+}
+
+.form-group-half-width label,
+.form-group-all-width label {
+    display: block;
+    margin: 0 0 10px;
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+}
+
+.form-group-half-width input,
+.form-group-all-width input {
+    outline: none;
+    display: block;
+    /*background: rgba(0, 0, 0, 0.1);*/
+    background: white;
+    width: 100%;
+    border: 0;
+    border-radius: 4px;
+    box-sizing: border-box;
+    padding: 12px 20px;
+    color: rgba(0, 0, 0, 0.6);
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: 500;
+    line-height: inherit;
+    transition: 0.3s ease;
+}
+
+.form-group-half-width input[type=button],
+.form-group-all-width input[type=button]{
+    outline: none;
+    background: #4285f4;
+    width: 100%;
+    border: 0;
+    border-radius: 4px;
+    padding: 12px 20px;
+    color: #ffffff;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: 500;
+    line-height: inherit;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.form-group-half-width input:focus,
+.form-group-all-width input:focus {
+    color: rgba(0, 0, 0, 0.8);
+}
+
+.form-group-half-width button,
+.form-group-all-width button {
+    outline: none;
+    background: #4285f4;
+    width: 100%;
+    border: 0;
+    border-radius: 4px;
+    padding: 12px 20px;
+    color: #ffffff;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: 500;
+    line-height: inherit;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+
+.top_scrollbar{
+    border: none;
+    overflow-x: scroll; overflow-y:hidden;
+}
+
+.top_scrollbar_fake_div{
+    height: 10px;
+}

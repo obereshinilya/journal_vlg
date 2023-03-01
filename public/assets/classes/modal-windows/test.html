@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link rel="stylesheet" type="text/css" href="modal_windows.css">
+</head>
+<body>
+
+<div id="test_content">
+    <div>
+        <p>This is a modal window. You can do the following things with it:</p>
+        <ul>
+            <li><strong>Read:</strong> modal windows will probably tell you something important so don't forget to read what they say.</li>
+            <li><strong>Look:</strong> a modal window enjoys a certain kind of attention; just look at it and appreciate its presence.</li>
+            <li><strong>Close:</strong> click on the button below to close the modal.</li>
+        </ul>
+    </div>
+</div>
+
+<input type="radio" class="pk_rate" name="tab_group" id="1">
+<input type="radio" class="pk_rate" name="tab_group" id="2">
+
+<script src="modal_windows.js"></script>
+<script src="../save-user-choice/save_user_choice.js"></script>
+    <input type="button" value="Нажми меня" id="yoyo">
+
+<script src="../small-notification/small-notification.js"></script>
+<link rel="stylesheet" href="../small-notification/small-notification.css">
+
+
+<script>
+    var dlg_content=document.getElementById('test_content');
+    var modal=new ModalWindow('ТЕСТ', dlg_content, AnimationsTypes.stickyUp);
+    new SmallNotification('Тест', 'тестовая надпись', '#ea6a6a');
+    document.getElementById('yoyo').addEventListener('click', function (){
+        modal.show();
+
+    });
+
+    save_click('pk_rate')
+    get_checked('pk_rate')
+</script>
+
+</body>
+</html>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BusinessMessage>
+   <HeaderSection>
+     <Sender id="ГП ДБ Надым"/>
+     <Receiver id="М АСДУ ЕСГ"/>
+     <Generated at="2022-11-22T17:48:21+05:00"/>
+     <Comment>Сеансовые данные (24ч)</Comment>
+     <ReferenceTime time="2022-11-21T10:00:00+03:00"/>
+     <Scale>PT24H</Scale>
+     <Template id="D_NDM.PT24H.RT.V1"/>
+     <FullName>AdminQA</FullName>
+   </HeaderSection>
+   <DataSection>
+     <Identifier type="ASDU_ESG">F373F38998E6ABF8E04332AC380A31B9</Identifier>
+     <Value>2.715</Value>
+     <Source>0</Source>
+   </DataSection>
+</BusinessMessage>

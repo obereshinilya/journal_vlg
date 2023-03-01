@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BusinessMessage>
+   <HeaderSection>
+     <Sender id="ГП ДБ Надым"/>
+     <Receiver id="М АСДУ ЕСГ"/>
+     <Generated at="2022-11-22T22:56:03+05:00"/>
+     <Comment>Сеансовые данные (Реальное время)</Comment>
+     <ReferenceTime time="2022-11-22T20:55:00+03:00"/>
+     <Scale>PT5M</Scale>
+     <Template id="D_NDM.PT5M.RT.V1"/>
+   </HeaderSection>
+</BusinessMessage>

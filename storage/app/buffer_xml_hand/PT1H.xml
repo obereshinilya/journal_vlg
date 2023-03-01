@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BusinessMessage>
+   <HeaderSection>
+     <Sender id="ГП ДБ Надым"/>
+     <Receiver id="М АСДУ ЕСГ"/>
+     <Generated at="2022-11-22T14:33:58+05:00"/>
+     <Comment>Сеансовые данные (1ч)</Comment>
+     <ReferenceTime time="2022-11-22T13:00:00+03:00"/>
+     <Scale>PT1H</Scale>
+     <Template id="D_NDM.PT1H.RT.V1"/>
+   </HeaderSection>
+   <DataSection>
+     <Identifier type="ASDU_ESG">ee8fce7fb52d45ba9d3c5bc0abbbcfb4</Identifier>
+     <Value>9803.940</Value>
+     <Source>0</Source>
+   </DataSection>
+   <DataSection>
+     <Identifier type="ASDU_ESG">cb4eb2c2-eca9-0605-e040-f00a3905451a</Identifier>
+     <Value>1.437</Value>
+     <Source>0</Source>
+   </DataSection>
+   <DataSection>
+     <Identifier type="ASDU_ESG">ee8fce7fb52d45ba9d3c5bc0abbbcfb4</Identifier>
+     <Value>9775.677</Value>
+     <Source>0</Source>
+   </DataSection>
+   <DataSection>
+     <Identifier type="ASDU_ESG">8b282775-140d-41c6-bc99-b44709616bff</Identifier>
+     <Value>2.567</Value>
+     <Source>0</Source>
+   </DataSection>
+   <DataSection>
+     <Identifier type="ASDU_ESG">8b282775-140d-41c6-bc99-b44709616bff</Identifier>
+     <Value>2.596</Value>
+     <Source>0</Source>
+   </DataSection>
+   <DataSection>
+     <Identifier type="ASDU_ESG">cb4eb2c2-eca9-0605-e040-f00a3905451a</Identifier>
+     <Value>1.434</Value>
+     <Source>0</Source>
+   </DataSection>
+</BusinessMessage>

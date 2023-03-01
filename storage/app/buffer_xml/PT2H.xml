@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BusinessMessage>
+   <HeaderSection>
+     <Sender id="ГП ПХГ"/>
+     <Receiver id="М АСДУ ЕСГ"/>
+     <Generated at="2023-01-20T15:27:01+03:00"/>
+     <Comment>Сеансовые данные (2ч)</Comment>
+     <ReferenceTime time="2023-01-20T16:00:00+03:00"/>
+     <Scale>PT2H</Scale>
+     <Template id="G_PHG.PT2H.RT.V1"/>
+   </HeaderSection>
+   <DataSection>
+     <Identifier type="ASDU_ESG">sdf</Identifier>
+     <Value>61.000</Value>
+     <Source>0</Source>
+   </DataSection>
+</BusinessMessage>
