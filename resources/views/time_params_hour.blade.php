@@ -500,16 +500,16 @@
                         tr.setAttribute('data-id', row['hfrpok'])
                         static_tr.setAttribute('data-id', row['hfrpok'])
 
-                        static_tr.innerHTML += `<td style="font-size:${14 * localStorage.getItem('font')}px"<span style="background-color: rgba(0, 0, 0, 0); text-align: center; width: 70%; padding-left: 0px; padding-right: 0px">${row['shortname']}</span><img onclick="get_graph(${row['hfrpok']})" onmouseover="this.style.border = '2px solid black'" onmouseout="this.style.border = 'none'" style="width: 20%; float: right; margin-top: 6px" src="assets/images/icons/ober_graph.png"></td>`
+                        static_tr.innerHTML += `<td style="font-size:${14 * localStorage.getItem('font')}px"><span style="background-color: rgba(0, 0, 0, 0); text-align: center; width: 70%; padding-left: 0px; padding-right: 0px">${row['shortname']}</span><img onclick="get_graph(${row['hfrpok']})" onmouseover="this.style.border = '2px solid black'" onmouseout="this.style.border = 'none'" style="width: 20%; float: right; margin-top: 6px" src="assets/images/icons/ober_graph.png"></td>`
                         static_tr.innerHTML += `<td style="font-size:${14 * localStorage.getItem('font')}px" onmouseover="get_parent_name(this)" data-name="namepar1">${row['namepar1']}</td>`
 
                         for (var id = 1; id <= 24; id++) {
                             if (row[id]['id']) {
                                 if (Boolean(row[id]['xml_create'] === true)) {
                                     if (Boolean(row[id]['manual']) === true) {
-                                        tr.innerHTML += `<td style="font-size:${14 * localStorage.getItem('font')}px" data-time-id="${id}" class="hour-value-${row['hfrpok']}" data-time="${row[id]['timestamp']}" style="background-color: #1ab585"><span contenteditable="true" style="background-color: #1ab585" class="changeable_td tooltip" xml-create="true" data-column="val" data-row-id="${row[id]['id']}" spellcheck="false" data-type="float" numbercolumn="${id}" data-title="Изменил: ${row[id]['change_by']}">${row[id]['val']}</span></td>`
+                                        tr.innerHTML += `<td style="font-size:${14 * localStorage.getItem('font')}px" data-time-id="${id}" class="hour-value-${row['hfrpok']}" data-time="${row[id]['timestamp']}" style="background-color: #1ab585"><span contenteditable="false" style="background-color: #1ab585" class="changeable_td tooltip" xml-create="true" data-column="val" data-row-id="${row[id]['id']}" spellcheck="false" data-type="float" numbercolumn="${id}" data-title="Изменил: ${row[id]['change_by']}">${row[id]['val']}</span></td>`
                                     } else {
-                                        tr.innerHTML += `<td style="font-size:${14 * localStorage.getItem('font')}px" data-time-id="${id}" class="hour-value-${row['hfrpok']}" data-time="${row[id]['timestamp']}" style="background-color: #1ab585"><span contenteditable="true" style="background-color: #1ab585" class="changeable_td" xml-create="true" data-column="val" data-row-id="${row[id]['id']}" spellcheck="false" data-type="float" numbercolumn="${id}">${row[id]['val']}</span></td>`
+                                        tr.innerHTML += `<td style="font-size:${14 * localStorage.getItem('font')}px" data-time-id="${id}" class="hour-value-${row['hfrpok']}" data-time="${row[id]['timestamp']}" style="background-color: #1ab585"><span contenteditable="false" style="background-color: #1ab585" class="changeable_td" xml-create="true" data-column="val" data-row-id="${row[id]['id']}" spellcheck="false" data-type="float" numbercolumn="${id}">${row[id]['val']}</span></td>`
                                     }
                                 } else {
                                     if (Boolean(row[id]['manual']) === true) {
