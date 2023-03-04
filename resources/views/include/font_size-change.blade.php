@@ -14,14 +14,27 @@
         set_font_size(localStorage.getItem('font'), base_tbody, 'body')
 
     }
-    if (document.getElementById('tableDiv').style.fontSize != null) {
-        var base_table = document.getElementById('tableDiv').style.fontSize.replace('px', '')
-        set_font_size(localStorage.getItem('font'), base_table, 'table')
+    if (document.getElementById('tableDiv') != null) {
+        if (document.getElementById('tableDiv').style.fontSize) {
+            var base_table = document.getElementById('tableDiv').style.fontSize.replace('px', '')
+            set_font_size(localStorage.getItem('font'), base_table, 'table')
+        }
+    }
+    if (document.querySelector('table.iksweb th') != null) {
+        var base_iksweb_head = Number(window.getComputedStyle(document.querySelector('table.iksweb th'))['fontSize'].replace('px', ''));
+        console.log(base_iksweb_head)
+        set_font_size(localStorage.getItem('font'), base_iksweb_head, 'iksweb_head')
+    }
+    if (document.querySelector('table.iksweb td') != null) {
+        var base_iksweb_body = Number(window.getComputedStyle(document.querySelector('table.iksweb td'))['fontSize'].replace('px', ''));
+        set_font_size(localStorage.getItem('font'), base_iksweb_body, 'iksweb_body')
     }
 
 
     function set_font_size(mult, base, place) {
         console.log(place)
+        console.log(mult)
+        console.log(base)
         switch (place) {
             case 'head':
                 document.querySelectorAll('.itemInfoTable thead th').forEach((el) => {
@@ -35,6 +48,16 @@
                 break;
             case 'table':
                 document.getElementById('tableDiv').style.fontSize = base * mult + 'px';
+                break;
+            case 'iksweb_head':
+                document.querySelectorAll('table.iksweb th').forEach((el) => {
+                    el.style.fontSize = base * mult + 'px';
+                })
+                break;
+            case 'iksweb_body':
+                document.querySelectorAll('table.iksweb td').forEach((el) => {
+                    el.style.fontSize = base * mult + 'px';
+                })
                 break;
         }
 
@@ -50,8 +73,16 @@
             set_font_size(localStorage.getItem('font'), window.base_tbody, 'body')
 
         }
-        if (document.getElementById('tableDiv').style.fontSize != null) {
-            set_font_size(localStorage.getItem('font'), window.base_table, 'table')
+        if (document.getElementById('tableDiv') != null) {
+            if (document.getElementById('tableDiv').style.fontSize) {
+                set_font_size(localStorage.getItem('font'), window.base_table, 'table')
+            }
+        }
+        if (document.querySelector('table.iksweb th') != null) {
+            set_font_size(localStorage.getItem('font'), window.base_iksweb_head, 'iksweb_head')
+        }
+        if (document.querySelector('table.iksweb td') != null) {
+            set_font_size(localStorage.getItem('font'), window.base_iksweb_body, 'iksweb_body')
         }
         try {
             get_table_data()

@@ -86,7 +86,7 @@
             </tbody>
         </table>
     </div>
-
+    @include('include.font_size-change')
     <script>
 
         $(document).ready(function () {
@@ -136,7 +136,7 @@
 
 
     </script>
-    @include('include.font_size-change')
+
 
 @endsection
 

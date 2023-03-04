@@ -276,10 +276,19 @@
 /////Проверяем заходим ли мы по ссылке
             if (localStorage.getItem('day')) {
                 $('#table_date_start').val(localStorage.getItem('year') + '-' + localStorage.getItem('month') + '-' + localStorage.getItem('day'))
-                localStorage.clear()
+                for (let localStorageKey in localStorage) {
+                    if (localStorageKey != 'font') {
+                        localStorage.removeItem(localStorageKey)
+                    }
+                }
+
             } else if (localStorage.getItem('to_sut')) {
                 $('#table_date_start').val(localStorage.getItem('to_sut'))
-                localStorage.clear()
+                for (let localStorageKey in localStorage) {
+                    if (localStorageKey != 'font') {
+                        localStorage.removeItem(localStorageKey)
+                    }
+                }
             } else {
 
             }

@@ -48,7 +48,8 @@
                 <th class="objCell"><h4>Параметр</h4></th>
             </tr>
             <tbody>
-            <tr>
+            <tr onmouseover="document.querySelector('#itemInfoTable_yams tbody tr:nth-child(1)').style.fontWeight='bold'; this.style.fontWeight='bold'"
+                onmouseleave="document.querySelector('#itemInfoTable_yams tbody tr:nth-child(1)').style.fontWeight='normal'; this.style.fontWeight='normal'">
                 <td><span style="text-align: left">Закачка</span></td>
             </tr>
             <tr>
@@ -91,7 +92,10 @@
             </tr>
             </thead>
             <tbody>
-            <tr id="fakt_yams_tr">
+            <tr id="fakt_yams_tr"
+                onmouseover="document.querySelector('#statickItemInfoTable_yams tbody tr:nth-child(1)').style.fontWeight='bold'; this.style.fontWeight='bold'"
+                onmouseleave="document.querySelector('#statickItemInfoTable_yams tbody tr:nth-child(1)').style.fontWeight='normal'; this.style.fontWeight='normal'">
+
 
             </tr>
             <tr id="out_yams_tr">
@@ -118,6 +122,7 @@
 
 
     <style>
+
         .content {
             overflow-x: hidden;
             width: 100%;

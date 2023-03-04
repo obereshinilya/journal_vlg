@@ -157,6 +157,7 @@ Route::get('/print_skv/{date}', [Controllers\ReportController::class, 'print_skv
     Route::post('/save_td', [Controllers\SutJournalController::class, 'save_td'])->name('save_td');    //сохранение ячейки
     Route::get('/get_tds/{date}', [Controllers\SutJournalController::class, 'get_tds'])->name('get_tds');   //получение значений ячеек
     Route::get('/print_journal_smeny/{date}', [Controllers\SutJournalController::class, 'print_journal_smeny'])->name('print_journal_smeny');    //напечатать
+    Route::get('/print_journal_smeny/{date_start}/{date_end}', [Controllers\SutJournalController::class, 'print_journal_smeny_period'])->name('print_journal_smeny_period');    //напечатать за период
     Route::post('/change_color_td', [Controllers\SutJournalController::class, 'change_color_td'])->name('change_color_td');   //смена цвета ячейки
 
 
