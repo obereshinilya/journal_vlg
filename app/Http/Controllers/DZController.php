@@ -9,6 +9,7 @@ use App\Models\DzMasdu;
 use App\Models\Hour_params;
 use App\Models\JournalSmeny;
 use App\Models\JournalSmeny_table;
+use App\Models\LogSmena;
 use App\Models\Ppr_table;
 use App\Models\SftpServer;
 use App\Models\User;
@@ -43,6 +44,42 @@ class DZController extends Controller
             $text = 'Принято в '.date('Y-m-d H:i:s');
         }
             DzMasdu::where('id', '=', $id)->update(['check'=>true, 'info'=>$text]);
+    }
+
+    public function check_smena(){
+        $log_smena = LogSmena::orderbydesc('id')->first();
+        $name_active_user = UserAuth::orderbydesc('id')->where('ip', '=', \request()->ip())->first()->username;
+        if ($log_smena){
+            if ($log_smena->name_user == $name_active_user && $log_smena->stop_smena){   //если текущий пользователь сдал смену
+                $to_view['text'] = 'Смена вами сдана!';
+                $to_view['commit_smena'] = false;    //принять смену нельзя
+            }elseif ($log_smena->name_user == $name_active_user && !$log_smena->stop_smena){  //если текущий пользователь не сдал смену
+                $to_view['commit_smena'] = false;    //принять смену нельзя
+            }elseif ($log_smena->name_user != $name_active_user && $log_smena->stop_smena){    //если зашел другой пользователь, когда смена была сдана предыдущим
+                $to_view['text'] = 'Принять смену?';
+                $to_view['commit_smena'] = true;    //принять смену можно
+            }elseif ($log_smena->name_user != $name_active_user && !$log_smena->stop_smena){   //если зашел другой пользователь, когда смена не была сдана предыдущим
+                $to_view['text'] = 'Смена еще не сдана!';
+                $to_view['commit_smena'] = false;    //принять смену нельзя
+            }
+        }else{
+            LogSmena::create(
+                ['name_user'=>$name_active_user,
+                'start_smena'=>date('Y-m-d H:i:s')]);
+            $to_view['commit_smena'] = false;    //принять смену нельзя
+        }
+        return $to_view;
+    }
+
+    public function confirm_smena(){
+        $name_active_user = UserAuth::orderbydesc('id')->where('ip', '=', \request()->ip())->first()->username;
+        LogSmena::create(['name_user'=>$name_active_user,
+            'start_smena'=>date('Y-m-d H:i:s')]);
+        $new_log  = (new MainTableController)->create_log_record('Принял смену');
+    }
+    public function pass_smena(){
+        LogSmena::orderbydesc('id')->first()->update(['stop_smena'=>date('Y-m-d H:i:s')]);
+        $new_log  = (new MainTableController)->create_log_record('Сдал смену');
     }
 
 
