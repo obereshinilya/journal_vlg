@@ -227,12 +227,14 @@
             font-weight: bold;
         }
 
-        .itemInfoTable thead th {
-            padding-top: 3px;
-            padding-bottom: 3px;
-        }
+        #time_id tr:nth-child(odd){background: #e9effc;}
+        #time_id tr:hover{background:#fff}
 
-        p {
+        .itemInfoTable thead th{
+		padding-top: 3px;
+		padding-bottom: 3px;
+	}
+        p{
             margin: 3px;
         }
 

@@ -193,7 +193,8 @@
         <h1 id="text_modal">Укажите размер шрифта</h1>
         <div class="slidecontainer" style="display: flex; align-items: center">
             <p style="margin: 0 8px 0 0; font-size: small; color: darkgrey">А</p>
-            <input class="slider-size" type="range" id="font_size" onchange="save_font_size()"
+            <input class="slider-size" style="margin: 0 10px 0 0" type="range" id="font_size" onchange="console.log(this.value), save_font_size()"
+
                    min="0.5" max="1.5"
                    id="size" step="0.1"
             >

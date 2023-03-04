@@ -58,27 +58,20 @@
                 <th class="objCell"><h4>Параметр</h4></th>
             </tr>
             <tbody>
-            <tr>
-                <td><span style="text-align: left">Закачка</span></td>
-            </tr>
-            <tr>
-                <td><span style="text-align: left">Отбор</span></td>
-            </tr>
-            <tr>
-                <td><span style="text-align: left">Собств.нужды</span></td>
-            </tr>
-            <tr>
-                <td><span style="text-align: left">Тех.потери</span></td>
-            </tr>
-            <tr>
-                <td><span style="text-align: left">Товарный газ</span></td>
-            </tr>
-            <tr>
-                <td><span style="text-align: left">План</span></td>
-            </tr>
-            <tr>
-                <td><span style="text-align: left">Отклонение</span></td>
-            </tr>
+            <tr onmouseover="document.querySelector('#itemInfoTable_yams tbody tr:nth-child(1)').style.fontWeight='bold'; this.style.fontWeight='bold'"
+                onmouseleave="document.querySelector('#itemInfoTable_yams tbody tr:nth-child(1)').style.fontWeight='normal'; this.style.fontWeight='normal'"><td><span style="text-align: left">Закачка</span></td></tr>
+            <tr onmouseover="document.querySelector('#itemInfoTable_yams tbody tr:nth-child(2)').style.fontWeight='bold'; this.style.fontWeight='bold'"
+                onmouseleave="document.querySelector('#itemInfoTable_yams tbody tr:nth-child(2)').style.fontWeight='normal'; this.style.fontWeight='normal'"><td><span style="text-align: left">Отбор</span></td></tr>
+            <tr onmouseover="document.querySelector('#itemInfoTable_yams tbody tr:nth-child(3)').style.fontWeight='bold'; this.style.fontWeight='bold'"
+                onmouseleave="document.querySelector('#itemInfoTable_yams tbody tr:nth-child(3)').style.fontWeight='normal'; this.style.fontWeight='normal'"><td><span style="text-align: left">Собств.нужды</span></td></tr>
+            <tr onmouseover="document.querySelector('#itemInfoTable_yams tbody tr:nth-child(4)').style.fontWeight='bold'; this.style.fontWeight='bold'"
+                onmouseleave="document.querySelector('#itemInfoTable_yams tbody tr:nth-child(4)').style.fontWeight='normal'; this.style.fontWeight='normal'"><td><span style="text-align: left">Тех.потери</span></td></tr>
+            <tr onmouseover="document.querySelector('#itemInfoTable_yams tbody tr:nth-child(5)').style.fontWeight='bold'; this.style.fontWeight='bold'"
+                onmouseleave="document.querySelector('#itemInfoTable_yams tbody tr:nth-child(5)').style.fontWeight='normal'; this.style.fontWeight='normal'"><td><span style="text-align: left">Товарный газ</span></td></tr>
+            <tr onmouseover="document.querySelector('#itemInfoTable_yams tbody tr:nth-child(6)').style.fontWeight='bold'; this.style.fontWeight='bold'"
+                onmouseleave="document.querySelector('#itemInfoTable_yams tbody tr:nth-child(6)').style.fontWeight='normal'; this.style.fontWeight='normal'"><td><span style="text-align: left">План</span></td></tr>
+            <tr onmouseover="document.querySelector('#itemInfoTable_yams tbody tr:nth-child(7)').style.fontWeight='bold'; this.style.fontWeight='bold'"
+                onmouseleave="document.querySelector('#itemInfoTable_yams tbody tr:nth-child(7)').style.fontWeight='normal'; this.style.fontWeight='normal'"><td><span style="text-align: left">Отклонение</span></td></tr>
             </tbody>
         </table>
         <table id="itemInfoTable_yams" class="itemInfoTable"
@@ -89,28 +82,32 @@
             </tr>
             </thead>
             <tbody>
-            <tr id="fakt_yams_tr">
+            <tr id="fakt_yams_tr" onmouseover="document.querySelector('#statickItemInfoTable_yams tbody tr:nth-child(1)').style.fontWeight='bold'; this.style.fontWeight='bold'"
+                onmouseleave="document.querySelector('#statickItemInfoTable_yams tbody tr:nth-child(1)').style.fontWeight='normal'; this.style.fontWeight='normal'">
 
             </tr>
-            <tr id="out_yams_tr">
+            <tr id="out_yams_tr" onmouseover="document.querySelector('#statickItemInfoTable_yams tbody tr:nth-child(2)').style.fontWeight='bold'; this.style.fontWeight='bold'"
+                    onmouseleave="document.querySelector('#statickItemInfoTable_yams tbody tr:nth-child(2)').style.fontWeight='normal'; this.style.fontWeight='normal'">
 
             </tr>
-            <tr id="out_yams_tr">
+            <tr id="self_yams_tr" onmouseover="document.querySelector('#statickItemInfoTable_yams tbody tr:nth-child(3)').style.fontWeight='bold'; this.style.fontWeight='bold'"
+                    onmouseleave="document.querySelector('#statickItemInfoTable_yams tbody tr:nth-child(3)').style.fontWeight='normal'; this.style.fontWeight='normal'">
 
             </tr>
-            <tr id="self_yams_tr">
+            <tr id="lost_yams_tr" onmouseover="document.querySelector('#statickItemInfoTable_yams tbody tr:nth-child(4)').style.fontWeight='bold'; this.style.fontWeight='bold'"
+                    onmouseleave="document.querySelector('#statickItemInfoTable_yams tbody tr:nth-child(4)').style.fontWeight='normal'; this.style.fontWeight='normal'">
 
             </tr>
-            <tr id="lost_yams_tr">
+            <tr id="tovar_yams_tr" onmouseover="document.querySelector('#statickItemInfoTable_yams tbody tr:nth-child(5)').style.fontWeight='bold'; this.style.fontWeight='bold'"
+                    onmouseleave="document.querySelector('#statickItemInfoTable_yams tbody tr:nth-child(5)').style.fontWeight='normal'; this.style.fontWeight='normal'">
 
             </tr>
-            <tr id="tovar_yams_tr">
+            <tr id="plan_yams_tr" onmouseover="document.querySelector('#statickItemInfoTable_yams tbody tr:nth-child(6)').style.fontWeight='bold'; this.style.fontWeight='bold'"
+                    onmouseleave="document.querySelector('#statickItemInfoTable_yams tbody tr:nth-child(6)').style.fontWeight='normal'; this.style.fontWeight='normal'">
 
             </tr>
-            <tr id="plan_yams_tr">
-
-            </tr>
-            <tr id="otkl_yams_tr">
+            <tr id="otkl_yams_tr" onmouseover="document.querySelector('#statickItemInfoTable_yams tbody tr:nth-child(7)').style.fontWeight='bold'; this.style.fontWeight='bold'"
+                    onmouseleave="document.querySelector('#statickItemInfoTable_yams tbody tr:nth-child(7)').style.fontWeight='normal'; this.style.fontWeight='normal'">
 
             </tr>
             </tbody>
@@ -345,7 +342,11 @@
     </script>
     @include('include.font_size-change')
     <style>
-        h4 {
+
+        #statickItemInfoTable_yams tr:nth-child(odd){background: #e9effc;}
+        #itemInfoTable_yams tr:nth-child(odd){background: #e9effc;}
+
+        h4{
             margin-top: 10px;
             margin-bottom: 10px;
         }
@@ -358,7 +359,9 @@
         .create_td {
             background-color: white;
         }
-
+        tr:hover{
+            font-weight: bold;
+        }
         .button {
             background-color: #4CAF50;
             border: none;
