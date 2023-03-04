@@ -34,6 +34,7 @@
 </head>
 <body>
 @include('include.modal_window')
+@include('include.modal_window_smena')
 @include('include.modal_window_confirm')
 @include('include.modal_window_graph')
 @include('include.modal_window_export')

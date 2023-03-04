@@ -192,6 +192,12 @@ Route::get('/print_skv/{date}', [Controllers\ReportController::class, 'print_skv
     Route::get('/print_oper_skv/{timestamp}', [Controllers\VlgController::class, 'print_oper_skv'])->name('print_oper_skv');
     Route::get('/excel_oper_skv/{timestamp}',  [Controllers\ExcelController::class, 'excel_oper_skv'])->name('excel_oper_skv');
 
+///Прием-сдача смены
+    Route::get('/check_smena', [Controllers\DZController::class, 'check_smena'])->name('check_smena');   ///проверка, что в логах сдачи смены
+    Route::get('/confirm_smena', [Controllers\DZController::class, 'confirm_smena'])->name('confirm_smena');   ///проверка, что в логах сдачи смены
+    Route::get('/pass_smena', [Controllers\DZController::class, 'pass_smena'])->name('pass_smena');   ///проверка, что в логах сдачи смены
+
+
 
 //ГЛАВНАЯ ТАБЛИЦА
     Route::post('/add-index', [Controllers\MainTableController::class, 'add_index']);

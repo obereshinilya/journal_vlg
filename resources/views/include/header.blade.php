@@ -168,9 +168,10 @@
                 </ul>
             </li>
             {{--                <li id="journal_operator_header"><a href="/open_user_log" style="padding-right: 37px;">Журнал действий оператора<i class="fa fa-angle-down"></i></a>--}}
-            <li id="journal_operator_header"><a href="/open_journal_smeny" style="padding-right: 37px;">Журнал смены<i
+            <li id="journal_operator_header"><a href="/open_journal_smeny" style="padding-right: 10px;">Журнал смены<i
                         class="fa fa-angle-down"></i></a>
             </li>
+
         </ul>
         <div style="padding-top: 5px; display: inline-block">
             <a href="#" onclick="open_modal_font()">
@@ -185,7 +186,11 @@
                 </svg>
             </a>
         </div>
+        <button class="button button1" style="float: right; margin-left: 15px"
+                onclick="pass_smena()">Сдать смену
+        </button>
         <h3 style="margin-top: 7px; float: right">Оперативный журнал диспетчера</h3>
+
     </div>
 </div>
 
@@ -196,7 +201,8 @@
         <h1 id="text_modal">Укажите размер шрифта</h1>
         <div class="slidecontainer" style="display: flex; align-items: center">
             <p style="margin: 0 8px 0 0; font-size: small; color: darkgrey">А</p>
-            <input class="slider-size" type="range" id="font_size" onchange="console.log(this.value), save_font_size()"
+            <input class="slider-size" style="margin: 0 10px 0 0" type="range" id="font_size" onchange="console.log(this.value), save_font_size()"
+
                    min="0.5" max="1.5"
                    id="size" step="0.1"
             >

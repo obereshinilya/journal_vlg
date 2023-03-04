@@ -257,7 +257,8 @@
         var header_content = 'Часовые показатели.  ';
         var datatable = null;
         $(document).ready(function () {
-
+            ///Проверка смены
+            check_smena()
 /////Объединяем скролы двух таблиц
             $("#itemInfoTable").scroll(function () {
                 $('#statickItemInfoTable').scrollTop($("#itemInfoTable").scrollTop());
