@@ -974,6 +974,7 @@
 
 
     </script>
+    @include('include.font_size-change')
     <style>
         #shapka td{
             background-color: white;
