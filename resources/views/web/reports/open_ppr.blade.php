@@ -280,7 +280,9 @@
         .itemInfoTable span {
             text-align: center;
         }
-
+        tr:hover{
+            font-weight: bold;
+        }
         .button {
             background-color: #4CAF50;
             border: none;

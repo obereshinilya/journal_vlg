@@ -976,6 +976,10 @@
     </script>
     @include('include.font_size-change')
     <style>
+        .iksweb tr:not(:first-child):nth-child(odd){
+            background: #e9effc;
+        }
+
         #shapka td{
             background-color: white;
             text-align: center;
