@@ -109,7 +109,11 @@
 /////Проверяем заходим ли мы по ссылке
             if (localStorage.getItem('to_month')) {
                 $('#table_date_start').val(localStorage.getItem('to_month'))
-                localStorage.clear()
+                for (let localStorageKey in localStorage) {
+                    if (localStorageKey != 'font') {
+                        localStorage.removeItem(localStorageKey)
+                    }
+                }
             } else {
 
             }

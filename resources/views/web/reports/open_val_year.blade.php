@@ -49,6 +49,7 @@
             </tr>
             <tbody>
             <tr onmouseover="document.querySelector('#itemInfoTable_yams tbody tr:nth-child(1)').style.fontWeight='bold'; this.style.fontWeight='bold'"
+
                 onmouseleave="document.querySelector('#itemInfoTable_yams tbody tr:nth-child(1)').style.fontWeight='normal'; this.style.fontWeight='normal'"><td><span style="text-align: left">Закачка</span></td></tr>
             <tr onmouseover="document.querySelector('#itemInfoTable_yams tbody tr:nth-child(2)').style.fontWeight='bold'; this.style.fontWeight='bold'"
                 onmouseleave="document.querySelector('#itemInfoTable_yams tbody tr:nth-child(2)').style.fontWeight='normal'; this.style.fontWeight='normal'"><td><span style="text-align: left">Отбор</span></td></tr>
@@ -62,6 +63,7 @@
                 onmouseleave="document.querySelector('#itemInfoTable_yams tbody tr:nth-child(6)').style.fontWeight='normal'; this.style.fontWeight='normal'"><td><span style="text-align: left">План</span></td></tr>
             <tr onmouseover="document.querySelector('#itemInfoTable_yams tbody tr:nth-child(7)').style.fontWeight='bold'; this.style.fontWeight='bold'"
                 onmouseleave="document.querySelector('#itemInfoTable_yams tbody tr:nth-child(7)').style.fontWeight='normal'; this.style.fontWeight='normal'"><td><span style="text-align: left">Отклонение</span></td></tr>
+
             </tbody>
         </table>
         <table id="itemInfoTable_yams" class="itemInfoTable"
@@ -84,6 +86,7 @@
             </tr>
             </thead>
             <tbody>
+
                 <tr id="fakt_yams_tr" onmouseover="document.querySelector('#statickItemInfoTable_yams tbody tr:nth-child(1)').style.fontWeight='bold'; this.style.fontWeight='bold'"
                     onmouseleave="document.querySelector('#statickItemInfoTable_yams tbody tr:nth-child(1)').style.fontWeight='normal'; this.style.fontWeight='normal'">
                 </tr>
@@ -113,6 +116,7 @@
 
 
     <style>
+
         .content {
             overflow-x: hidden;
             width: 100%;

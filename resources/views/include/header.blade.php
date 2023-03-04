@@ -5,8 +5,16 @@
 <div class="header">
     <div class="header_container">
         <ul class="header_menu">
-            <li onclick="localStorage.clear()"><a href="/" style="padding-right: 37px;">Часовые показатели</a></li>
-            <li onclick="localStorage.clear()"><a href="/sut" style="padding-right: 37px;">Суточные показатели</a></li>
+            <li onclick="for (let localStorageKey in localStorage) {
+                    if(localStorageKey!='font') {
+                        localStorage.removeItem(localStorageKey)
+                    }
+                }"><a href="/" style="padding-right: 37px;">Часовые показатели</a></li>
+            <li onclick="for (let localStorageKey in localStorage) {
+                    if(localStorageKey!='font') {
+                        localStorage.removeItem(localStorageKey)
+                    }
+                }"><a href="/sut" style="padding-right: 37px;">Суточные показатели</a></li>
             {{--                <li onclick="localStorage.clear()"><a href="/minutes" style="padding-right: 37px;">Реальное время</a></li>--}}
             <style>
                 .circle {
@@ -39,7 +47,7 @@
                     justify-content: center;
                 }
 
-                .modal_font .overlay_ober {
+                .modal_font .overlay_font {
                     position: absolute;
                     top: 0;
                     left: 0;

@@ -23,8 +23,10 @@
         <h3>Оперативное состояние режима работы ПХГ</h3>
 
         <div style="position: absolute; right: 50px; margin-top: 10px">
-            <button class="button button1" style="float: right; margin-top: 1%" onclick="open_modal_export_ober()">Экспорт</button>
-            <button  id="setting" class="button button1" style="margin-top: 1%; float: right">На главную</button>
+            <button class="button button1" style="float: right; margin-top: 1%" onclick="open_modal_export_ober()">
+                Экспорт
+            </button>
+            <button id="setting" class="button button1" style="margin-top: 1%; float: right">На главную</button>
         </div>
 
     </div>
@@ -32,14 +34,52 @@
 
 
     <style>
-        .content{ width: calc(100% - 40px); overflow-y: hidden; height: calc(100% - 90px);}
-        table.iksweb{text-decoration: none;border-collapse:collapse;width:100%;text-align:center;}
-        table.iksweb th{font-weight:normal;font-size:12px; color:#ffffff;background-color:#347c99;}
-        table.iksweb td{font-size:13px;color:#347c99;}
-        table.iksweb td,table.iksweb th{white-space:pre-wrap;padding:5px 2px;line-height:13px;vertical-align: middle;border: 1px solid black;}
-        table.iksweb tr:hover{background-color:#f9fafb}
-        table.iksweb tr:hover td{color:#347c99;cursor:default;}
-        .table_scroll{overflow-y: scroll; height: calc(100% - 80px)}
+        .content {
+            width: calc(100% - 40px);
+            overflow-y: hidden;
+            height: calc(100% - 90px);
+        }
+
+        table.iksweb {
+            text-decoration: none;
+            border-collapse: collapse;
+            width: 100%;
+            text-align: center;
+        }
+
+        table.iksweb th {
+            font-weight: normal;
+            font-size: 12px;
+            color: #ffffff;
+            background-color: #347c99;
+        }
+
+        table.iksweb td {
+            font-size: 13px;
+            color: #347c99;
+        }
+
+        table.iksweb td, table.iksweb th {
+            white-space: pre-wrap;
+            padding: 5px 2px;
+            line-height: 13px;
+            vertical-align: middle;
+            border: 1px solid black;
+        }
+
+        table.iksweb tr:hover {
+            background-color: #f9fafb
+        }
+
+        table.iksweb tr:hover td {
+            color: #347c99;
+            cursor: default;
+        }
+
+        .table_scroll {
+            overflow-y: scroll;
+            height: calc(100% - 80px)
+        }
     </style>
 
     <p id="head" style="display: none" contenteditable="true"></p>
@@ -74,7 +114,9 @@
                             @for($i=1; $i<7; $i++)
                                 <td contenteditable="true" id="{{$row['short'].'_'.$i}}" onblur="save_td(this)">...</td>
                             @endfor
-                            <td rowspan="3" contenteditable="true" id="{{$row['short'].'_7'}}" onblur="save_td(this)">...</td>
+                            <td rowspan="3" contenteditable="true" id="{{$row['short'].'_7'}}" onblur="save_td(this)">
+                                ...
+                            </td>
                             <td contenteditable="true" id="{{$row['short'].'_8'}}" onblur="save_td(this)">...</td>
                         @else
                             <td style="text-align: right">{{$row['name']}}</td>
@@ -101,26 +143,27 @@
     </div>
     <script>
 
-        $(document).ready(function (){
+        $(document).ready(function () {
             getTableData();
-            $('#setting').click(function() {
+            $('#setting').click(function () {
                 window.location.href = '/report_oper_skv_main'
             });
-            $('.overlay_ober').click(function() {
+            $('.overlay_ober').click(function () {
                 location.reload()
             });
 
         });
-        function getTableData(){
+
+        function getTableData() {
             $.ajax({
-                url: '/get_data_oper_skv/'+document.getElementById('timestamp').textContent,
+                url: '/get_data_oper_skv/' + document.getElementById('timestamp').textContent,
                 method: 'get',
-                async:false,
+                async: false,
                 success: function (res) {
-                    for (var td of res){
-                        if (td['content_editable']){
+                    for (var td of res) {
+                        if (td['content_editable']) {
                             document.getElementById(td['id_td']).textContent = td['text']
-                        }else {
+                        } else {
                             document.getElementById(td['id_td']).textContent = td['text']
                             document.getElementById(td['id_td']).removeAttribute("contenteditable")
                             console.log(document.getElementById(td['id_td']))
@@ -130,69 +173,70 @@
             })
         }
 
-        function save_td(td){
-            if (document.getElementById('head').getAttribute('contenteditable')){
+        function save_td(td) {
+            if (document.getElementById('head').getAttribute('contenteditable')) {
                 $.ajax({
-                    url: '/save_td_oper/'+td.id+'/'+td.textContent+'/'+document.getElementById('head').textContent,
+                    url: '/save_td_oper/' + td.id + '/' + td.textContent + '/' + document.getElementById('head').textContent,
                     method: 'get',
-                    async:false,
-                    timeout:300,
+                    async: false,
+                    timeout: 300,
                     success: function (res) {
 
                     },
                 })
-            }else {
+            } else {
                 open_modal_ober('Редактирование запрещено!')
             }
         }
 
-        function CallPrint(){
-            window.location.href = '/print_oper_skv/'+document.getElementById('timestamp').textContent
+        function CallPrint() {
+            window.location.href = '/print_oper_skv/' + document.getElementById('timestamp').textContent
         }
-        function CallExcel(){
-            window.location.href = '/excel_oper_skv/'+document.getElementById('timestamp').textContent
+
+        function CallExcel() {
+            window.location.href = '/excel_oper_skv/' + document.getElementById('timestamp').textContent
             document.getElementById('modal_export_ober').style.display = 'none'
         }
 
     </script>
+    @include('include.font_size-change')
+    <style>
+        .text-field__input {
+            display: block;
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #212529;
+            background-color: #fff;
+            background-clip: padding-box;
+            border: 1px solid #bdbdbd;
+            border-radius: 0.25rem;
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+        }
 
-<style>
-    .text-field__input {
-        display: block;
-        font-family: inherit;
-        font-size: 1rem;
-        font-weight: 400;
-        line-height: 1.5;
-        color: #212529;
-        background-color: #fff;
-        background-clip: padding-box;
-        border: 1px solid #bdbdbd;
-        border-radius: 0.25rem;
-        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        appearance: none;
-    }
+        .text-field__input::placeholder {
+            color: #212529;
+            opacity: 0.4;
+        }
 
-    .text-field__input::placeholder {
-        color: #212529;
-        opacity: 0.4;
-    }
+        .text-field__input:focus {
+            color: #212529;
+            background-color: #fff;
+            border-color: #bdbdbd;
+            outline: 0;
+            box-shadow: 0 0 0 0.2rem rgba(158, 158, 158, 0.25);
+        }
 
-    .text-field__input:focus {
-        color: #212529;
-        background-color: #fff;
-        border-color: #bdbdbd;
-        outline: 0;
-        box-shadow: 0 0 0 0.2rem rgba(158, 158, 158, 0.25);
-    }
-
-    .text-field__input:disabled,
-    .text-field__input[readonly] {
-        background-color: #f5f5f5;
-        opacity: 1;
-    }
-</style>
+        .text-field__input:disabled,
+        .text-field__input[readonly] {
+            background-color: #f5f5f5;
+            opacity: 1;
+        }
+    </style>
 @endsection
 
 
