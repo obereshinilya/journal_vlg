@@ -294,13 +294,81 @@
 
             }
             get_table_data()
+            mouseenter_func()
+
             document.getElementById("table_date_start").setAttribute("max", today.toISOString().substring(0, 10));
             $('#table_date_start').change(function () {
                 get_table_data()
+                mouseenter_func()
             })
         })
 
+        function mouseenter_func(){
+            // $(this).toggleClass('selected_td');   // присваиваем класс
 
+            // $('.selected_td').toggleClass('selected_td')   //очищаем класс у всех
+
+            $('#itemInfoTable td')
+                .mousedown(function(){
+                    localStorage.setItem('start_td_row', this.parentNode.rowIndex)   //нумерация с 1
+                    localStorage.setItem('start_td_cell', this.cellIndex)           //нумерация с 1
+                    $('td').on('mouseenter',function(){
+                        localStorage.setItem('stop_td_row', this.parentNode.rowIndex)
+                        localStorage.setItem('stop_td_cell', this.cellIndex)
+                        mark_region()
+                    });
+                })
+                .mouseup(function(){
+                    print_region()
+                    $('td').off('mouseenter');
+                });
+
+            function mark_region(){
+                var start_td_cell = Number(localStorage.getItem('start_td_cell'))
+                var start_td_row = Number(localStorage.getItem('start_td_row'))
+                var stop_td_cell = Number(localStorage.getItem('stop_td_cell'))
+                var stop_td_row = Number(localStorage.getItem('stop_td_row'))
+                if (start_td_row > stop_td_row){  //ведем свнизу вверх
+                    for (var row=stop_td_row; row<=start_td_row; row++){
+                        var real_row = document.getElementById('itemInfoTable').getElementsByTagName('tbody')[0].getElementsByTagName('tr')[row-1]
+                        if (start_td_cell > stop_td_cell){  ///ведем слева направо
+                            for (var cell=stop_td_cell; cell<=start_td_cell; cell++){
+                                var real_cell = real_row.getElementsByTagName('td')[cell-1]
+                                real_cell.classList.add('selected_td')
+                            }
+                        }else { ///ведем справа налево
+                            for (var cell=start_td_cell; cell<=stop_td_cell; cell++){
+                                var real_cell = real_row.getElementsByTagName('td')[cell-1]
+                                real_cell.classList.add('selected_td')
+                            }
+                        }
+                    }
+                }else {
+                    for (var row=start_td_row; row<=stop_td_row; row++){
+                        var real_row = document.getElementById('itemInfoTable').getElementsByTagName('tbody')[0].getElementsByTagName('tr')[row-1]
+                        if (start_td_cell > stop_td_cell){  ///ведем слева направо
+                            for (var cell=stop_td_cell; cell<=start_td_cell; cell++){
+                                var real_cell = real_row.getElementsByTagName('td')[cell-1]
+                                real_cell.classList.add('selected_td')
+                            }
+                        }else { ///ведем справа налево
+                            for (var cell=start_td_cell; cell<=stop_td_cell; cell++){
+                                var real_cell = real_row.getElementsByTagName('td')[cell-1]
+                                real_cell.classList.add('selected_td')
+                            }
+                        }
+                    }
+                }
+            }
+
+            function print_region(){
+                open_modal_confirm_ober('Распечатать выделенную область?')
+                $('.selected_td').toggleClass('selected_td')
+            }
+            function confirm_request(){   ///функция, выполняемая при подтверждении
+                console.log('подтвердил')
+            }
+        }
         ///Для подтверждения достоверности
         function all_param_accepted(th) {
             if (th.getElementsByTagName('img')[0].style.display === 'none') {
@@ -685,6 +753,10 @@
 
     @include('include.font_size-change')
     <style>
+        .selected_td{
+            background: yellow;
+            background-color: yellow;
+        }
         .tooltip:before {
             width: 100px;
             bottom: 35px;

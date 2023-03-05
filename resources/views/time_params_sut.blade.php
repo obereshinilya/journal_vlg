@@ -126,7 +126,6 @@
             });
 /////
             get_table_data()
-
             $('#table_date_start').change(function () {
                 get_table_data()
             })
@@ -285,7 +284,6 @@
             make_paint()
             $('#main_content').width($(document.body).width() - $('#side_menu').width() - 50);
         }
-
         function get_parent_name(td) {
             $.ajax({
                 url: '/get_parent_name/' + td.parentNode.getAttribute('data-id'),
@@ -297,7 +295,6 @@
                 async: false
             })
         }
-
         function get_graph(hfrpok) {
             if (document.getElementById('modal_graph').classList.contains('many_param')){ ///если надо отобразить несколько параметров
                 document.getElementById('text_graph').textContent += ' '+hfrpok
@@ -369,7 +366,6 @@
                 chart.render();
             }
         }
-
         ///Для создания перекрестия
         function make_paint() {
             var all_td = document.getElementsByClassName('with_selector')[0].querySelectorAll('td');
@@ -435,8 +431,6 @@
                 });
             }
         }
-
-
         function CallPrint() {
             if (!document.getElementById('search_row').value) {
                 var text = false
@@ -445,7 +439,6 @@
             }
             window.location.href = '/print_sut/' + $('#table_date_start').val() + '/' + $('.tableItem.choiced').attr('data-id') + '/' + text
         }
-
         function CallExcel() {
             if (!document.getElementById('search_row').value) {
                 var text = false
@@ -455,7 +448,6 @@
             window.location.href = '/excel_sut/' + $('#table_date_start').val() + '/' + $('.tableItem.choiced').attr('data-id') + '/' + text
             document.getElementById('modal_export_ober').style.display = 'none'
         }
-
     </script>
     <style>
         .tooltip:hover:before {
