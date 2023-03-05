@@ -10,8 +10,10 @@ use App\Models\Hour_params;
 use App\Models\JournalSmeny;
 use App\Models\JournalSmeny_table;
 use App\Models\LogSmena;
+use App\Models\Min_params;
 use App\Models\Ppr_table;
 use App\Models\SftpServer;
+use App\Models\TableObj;
 use App\Models\User;
 use App\Models\UserAuth;
 use Illuminate\Http\Request;
@@ -82,7 +84,34 @@ class DZController extends Controller
         $new_log  = (new MainTableController)->create_log_record('Сдал смену');
     }
 
-
+    public function get_graph_history($hfrpok, $date_start, $date_stop, $type){
+        try {
+            $one_hfrpok = explode(" ", $hfrpok);
+        }catch (\Throwable $e){
+            $one_hfrpok[0] = $hfrpok;
+        }
+        for ($i=0; $i<count($one_hfrpok); $i++){
+            if ($type == 'sut'){
+                $date_start = date('Y-m-01 10:00', strtotime($date_start));
+                $date_stop = date('Y-m-t 10:00', strtotime($date_stop));
+            }else{
+                $date_start = date('Y-m-d 10:00', strtotime($date_start));
+                $date_stop = date('Y-m-d 10:00', strtotime($date_stop. ' +1 day'));
+            }
+            $hour_data = Hour_params::where('hfrpok_id', '=', $one_hfrpok[$i])->select('timestamp', 'val')->wherebetween('timestamp', [$date_start, $date_stop]);
+            $minute_data = Min_params::where('hfrpok_id', '=', $one_hfrpok[$i])->select('timestamp', 'val')->wherebetween('timestamp', [$date_start, $date_stop])->union($hour_data)
+                ->orderby('timestamp')->get();
+            $data_to_graph['xaxis'][$i] = [];
+            $data_to_graph['data'][$i] = [];
+            $this_param = TableObj::where('hfrpok', '=', $one_hfrpok[$i])->first()->toArray();
+            $data_to_graph['statick_tr'][$i] = $this_param['namepar1'].'. '.$this_param['shortname'];
+            foreach ($minute_data as $row){
+                array_push($data_to_graph['xaxis'][$i], strtotime($row->timestamp.' +4 hours')*1000);
+                array_push($data_to_graph['data'][$i], $row->val);
+            }
+        }
+        return $data_to_graph;
+    }
 }
 
 ?>

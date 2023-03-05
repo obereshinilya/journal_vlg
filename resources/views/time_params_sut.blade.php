@@ -299,70 +299,75 @@
         }
 
         function get_graph(hfrpok) {
-            var data = [];
-            var xaxis = [];
-            var static_tr = document.getElementById('statickItemInfoTable').querySelector(`tr[data-id="${hfrpok}"]`).querySelector(`td[data-name="namepar1"]`).textContent
-            var e_unit = document.getElementById('statickItemInfoTable').querySelector(`tr[data-id="${hfrpok}"]`).getElementsByTagName('span')[0].textContent
-            var dymanic_table = document.getElementById('itemInfoTable')
-            var dynamic_head = dymanic_table.getElementsByTagName('h4')
-            for (var th of dynamic_head) {
-                xaxis.push(th.textContent)
-            }
-            var dymanic_tr = dymanic_table.querySelector(`tr[data-id="${hfrpok}"]`).getElementsByTagName('td')
-            for (var val of dymanic_tr) {
-                var text_span = val.getElementsByTagName('span')[0].textContent
-                if (text_span === '...') {
-                    xaxis.splice(data.length, 1)
-                } else {
-                    data.push(text_span)
+            if (document.getElementById('modal_graph').classList.contains('many_param')){ ///если надо отобразить несколько параметров
+                document.getElementById('text_graph').textContent += ' '+hfrpok
+                document.getElementById('modal_graph').style.display = 'flex'
+                get_graph_history()
+            }else {
+                var data = [];
+                var xaxis = [];
+                var static_tr = document.getElementById('statickItemInfoTable').querySelector(`tr[data-id="${hfrpok}"]`).querySelector(`td[data-name="namepar1"]`).textContent
+                var e_unit = document.getElementById('statickItemInfoTable').querySelector(`tr[data-id="${hfrpok}"]`).getElementsByTagName('span')[0].textContent
+                var dymanic_table = document.getElementById('itemInfoTable')
+                var dynamic_head = dymanic_table.getElementsByTagName('h4')
+                for (var th of dynamic_head) {
+                    xaxis.push(th.textContent)
                 }
-            }
+                var dymanic_tr = dymanic_table.querySelector(`tr[data-id="${hfrpok}"]`).getElementsByTagName('td')
+                for (var val of dymanic_tr) {
+                    var text_span = val.getElementsByTagName('span')[0].textContent
+                    if (text_span === '...') {
+                        xaxis.splice(data.length, 1)
+                    } else {
+                        data.push(text_span)
+                    }
+                }
 
-            open_modal_graph()
-            // document.getElementById('text_graph').textContent = static_tr
-            document.getElementById('div_to_graph').innerText = ''
-            var options = {
-                series: [{
-                    name: static_tr,
-                    data: data
-                }],
-                chart: {
-                    height: 450,
-                    type: 'area'
-                },
-                dataLabels: {
-                    enabled: false
-                },
-                stroke: {
-                    curve: 'smooth'
-                },
-                title: {
-                    text: static_tr,
-                    align: 'left'
-                },
-                subtitle: {
-                    text: 'Данные за ' + $('#table_date_start').val(),
-                    align: 'left'
-                },
-                xaxis: {
-                    // type: 'timestamp',
-                    categories: xaxis
-                },
-                yaxis: {
+                open_modal_graph(hfrpok)
+                // document.getElementById('text_graph').textContent = static_tr
+                document.getElementById('div_to_graph').innerText = ''
+                var options = {
+                    series: [{
+                        name: static_tr,
+                        data: data
+                    }],
+                    chart: {
+                        height: 450,
+                        type: 'area'
+                    },
+                    dataLabels: {
+                        enabled: false
+                    },
+                    stroke: {
+                        curve: 'smooth'
+                    },
                     title: {
-                        text: e_unit
+                        text: static_tr,
+                        align: 'left'
                     },
-                },
-                tooltip: {
-                    x: {
-                        format: 'HH:mm'
+                    subtitle: {
+                        text: 'Данные за ' + $('#table_date_start').val(),
+                        align: 'left'
                     },
-                },
-            };
+                    xaxis: {
+                        // type: 'timestamp',
+                        categories: xaxis
+                    },
+                    yaxis: {
+                        title: {
+                            text: e_unit
+                        },
+                    },
+                    tooltip: {
+                        x: {
+                            format: 'HH:mm'
+                        },
+                    },
+                };
 
-            var chart = new ApexCharts(document.querySelector("#div_to_graph"), options);
-            chart.render();
-
+                var chart = new ApexCharts(document.querySelector("#div_to_graph"), options);
+                chart.render();
+            }
         }
 
         ///Для создания перекрестия

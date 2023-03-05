@@ -331,6 +331,8 @@
     }
 
     $(document).ready(function () {
+        $("body").on("contextmenu", false);
+
         check_error_xml()
         check_new_dz()
         setInterval(check_error_xml, 10000)

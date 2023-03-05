@@ -548,103 +548,105 @@
         }
 
         function get_graph(hfrpok) {
-            var data = [];
-            var xaxis = [];
-            var static_tr = document.getElementById('statickItemInfoTable').querySelector(`tr[data-id="${hfrpok}"]`).querySelector(`td[data-name="namepar1"]`).textContent
-            var e_unit = document.getElementById('statickItemInfoTable').querySelector(`tr[data-id="${hfrpok}"]`).getElementsByTagName('span')[0].textContent
-            var dymanic_table = document.getElementById('itemInfoTable')
-            var dynamic_head = dymanic_table.getElementsByTagName('th')
-            var date = new Date($('#table_date_start').val())
-            var next_date = new Date($('#table_date_start').val())
-            next_date = new Date(next_date.setDate(next_date.getDate() + 1))
-            for (var th of dynamic_head) {
-                if (th.getAttribute('data-time').split(':')[0][0] === '0') {
-                    next_date.setHours(th.getAttribute('data-time').split(':')[0])
-                    next_date.setMinutes(th.getAttribute('data-time').split(':')[1])
-                    xaxis.push(next_date.getTime())
-                } else {
-                    date.setHours(th.getAttribute('data-time').split(':')[0])
-                    date.setMinutes(th.getAttribute('data-time').split(':')[1])
-                    xaxis.push(date.getTime())
+            if (document.getElementById('modal_graph').classList.contains('many_param')){ ///если надо отобразить несколько параметров
+                document.getElementById('text_graph').textContent += ' '+hfrpok
+                document.getElementById('modal_graph').style.display = 'flex'
+                get_graph_history()
+            }else {
+                var data = [];
+                var xaxis = [];
+                var static_tr = document.getElementById('statickItemInfoTable').querySelector(`tr[data-id="${hfrpok}"]`).querySelector(`td[data-name="namepar1"]`).textContent
+                var e_unit = document.getElementById('statickItemInfoTable').querySelector(`tr[data-id="${hfrpok}"]`).getElementsByTagName('span')[0].textContent
+                var dymanic_table = document.getElementById('itemInfoTable')
+                var dynamic_head = dymanic_table.getElementsByTagName('th')
+                var date = new Date($('#table_date_start').val())
+                var next_date = new Date($('#table_date_start').val())
+                next_date = new Date(next_date.setDate(next_date.getDate() + 1))
+                for (var th of dynamic_head) {
+                    if (th.getAttribute('data-time').split(':')[0][0] === '0') {
+                        next_date.setHours(Number(th.getAttribute('data-time').split(':')[0])+ 3)
+                        next_date.setMinutes(th.getAttribute('data-time').split(':')[1])
+                        xaxis.push(next_date.getTime())
+                    } else {
+                        date.setHours(Number(th.getAttribute('data-time').split(':')[0])+ 3)
+                        date.setMinutes(th.getAttribute('data-time').split(':')[1])
+                        xaxis.push(date.getTime())
+                    }
                 }
-            }
-            var dymanic_tr = dymanic_table.querySelector(`tr[data-id="${hfrpok}"]`).getElementsByTagName('td')
-            for (var val of dymanic_tr) {
-                var text_span = val.getElementsByTagName('span')[0].textContent
-                if (text_span === '...') {
-                    xaxis.splice(data.length, 1)
-                } else {
-                    data.push(text_span)
+                var dymanic_tr = dymanic_table.querySelector(`tr[data-id="${hfrpok}"]`).getElementsByTagName('td')
+                for (var val of dymanic_tr) {
+                    var text_span = val.getElementsByTagName('span')[0].textContent
+                    if (text_span === '...') {
+                        xaxis.splice(data.length, 1)
+                    } else {
+                        data.push(text_span)
+                    }
                 }
-            }
-
-            open_modal_graph()
-            // document.getElementById('text_graph').textContent = static_tr
-            // document.getElementById('text_graph').style.display = 'none'
-            document.getElementById('div_to_graph').innerText = ''
-            var options = {
-                series: [{
-                    name: static_tr,
-                    data: data
-                }],
-                chart: {
-                    height: 450,
-                    type: 'area',
-                    locales: [{
-                        name: 'en',
-                        options: {
-                            months: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
-                            shortMonths: ['Янв', 'Фев', 'Март', 'Апр', 'Май', 'Июнь', 'Июль', 'Авг', 'Сент', 'Окт', 'Ноя', 'Дек'],
-                            days: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-                            shortDays: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-                            toolbar: {
-                                download: 'Загрузить SVG',
-                                selection: 'Selection',
-                                selectionZoom: 'Приблизить область',
-                                zoomIn: 'Приблизить',
-                                zoomOut: 'Отдалить',
-                                pan: 'Захват',
-                                reset: 'Сбросить приближение',
+                open_modal_graph(hfrpok)
+                document.getElementById('div_to_graph').innerText = ''
+                var options = {
+                    series: [{
+                        name: static_tr,
+                        data: data
+                    }],
+                    chart: {
+                        height: 450,
+                        type: 'area',
+                        locales: [{
+                            name: 'en',
+                            options: {
+                                months: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
+                                shortMonths: ['Янв', 'Фев', 'Март', 'Апр', 'Май', 'Июнь', 'Июль', 'Авг', 'Сент', 'Окт', 'Ноя', 'Дек'],
+                                days: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+                                shortDays: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+                                toolbar: {
+                                    download: 'Загрузить SVG',
+                                    selection: 'Selection',
+                                    selectionZoom: 'Приблизить область',
+                                    zoomIn: 'Приблизить',
+                                    zoomOut: 'Отдалить',
+                                    pan: 'Захват',
+                                    reset: 'Сбросить приближение',
+                                }
                             }
-                        }
-                    }]
-                },
-                dataLabels: {
-                    enabled: false
-                },
-                stroke: {
-                    curve: 'smooth'
-                },
-                title: {
-                    text: static_tr,
-                    align: 'left'
-                },
-                subtitle: {
-                    text: 'Данные за ' + $('#table_date_start').val(),
-                    align: 'left'
-                },
-                xaxis: {
-                    type: 'datetime',
-                    categories: xaxis,
-                    // title: {
-                    //     text: 'Данные за '+$('#table_date_start').val()
-                    // },
-                },
-                yaxis: {
+                        }]
+                    },
+                    dataLabels: {
+                        enabled: false
+                    },
+                    stroke: {
+                        curve: 'smooth'
+                    },
                     title: {
-                        text: e_unit
+                        text: static_tr,
+                        align: 'left'
                     },
-                },
-                tooltip: {
-                    x: {
-                        format: 'HH:mm'
+                    subtitle: {
+                        text: 'Данные за ' + $('#table_date_start').val(),
+                        align: 'left'
                     },
-                },
-            };
+                    xaxis: {
+                        type: 'datetime',
+                        categories: xaxis,
+                        // title: {
+                        //     text: 'Данные за '+$('#table_date_start').val()
+                        // },
+                    },
+                    yaxis: {
+                        title: {
+                            text: e_unit
+                        },
+                    },
+                    tooltip: {
+                        x: {
+                            format: 'HH:mm'
+                        },
+                    },
+                };
 
-            var chart = new ApexCharts(document.querySelector("#div_to_graph"), options);
-            chart.render();
-
+                var chart = new ApexCharts(document.querySelector("#div_to_graph"), options);
+                chart.render();
+            }
         }
 
         function get_parent_name(td) {

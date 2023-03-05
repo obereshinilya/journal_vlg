@@ -196,7 +196,8 @@ Route::get('/print_skv/{date}', [Controllers\ReportController::class, 'print_skv
     Route::get('/check_smena', [Controllers\DZController::class, 'check_smena'])->name('check_smena');   ///проверка, что в логах сдачи смены
     Route::get('/confirm_smena', [Controllers\DZController::class, 'confirm_smena'])->name('confirm_smena');   ///проверка, что в логах сдачи смены
     Route::get('/pass_smena', [Controllers\DZController::class, 'pass_smena'])->name('pass_smena');   ///проверка, что в логах сдачи смены
-
+///Грфик за период
+    Route::get('/get_graph_history/{hfrpok}/{date_start}/{date_Stop}/{type}', [Controllers\DZController::class, 'get_graph_history'])->name('get_graph_history');   ///проверка, что в логах сдачи смены
 
 
 //ГЛАВНАЯ ТАБЛИЦА
