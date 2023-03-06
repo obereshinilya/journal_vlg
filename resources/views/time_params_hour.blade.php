@@ -27,6 +27,10 @@
     @endpush
 
     <div style="width: 100%">
+        <form style="display: none" id="form" method="POST" action="">
+            <input type="hidden">
+            <input type="submit">
+        </form>
         <table style="display: table; width: 100%; table-layout: fixed; margin-top: 10px">
             <colgroup>
                 <col style="width: 10%">
@@ -303,72 +307,205 @@
             })
         })
 
-        function mouseenter_func(){
-            // $(this).toggleClass('selected_td');   // присваиваем класс
 
-            // $('.selected_td').toggleClass('selected_td')   //очищаем класс у всех
+        function CallPrint_area() {
+            if (!document.getElementById('search_row').value) {
+                var text = false
+            } else {
+                var text = document.getElementById('search_row').value
+            }
+            let data = {
+                'namepar1': [],
+                'shortname': [],
+                'time': [],
+                'params': []
+            };
+            if (Number(localStorage.getItem('start_td_row')) < Number(localStorage.getItem('stop_td_row'))) {
+                for (let i = localStorage.getItem('start_td_row'); i <= localStorage.getItem('stop_td_row'); i++) {
+                    data.namepar1.push(document.querySelector('.with_selector_statick').getElementsByTagName('tr')[i - 1].getElementsByTagName('td')[1].textContent)
+                    data.shortname.push(document.querySelector('.with_selector_statick').getElementsByTagName('tr')[i - 1].getElementsByTagName('td')[0].textContent)
+                }
+            } else {
+                for (let i = Number(localStorage.getItem('stop_td_row')); i <= Number(localStorage.getItem('start_td_row')); i++) {
+                    data.namepar1.push(document.querySelector('.with_selector_statick').getElementsByTagName('tr')[i - 1].getElementsByTagName('td')[1].textContent)
+                    data.shortname.push(document.querySelector('.with_selector_statick').getElementsByTagName('tr')[i - 1].getElementsByTagName('td')[0].textContent)
+                }
+            }
+            if (Number(localStorage.getItem('start_td_cell')) < Number(Number(localStorage.getItem('stop_td_cell')))) {
+                for (let i = Number(localStorage.getItem('start_td_cell')); i <= Number(localStorage.getItem('stop_td_cell')); i++) {
+                    data.time.push(document.getElementById('itemInfoTable').getElementsByTagName('th')[i].textContent.trim())
+                    console.log('время')
+                }
+            } else {
+                for (let i = Number(localStorage.getItem('stop_td_cell')); i <= Number(localStorage.getItem('start_td_cell')); i++) {
+                    data.time.push(document.getElementById('itemInfoTable').getElementsByTagName('th')[i].textContent.trim())
+                    console.log('время')
+                }
+            }
+            let param = [];
+            if (Number(localStorage.getItem('start_td_row')) < Number(localStorage.getItem('stop_td_row'))) {
 
-            $('#itemInfoTable td')
-                .mousedown(function(){
-                    localStorage.setItem('start_td_row', this.parentNode.rowIndex)   //нумерация с 1
-                    localStorage.setItem('start_td_cell', this.cellIndex)           //нумерация с 1
-                    $('td').on('mouseenter',function(){
-                        localStorage.setItem('stop_td_row', this.parentNode.rowIndex)
-                        localStorage.setItem('stop_td_cell', this.cellIndex)
-                        mark_region()
-                    });
-                })
-                .mouseup(function(){
-                    print_region()
-                    $('td').off('mouseenter');
-                });
+                for (let i = localStorage.getItem('start_td_row'); i <= localStorage.getItem('stop_td_row'); i++) {
+                    param = [];
+                    if (Number(localStorage.getItem('start_td_cell')) < Number(Number(localStorage.getItem('stop_td_cell')))) {
 
-            function mark_region(){
-                var start_td_cell = Number(localStorage.getItem('start_td_cell'))
-                var start_td_row = Number(localStorage.getItem('start_td_row'))
-                var stop_td_cell = Number(localStorage.getItem('stop_td_cell'))
-                var stop_td_row = Number(localStorage.getItem('stop_td_row'))
-                if (start_td_row > stop_td_row){  //ведем свнизу вверх
-                    for (var row=stop_td_row; row<=start_td_row; row++){
-                        var real_row = document.getElementById('itemInfoTable').getElementsByTagName('tbody')[0].getElementsByTagName('tr')[row-1]
-                        if (start_td_cell > stop_td_cell){  ///ведем слева направо
-                            for (var cell=stop_td_cell; cell<=start_td_cell; cell++){
-                                var real_cell = real_row.getElementsByTagName('td')[cell-1]
-                                real_cell.classList.add('selected_td')
-                            }
-                        }else { ///ведем справа налево
-                            for (var cell=start_td_cell; cell<=stop_td_cell; cell++){
-                                var real_cell = real_row.getElementsByTagName('td')[cell-1]
-                                real_cell.classList.add('selected_td')
-                            }
+                        for (let j = Number(localStorage.getItem('start_td_cell')); j <= Number(localStorage.getItem('stop_td_cell')); j++) {
+
+                            param.push(document.querySelector('.with_selector').getElementsByTagName('tr')[i - 1].getElementsByTagName('td')[j].textContent)
+
+                        }
+                    } else {
+                        for (let j = Number(localStorage.getItem('stop_td_cell')); j <= Number(localStorage.getItem('start_td_cell')); j++) {
+                            param.push(document.querySelector('.with_selector').getElementsByTagName('tr')[i - 1].getElementsByTagName('td')[j].textContent)
                         }
                     }
-                }else {
-                    for (var row=start_td_row; row<=stop_td_row; row++){
-                        var real_row = document.getElementById('itemInfoTable').getElementsByTagName('tbody')[0].getElementsByTagName('tr')[row-1]
-                        if (start_td_cell > stop_td_cell){  ///ведем слева направо
-                            for (var cell=stop_td_cell; cell<=start_td_cell; cell++){
-                                var real_cell = real_row.getElementsByTagName('td')[cell-1]
-                                real_cell.classList.add('selected_td')
-                            }
-                        }else { ///ведем справа налево
-                            for (var cell=start_td_cell; cell<=stop_td_cell; cell++){
-                                var real_cell = real_row.getElementsByTagName('td')[cell-1]
-                                real_cell.classList.add('selected_td')
-                            }
+
+                    data.params.push(param)
+
+                }
+            } else {
+                for (let i = localStorage.getItem('stop_td_row'); i <= localStorage.getItem('start_td_row'); i++) {
+                    param = [];
+                    if (Number(localStorage.getItem('start_td_cell')) < Number(Number(localStorage.getItem('stop_td_cell')))) {
+                        for (let j = Number(localStorage.getItem('start_td_cell')); j <= Number(localStorage.getItem('stop_td_cell')); j++) {
+                            param.push(document.querySelector('.with_selector').getElementsByTagName('tr')[i - 1].getElementsByTagName('td')[j].textContent)
+                        }
+                    } else {
+                        for (let j = Number(localStorage.getItem('stop_td_cell')); j <= Number(localStorage.getItem('start_td_cell')); j++) {
+                            param.push(document.querySelector('.with_selector').getElementsByTagName('tr')[i - 1].getElementsByTagName('td')[j].textContent)
                         }
                     }
                 }
+                data.params.push(param)
+
             }
 
-            function print_region(){
-                open_modal_confirm_ober('Распечатать выделенную область?')
-                $('.selected_td').toggleClass('selected_td')
-            }
-            function confirm_request(){   ///функция, выполняемая при подтверждении
-                console.log('подтвердил')
-            }
+
+            console.log(data)
+
+            $.ajax({
+                url: '/print_hour_area/' + $('#table_date_start').val() + '/' + $('.tableItem.choiced').attr('data-id') + '/' + text,
+                method: 'POST',
+                data: data,
+                success: function (res) {
+                    localStorage.setItem('day', $('#table_date_start').val().split('-')[2])
+                    localStorage.setItem('month', $('#table_date_start').val().split('-')[1])
+                    localStorage.setItem('year', $('#table_date_start').val().split('-')[0])
+                    document.write(res)
+                }
+            })
+
+
         }
+
+        function CallExcel_area() {
+            if (!document.getElementById('search_row').value) {
+                var text = false
+            } else {
+                var text = document.getElementById('search_row').value
+            }
+            let data = {
+                'namepar1': [],
+                'shortname': [],
+                'time': [],
+                'params': []
+            };
+            if (Number(localStorage.getItem('start_td_row')) < Number(localStorage.getItem('stop_td_row'))) {
+                for (let i = localStorage.getItem('start_td_row'); i <= localStorage.getItem('stop_td_row'); i++) {
+                    data.namepar1.push(document.querySelector('.with_selector_statick').getElementsByTagName('tr')[i - 1].getElementsByTagName('td')[1].textContent)
+                    data.shortname.push(document.querySelector('.with_selector_statick').getElementsByTagName('tr')[i - 1].getElementsByTagName('td')[0].textContent)
+                }
+            } else {
+                for (let i = Number(localStorage.getItem('stop_td_row')); i <= Number(localStorage.getItem('start_td_row')); i++) {
+                    data.namepar1.push(document.querySelector('.with_selector_statick').getElementsByTagName('tr')[i - 1].getElementsByTagName('td')[1].textContent)
+                    data.shortname.push(document.querySelector('.with_selector_statick').getElementsByTagName('tr')[i - 1].getElementsByTagName('td')[0].textContent)
+                }
+            }
+            if (Number(localStorage.getItem('start_td_cell')) < Number(Number(localStorage.getItem('stop_td_cell')))) {
+                for (let i = Number(localStorage.getItem('start_td_cell')); i <= Number(localStorage.getItem('stop_td_cell')); i++) {
+                    data.time.push(document.getElementById('itemInfoTable').getElementsByTagName('th')[i].textContent.trim())
+                    console.log('время')
+                }
+            } else {
+                for (let i = Number(localStorage.getItem('stop_td_cell')); i <= Number(localStorage.getItem('start_td_cell')); i++) {
+                    data.time.push(document.getElementById('itemInfoTable').getElementsByTagName('th')[i].textContent.trim())
+                    console.log('время')
+                }
+            }
+            let param = [];
+            if (Number(localStorage.getItem('start_td_row')) < Number(localStorage.getItem('stop_td_row'))) {
+
+                for (let i = localStorage.getItem('start_td_row'); i <= localStorage.getItem('stop_td_row'); i++) {
+                    param = [];
+                    if (Number(localStorage.getItem('start_td_cell')) < Number(Number(localStorage.getItem('stop_td_cell')))) {
+
+                        for (let j = Number(localStorage.getItem('start_td_cell')); j <= Number(localStorage.getItem('stop_td_cell')); j++) {
+
+                            param.push(document.querySelector('.with_selector').getElementsByTagName('tr')[i - 1].getElementsByTagName('td')[j].textContent)
+
+                        }
+                    } else {
+                        for (let j = Number(localStorage.getItem('stop_td_cell')); j <= Number(localStorage.getItem('start_td_cell')); j++) {
+                            param.push(document.querySelector('.with_selector').getElementsByTagName('tr')[i - 1].getElementsByTagName('td')[j].textContent)
+                        }
+                    }
+
+                    data.params.push(param)
+
+                }
+            } else {
+                for (let i = localStorage.getItem('stop_td_row'); i <= localStorage.getItem('start_td_row'); i++) {
+                    param = [];
+                    if (Number(localStorage.getItem('start_td_cell')) < Number(Number(localStorage.getItem('stop_td_cell')))) {
+                        for (let j = Number(localStorage.getItem('start_td_cell')); j <= Number(localStorage.getItem('stop_td_cell')); j++) {
+                            param.push(document.querySelector('.with_selector').getElementsByTagName('tr')[i - 1].getElementsByTagName('td')[j].textContent)
+                        }
+                    } else {
+                        for (let j = Number(localStorage.getItem('stop_td_cell')); j <= Number(localStorage.getItem('start_td_cell')); j++) {
+                            param.push(document.querySelector('.with_selector').getElementsByTagName('tr')[i - 1].getElementsByTagName('td')[j].textContent)
+                        }
+                    }
+                }
+                data.params.push(param)
+
+            }
+
+
+            console.log(data)
+
+            document.getElementById('form').getElementsByTagName('input')[0].value = data,
+                document.getElementById('form').getElementsByTagName('input')[1].click();
+
+
+            $.ajax({
+                xhrFields: {
+                    responseType: 'blob',
+                },
+                url: '/excel_hour_area/' + $('#table_date_start').val(),
+                method: 'POST',
+                data: data,
+                success: function (result, status, xhr) {
+                    var disposition = xhr.getResponseHeader('content-disposition');
+                    var filename = disposition.split('=')[1];
+                    // The actual download
+                    var blob = new Blob([result], {
+                        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+                    });
+                    var link = document.createElement('a');
+                    link.href = window.URL.createObjectURL(blob);
+                    link.download = filename;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    window.location.href = '/'
+                }
+            })
+
+            // window.location.href = '/excel_hour/' + $('#table_date_start').val() + '/' + $('.tableItem.choiced').attr('data-id') + '/' + text
+            // document.getElementById('modal_export_ober').style.display = 'none'
+        }
+
+
         ///Для подтверждения достоверности
         function all_param_accepted(th) {
             if (th.getElementsByTagName('img')[0].style.display === 'none') {
@@ -562,45 +699,46 @@
                     static_table_body.innerHTML = ''
                     static_table_body.classList.add('tbody_for_search');  //для поиска
                     var charts = {}
+                    let font_size = 14 * localStorage.getItem('font')
                     for (var row of res) {
                         var tr = document.createElement('tr')
                         var static_tr = document.createElement('tr')
                         tr.setAttribute('data-id', row['hfrpok'])
                         static_tr.setAttribute('data-id', row['hfrpok'])
 
-                        static_tr.innerHTML += `<td style="font-size:${14 * localStorage.getItem('font')}px"><span style="background-color: rgba(0, 0, 0, 0); text-align: center; width: 70%; padding-left: 0px; padding-right: 0px">${row['shortname']}</span><img onclick="get_graph(${row['hfrpok']})" onmouseover="this.style.border = '2px solid black'" onmouseout="this.style.border = 'none'" style="width: 20%; float: right; margin-top: 6px" src="assets/images/icons/ober_graph.png"></td>`
-                        static_tr.innerHTML += `<td style="font-size:${14 * localStorage.getItem('font')}px" onmouseover="get_parent_name(this)" data-name="namepar1">${row['namepar1']}</td>`
+                        static_tr.innerHTML += `<td class="unselectable" style="font-size:${font_size}px"><span style="background-color: rgba(0, 0, 0, 0); text-align: center; width: 70%; padding-left: 0px; padding-right: 0px">${row['shortname']}</span><img onclick="get_graph(${row['hfrpok']})" onmouseover="this.style.border = '2px solid black'" onmouseout="this.style.border = 'none'" style="width: 20%; float: right; margin-top: 6px" src="assets/images/icons/ober_graph.png"></td>`
+                        static_tr.innerHTML += `<td class="unselectable" style="font-size:${font_size}px" onmouseover="get_parent_name(this)" data-name="namepar1">${row['namepar1']}</td>`
 
                         for (var id = 1; id <= 24; id++) {
                             if (row[id]['id']) {
                                 if (Boolean(row[id]['xml_create'] === true)) {
                                     if (Boolean(row[id]['manual']) === true) {
-                                        tr.innerHTML += `<td style="font-size:${14 * localStorage.getItem('font')}px" data-time-id="${id}" class="hour-value-${row['hfrpok']}" data-time="${row[id]['timestamp']}" style="background-color: #1ab585"><span contenteditable="false" style="background-color: #1ab585" class="changeable_td tooltip" xml-create="true" data-column="val" data-row-id="${row[id]['id']}" spellcheck="false" data-type="float" numbercolumn="${id}" data-title="Изменил: ${row[id]['change_by']}">${row[id]['val']}</span></td>`
+                                        tr.innerHTML += `<td class="unselectable" style="font-size:${font_size}px" data-time-id="${id}" class="hour-value-${row['hfrpok']}" data-time="${row[id]['timestamp']}" style="background-color: #1ab585"><span contenteditable="false" style="background-color: #1ab585" class="changeable_td tooltip" xml-create="true" data-column="val" data-row-id="${row[id]['id']}" spellcheck="false" data-type="float" numbercolumn="${id}" data-title="Изменил: ${row[id]['change_by']}">${row[id]['val']}</span></td>`
                                     } else {
-                                        tr.innerHTML += `<td style="font-size:${14 * localStorage.getItem('font')}px" data-time-id="${id}" class="hour-value-${row['hfrpok']}" data-time="${row[id]['timestamp']}" style="background-color: #1ab585"><span contenteditable="false" style="background-color: #1ab585" class="changeable_td" xml-create="true" data-column="val" data-row-id="${row[id]['id']}" spellcheck="false" data-type="float" numbercolumn="${id}">${row[id]['val']}</span></td>`
+                                        tr.innerHTML += `<td class="unselectable" style="font-size:${font_size}px" data-time-id="${id}" class="hour-value-${row['hfrpok']}" data-time="${row[id]['timestamp']}" style="background-color: #1ab585"><span contenteditable="false" style="background-color: #1ab585" class="changeable_td" xml-create="true" data-column="val" data-row-id="${row[id]['id']}" spellcheck="false" data-type="float" numbercolumn="${id}">${row[id]['val']}</span></td>`
                                     }
                                 } else {
                                     if (Boolean(row[id]['manual']) === true) {
-                                        tr.innerHTML += `<td style="font-size:${14 * localStorage.getItem('font')}px" data-time-id="${id}" class="hour-value-${row['hfrpok']}" data-time="${row[id]['timestamp']}" style="background-color: indianred" ><span contenteditable="true" class="changeable_td tooltip" numbercolumn="${id}" style="background-color: indianred" data-column="val" data-row-id="${row[id]['id']}"  spellcheck="false" data-type="float" data-title="Изменил: ${row[id]['change_by']}">${row[id]['val']}</span></td>`
+                                        tr.innerHTML += `<td class="unselectable" style="font-size:${font_size}px" data-time-id="${id}" class="hour-value-${row['hfrpok']}" data-time="${row[id]['timestamp']}" style="background-color: indianred" ><span contenteditable="true" class="changeable_td tooltip" numbercolumn="${id}" style="background-color: indianred" data-column="val" data-row-id="${row[id]['id']}"  spellcheck="false" data-type="float" data-title="Изменил: ${row[id]['change_by']}">${row[id]['val']}</span></td>`
                                     } else {
                                         if (accept_ids.includes(id)) {
                                             if (row[id]['change_by'] != '') {
-                                                tr.innerHTML += `<td style="font-size:${14 * localStorage.getItem('font')}px" data-time-id="${id}" class="hour-value-${row['hfrpok']}" data-time="${row[id]['timestamp']}"><span contenteditable="false" class="changeable_td tooltip" numbercolumn="${id}" style="background-color: rgba(0, 0, 0, 0)" data-column="val" data-row-id="${row[id]['id']}"  spellcheck="false" data-type="float" data-title="${row[id]['change_by']}" >${row[id]['val']}</span></td>`
+                                                tr.innerHTML += `<td class="unselectable" style="font-size:${font_size}px" data-time-id="${id}" class="hour-value-${row['hfrpok']}" data-time="${row[id]['timestamp']}"><span contenteditable="false" class="changeable_td tooltip" numbercolumn="${id}" style="background-color: rgba(0, 0, 0, 0)" data-column="val" data-row-id="${row[id]['id']}"  spellcheck="false" data-type="float" data-title="${row[id]['change_by']}" >${row[id]['val']}</span></td>`
                                             } else {
-                                                tr.innerHTML += `<td style="font-size:${14 * localStorage.getItem('font')}px" data-time-id="${id}" class="hour-value-${row['hfrpok']}" data-time="${row[id]['timestamp']}"><span class="changeable_td" contenteditable="false" style="background-color: rgba(0, 0, 0, 0)" oncopy="return false" numbercolumn="${id}" oncut="return false" onpaste="return false" data-column="val" data-row-id="${row[id]['id']}"  spellcheck="false" data-type="float">${row[id]['val']}</span></td>`
+                                                tr.innerHTML += `<td class="unselectable" style="font-size:${font_size}px" data-time-id="${id}" class="hour-value-${row['hfrpok']}" data-time="${row[id]['timestamp']}"><span class="changeable_td" contenteditable="false" style="background-color: rgba(0, 0, 0, 0)" oncopy="return false" numbercolumn="${id}" oncut="return false" onpaste="return false" data-column="val" data-row-id="${row[id]['id']}"  spellcheck="false" data-type="float">${row[id]['val']}</span></td>`
                                             }
                                         } else {
                                             if (row[id]['change_by'] != '') {
-                                                tr.innerHTML += `<td style="font-size:${14 * localStorage.getItem('font')}px" data-time-id="${id}" class="hour-value-${row['hfrpok']}" data-time="${row[id]['timestamp']}"><span contenteditable="true" class="changeable_td tooltip" numbercolumn="${id}" style="background-color: rgba(0, 0, 0, 0)" data-column="val" data-row-id="${row[id]['id']}"  spellcheck="false" data-type="float" data-title="${row[id]['change_by']}" >${row[id]['val']}</span></td>`
+                                                tr.innerHTML += `<td class="unselectable" style="font-size:${font_size}px" data-time-id="${id}" class="hour-value-${row['hfrpok']}" data-time="${row[id]['timestamp']}"><span contenteditable="true" class="changeable_td tooltip" numbercolumn="${id}" style="background-color: rgba(0, 0, 0, 0)" data-column="val" data-row-id="${row[id]['id']}"  spellcheck="false" data-type="float" data-title="${row[id]['change_by']}" >${row[id]['val']}</span></td>`
                                             } else {
-                                                tr.innerHTML += `<td style="font-size:${14 * localStorage.getItem('font')}px" data-time-id="${id}" class="hour-value-${row['hfrpok']}" data-time="${row[id]['timestamp']}"><span class="changeable_td" contenteditable="true" style="background-color: white" oncopy="return false" numbercolumn="${id}" oncut="return false" onpaste="return false" data-column="val" data-row-id="${row[id]['id']}"  spellcheck="false" data-type="float">${row[id]['val']}</span></td>`
+                                                tr.innerHTML += `<td class="unselectable" style="font-size:${font_size}px" data-time-id="${id}" class="hour-value-${row['hfrpok']}" data-time="${row[id]['timestamp']}"><span class="changeable_td" contenteditable="true" style="background-color: white" oncopy="return false" numbercolumn="${id}" oncut="return false" onpaste="return false" data-column="val" data-row-id="${row[id]['id']}"  spellcheck="false" data-type="float">${row[id]['val']}</span></td>`
                                             }
                                         }
                                     }
                                 }
 
                             } else {
-                                tr.innerHTML += `<td style="font-size:${14 * localStorage.getItem('font')}px" data-time-id="${id}" class="hour-value-${row['hfrpok']}" ><span class="create_td" style="background-color: rgba(0, 0, 0, 0)" oncopy="return false" oncut="return false" onpaste="return false" data-column="val"   numbercolumn="${id}" hfrpok="${row['hfrpok']}" spellcheck="false" data-type="float">...</span></td>`
+                                tr.innerHTML += `<td class="unselectable" style="font-size:${font_size}px" data-time-id="${id}" class="hour-value-${row['hfrpok']}" ><span class="create_td" style="background-color: rgba(0, 0, 0, 0)" oncopy="return false" oncut="return false" onpaste="return false" data-column="val"   numbercolumn="${id}" hfrpok="${row['hfrpok']}" spellcheck="false" data-type="float">...</span></td>`
                             }
                         }
 
@@ -616,11 +754,11 @@
         }
 
         function get_graph(hfrpok) {
-            if (document.getElementById('modal_graph').classList.contains('many_param')){ ///если надо отобразить несколько параметров
-                document.getElementById('text_graph').textContent += ' '+hfrpok
+            if (document.getElementById('modal_graph').classList.contains('many_param')) { ///если надо отобразить несколько параметров
+                document.getElementById('text_graph').textContent += ' ' + hfrpok
                 document.getElementById('modal_graph').style.display = 'flex'
                 get_graph_history()
-            }else {
+            } else {
                 var data = [];
                 var xaxis = [];
                 var static_tr = document.getElementById('statickItemInfoTable').querySelector(`tr[data-id="${hfrpok}"]`).querySelector(`td[data-name="namepar1"]`).textContent
@@ -632,11 +770,11 @@
                 next_date = new Date(next_date.setDate(next_date.getDate() + 1))
                 for (var th of dynamic_head) {
                     if (th.getAttribute('data-time').split(':')[0][0] === '0') {
-                        next_date.setHours(Number(th.getAttribute('data-time').split(':')[0])+ 3)
+                        next_date.setHours(Number(th.getAttribute('data-time').split(':')[0]) + 3)
                         next_date.setMinutes(th.getAttribute('data-time').split(':')[1])
                         xaxis.push(next_date.getTime())
                     } else {
-                        date.setHours(Number(th.getAttribute('data-time').split(':')[0])+ 3)
+                        date.setHours(Number(th.getAttribute('data-time').split(':')[0]) + 3)
                         date.setMinutes(th.getAttribute('data-time').split(':')[1])
                         xaxis.push(date.getTime())
                     }
@@ -753,10 +891,11 @@
 
     @include('include.font_size-change')
     <style>
-        .selected_td{
+        .selected_td {
             background: yellow;
             background-color: yellow;
         }
+
         .tooltip:before {
             width: 100px;
             bottom: 35px;
@@ -806,6 +945,17 @@
 
         .create_td {
             background-color: white;
+        }
+
+        .unselectable {
+            -webkit-touch-callout: none; /* iOS Safari */
+            -webkit-user-select: none; /* Chrome/Safari/Opera */
+            -khtml-user-select: none; /* Konqueror */
+            -moz-user-select: none; /* Firefox */
+            -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none;
+            /* Non-prefixed version, currently
+                                   not supported by any browser */
         }
     </style>
 

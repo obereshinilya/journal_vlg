@@ -34,10 +34,14 @@ Route::get('/print_skv/{date}', [Controllers\ReportController::class, 'print_skv
 //Главная
     Route::get('/', [Controllers\MenuController::class, 'index_hour'])->name('gazprom');
     Route::get('/print_hour/{date}/{parent}/{search}', [Controllers\HoursController::class, 'print_hour']);
+    Route::post('/print_hour_area/{date}/{parent}/{search}', [Controllers\HoursController::class, 'print_hour_area']);
     Route::get('/excel_hour/{date}/{parent}/{search}', [Controllers\ExcelController::class, 'excel_hour']);
+    Route::post('/excel_hour_area/{date}', [Controllers\ExcelController::class, 'excel_hour_area']);
     Route::get('/sut', [Controllers\MenuController::class, 'index_sut']);
     Route::get('/print_sut/{date}/{parent}/{search}', [Controllers\SutController::class, 'print_sut']);
+    Route::post('/print_sut_area/{date}/{parent}/{search}', [Controllers\SutController::class, 'print_sut_area']);
     Route::get('/excel_sut/{date}/{parent}/{search}', [Controllers\ExcelController::class, 'excel_sut']);
+    Route::post('/excel_sut_area/{date}', [Controllers\ExcelController::class, 'excel_sut_area']);
     Route::get('/minutes', [Controllers\MenuController::class, 'index_minut']);
     Route::get('/hours_param_minutes/{date}/{hour}', [Controllers\HoursController::class, 'get_min_param']);
     //Подтверждение достоверности

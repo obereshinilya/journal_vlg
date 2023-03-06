@@ -15,20 +15,29 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 class HourExport implements FromView, WithStyles, ShouldAutoSize
 {
 
-    private $title, $data;
+    private $title, $data, $count, $area;
 
-    public function __construct($title, $data)
+    public function __construct($title, $data, $count, $area)
     {
         $this->title = $title;
         $this->data = $data;
+        $this->count = $count;
+        $this->area = $area;
     }
 
     public function view(): View
     {
-        return view('web.excel.excel_hour_params', [
-            'data' => $this->data,
-            'title' => $this->title
-        ]);
+        if (!$this->area) {
+            return view('web.excel.excel_hour_params', [
+                'data' => $this->data,
+                'title' => $this->title
+            ]);
+        } else {
+            return view('web.excel.excel_hour_params_area', [
+                'data' => $this->data,
+                'title' => $this->title
+            ]);
+        }
     }
 
     public function styles(Worksheet $sheet)
@@ -53,12 +62,15 @@ class HourExport implements FromView, WithStyles, ShouldAutoSize
         ];
         $styleArray2 = [
             'font' => [
-                'size'=>20
+                'size' => 20
             ]
         ];
-
+        $alphabet = [
+            'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
+        ];
+        $diap = 'A1:' . mb_strtoupper($alphabet[$this->count + 1]) . '2';
         $sheet->getStyle('A1')->applyFromArray($styleArray2);
-        $sheet->getStyle('A1:Z2')->applyFromArray($styleArray);
+        $sheet->getStyle($diap)->applyFromArray($styleArray);
         $sheet->getRowDimension('1')->setRowHeight(50);
     }
 

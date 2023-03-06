@@ -35,7 +35,7 @@
                 }
             </style>
             <style>
-                .modal_font {
+                .modal_font, .modal_export_area {
                     position: absolute;
                     top: 0;
                     left: 0;
@@ -47,7 +47,8 @@
                     justify-content: center;
                 }
 
-                .modal_font .overlay_font {
+                .modal_font .overlay_font,
+                .modal_export_area .overlay_export_area {
                     position: absolute;
                     top: 0;
                     left: 0;
@@ -58,7 +59,8 @@
                     z-index: 9999899;
                 }
 
-                .modal-window-font {
+                .modal-window-font,
+                .modal-window-export-area {
                     z-index: 9999999;
                     position: relative;
                     width: 300px;
@@ -201,7 +203,8 @@
         <h1 id="text_modal">Укажите размер шрифта</h1>
         <div class="slidecontainer" style="display: flex; align-items: center">
             <p style="margin: 0 8px 0 0; font-size: small; color: darkgrey">А</p>
-            <input class="slider-size" style="margin: 0 10px 0 0" type="range" id="font_size" onchange="console.log(this.value), save_font_size()"
+            <input class="slider-size" style="margin: 0 10px 0 0" type="range" id="font_size"
+                   onchange="console.log(this.value), save_font_size()"
 
                    min="0.5" max="1.5"
                    id="size" step="0.1"
@@ -214,8 +217,36 @@
     </div>
 </div>
 
+<div class="modal_export_area" id="modal_export_area">
+    <div class="modal-window-export-area">
+        <p style="float: right; top: 0px; margin: 0px; opacity: 0.5"
+           onclick="document.getElementById('modal_export_area').style.display = 'none'">x</p>
+        <table style="display: table; table-layout: fixed">
+            <tbody>
+            <tr>
+                <h2>Укажите формат экспорта</h2>
+            </tr>
+            <tr>
+                <button id="excel_area" class="button button1" onclick="CallExcel_area()">Excel</button>
+                <button id="print_time_area" class="button button1" style="margin-left: 30px"
+                        onclick="CallPrint_area()">Печать (pdf)
+                </button>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+    <div class="overlay_export_area" id="overlay_export_area">
+
+    </div>
+</div>
+
+
 <script>
 
+    function open_modal_export_area() {
+        document.getElementById('modal_export_area').style.display = 'flex'
+    }
 
     function open_modal_font() {
         document.getElementById('modal_font').style.display = 'flex'
@@ -404,6 +435,77 @@
         for (var i = 0; i < list.length; i++) {
             list[i].style.display = "none";
         }
+    }
+
+    function mouseenter_func() {
+        // $(this).toggleClass('selected_td');   // присваиваем класс
+
+        // $('.selected_td').toggleClass('selected_td')   //очищаем класс у всех
+
+        $('#itemInfoTable td')
+            .mousedown(function () {
+                localStorage.setItem('start_td_row', this.parentNode.rowIndex)   //нумерация с 1
+                localStorage.setItem('start_td_cell', this.cellIndex)           //нумерация с 1
+                $('td').on('mouseenter', function () {
+                    localStorage.setItem('stop_td_row', this.parentNode.rowIndex)
+                    localStorage.setItem('stop_td_cell', this.cellIndex)
+                    mark_region()
+                });
+            })
+            .mouseup(function () {
+                if (document.querySelectorAll('.selected_td').length > 1) {
+                    print_region()
+                    $('td').off('mouseenter');
+                }
+            });
+
+        function mark_region() {
+            var start_td_cell = Number(localStorage.getItem('start_td_cell'))
+            var start_td_row = Number(localStorage.getItem('start_td_row'))
+            var stop_td_cell = Number(localStorage.getItem('stop_td_cell'))
+            var stop_td_row = Number(localStorage.getItem('stop_td_row'))
+            if (start_td_row > stop_td_row) {  //ведем свнизу вверх
+                for (var row = stop_td_row; row <= start_td_row; row++) {
+                    var real_row = document.getElementById('itemInfoTable').getElementsByTagName('tbody')[0].getElementsByTagName('tr')[row - 1]
+                    if (start_td_cell > stop_td_cell) {  ///ведем слева направо
+                        for (var cell = stop_td_cell; cell <= start_td_cell; cell++) {
+                            var real_cell = real_row.getElementsByTagName('td')[cell]
+                            real_cell.classList.add('selected_td')
+                        }
+                    } else { ///ведем справа налево
+                        for (var cell = start_td_cell; cell <= stop_td_cell; cell++) {
+                            var real_cell = real_row.getElementsByTagName('td')[cell]
+                            real_cell.classList.add('selected_td')
+                        }
+                    }
+                }
+            } else {
+                for (var row = start_td_row; row <= stop_td_row; row++) {
+                    var real_row = document.getElementById('itemInfoTable').getElementsByTagName('tbody')[0].getElementsByTagName('tr')[row - 1]
+                    if (start_td_cell > stop_td_cell) {  ///ведем слева направо
+                        for (var cell = stop_td_cell; cell <= start_td_cell; cell++) {
+                            var real_cell = real_row.getElementsByTagName('td')[cell]
+                            real_cell.classList.add('selected_td')
+                        }
+                    } else { ///ведем справа налево
+                        for (var cell = start_td_cell; cell <= stop_td_cell; cell++) {
+                            var real_cell = real_row.getElementsByTagName('td')[cell]
+                            real_cell.classList.add('selected_td')
+                        }
+                    }
+                }
+            }
+        }
+
+        function print_region() {
+            open_modal_confirm_ober('Распечатать выделенную область?')
+            $('.selected_td').toggleClass('selected_td')
+        }
+
+    }
+
+    function confirm_request_print() {   ///функция, выполняемая при подтверждении
+        open_modal_export_area();
     }
 
 </script>
