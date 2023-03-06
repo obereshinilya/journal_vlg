@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Models\DzMasdu;
 use App\Models\JournalSmeny;
 use App\Models\JournalSmeny_table;
 use Illuminate\Http\Request;
@@ -11,6 +12,15 @@ use function Livewire\str;
 
 class SutJournalController extends Controller
 {
+    public function last_DZ($date)
+    {
+        try {
+            $last_dz = DzMasdu::where('create', '<', date('Y-m-d 23:59:59', strtotime($date)))->orderbydesc('create')->first()->dz;
+        }catch (\Throwable $e){
+            $last_dz = 'Нет данных';
+        }
+        return $last_dz;
+    }
     public function copy_record()
     {
         $date_new = date('Y-m-d');

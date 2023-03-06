@@ -60,12 +60,14 @@
     </style>
     <div style="display: inline-flex; width: 100%">
         <h3>Сменный журнал ООО "Газпром ПХГ" за диспетчерские сутки</h3>
-
         <div class="date-input-group" style="margin-left: 2%">
             <input type="date" id="table_date_start" class="date_input" required onkeydown="return false">
             <label for="table_date_start" class="table_date_label">Дата</label>
         </div>
+        <h5 style="opacity: 0.6; margin-left: 20px">Диспетчерское задание:</h5>
+        <h5 style="opacity: 0.6; margin-left: 10px" id="dz"></h5>
         <div style="position: absolute; right: 50px; margin-top: 10px">
+            <button onclick="window.location.href = '' " class="button button1" style="float: left; margin-top: 1%">Журнал принятия смены</button>
             <button id="print" class="button button1" style="float: left; margin-top: 1%">Печать</button>
             <button id="dz" class="button button1" style="float: left; margin-top: 1%">Журнал ДЗ</button>
         </div>
@@ -848,6 +850,7 @@
             document.getElementById("table_print_end").setAttribute("max", today.toISOString().substring(0, 10));
             get_insert_tables()
             get_tds()
+            check_last_dz()
             $('#print').click(function () {
                 document.getElementById('modal_print').style.display = 'flex'
                 // window.location.href = '/print_journal_smeny/' + $('#table_date_start').val()
@@ -869,7 +872,16 @@
                 get_tds()
             })
         })
-
+        function check_last_dz(){
+            $.ajax({
+                url: '/last_DZ/' + $('#table_date_start').val(),
+                method: 'get',
+                success: function (res) {
+                    document.getElementById('dz').textContent = res
+                },
+                async: true
+            })
+        }
         function get_tds() {
             $.ajax({
                 url: '/get_tds/' + $('#table_date_start').val(),
