@@ -24,38 +24,24 @@ use Excel;
 class ExcelController extends Controller
 {
     public function excel_svodniy($date){
-        $start_day = date('Y-m-d 13:00:00', strtotime($date));
-        for ($i=0; $i<24; $i++){
-            $data[$i] = SvodniyReport::orderbyDesc('id')->where('config', '=', false)
-                ->wherebetween('timestamp', [date('Y-m-d H:00:00', strtotime($start_day.' +'.$i.' hours')), date('Y-m-d H:00:00', strtotime($start_day.' +'.($i+1).' hours'))])
-                ->first();
-            $data_to_report[$i]['hours'] = (int)date('H', strtotime($start_day.' +'.$i.' hours'));
-            try {
-                $data_to_report[$i]['in_gas'] = $data[$i]->in_gas;
-                $data_to_report[$i]['out_gas'] = $data[$i]->out_gas;
-                $data_to_report[$i]['skv_job'] = $data[$i]->skv_job;
-                $data_to_report[$i]['skv_res'] = $data[$i]->skv_res;
-                $data_to_report[$i]['skv_rem'] = $data[$i]->skv_rem;
-                $data_to_report[$i]['gpa_job'] = $data[$i]->gpa_job;
-                $data_to_report[$i]['gpa_res'] = $data[$i]->gpa_res;
-                $data_to_report[$i]['gpa_rem'] = $data[$i]->gpa_rem;
-                $data_to_report[$i]['t_in'] = $data[$i]->t_in;
-                $data_to_report[$i]['t_out'] = $data[$i]->t_out;
-                $data_to_report[$i]['p_in'] = $data[$i]->p_in;
-                $data_to_report[$i]['p_out'] = $data[$i]->p_out;
-            } catch (\Throwable $e){
-                $data_to_report[$i]['in_gas'] = '...';
-                $data_to_report[$i]['out_gas'] = '...';
-                $data_to_report[$i]['skv_job'] = '...';
-                $data_to_report[$i]['skv_res'] = '...';
-                $data_to_report[$i]['skv_rem'] = '...';
-                $data_to_report[$i]['gpa_job'] = '...';
-                $data_to_report[$i]['gpa_res'] = '...';
-                $data_to_report[$i]['gpa_rem'] = '...';
-                $data_to_report[$i]['t_in'] = '...';
-                $data_to_report[$i]['t_out'] = '...';
-                $data_to_report[$i]['p_in'] = '...';
-                $data_to_report[$i]['p_out'] = '...';
+        $start_day = date('Y-m-d 09:00:00', strtotime($date));
+        $param_hfrpoks = [];
+        $config = SvodniyReport::where('config', '=', true)->select('in_gas', 'out_gas', 'skv_job', 'skv_res', 'skv_rem', 'gpa_job', 'gpa_res', 'gpa_rem', 't_in', 't_out', 'p_in', 'p_out')->first()->toArray();
+        $keys = array_keys($config);
+        for($i=0; $i<count($keys); $i++){
+            array_push($param_hfrpoks, (int) $config[$keys[$i]]);
+        }
+        $from_hour_param = Hour_params::wherebetween('timestamp', [$start_day, date('Y-m-d H:i:s', strtotime($start_day. '+ 23 hours 59 minutes'))])->wherein('hfrpok_id', $param_hfrpoks)
+            ->select('id', 'val', 'hfrpok_id', 'timestamp', 'xml_create')->get();
+        $data_to_report = [];
+        for ($j=0; $j<24; $j++){
+            foreach ($keys as $key){
+                $data_to_report[$j][$key] = '...';
+            }
+            $buff_data = $from_hour_param->wherebetween('timestamp', [date('Y-m-d H:i:s', strtotime($start_day. '+ '.$j.'hours')), date('Y-m-d H:i:s', strtotime($start_day. '+ '.($j+1).'hours'))])->toArray();
+            foreach ($buff_data as $row){
+                $param_name = array_search($row['hfrpok_id'], $config);
+                $data_to_report[$j][$param_name] = $row['val'];
             }
         }
         $title = 'Часовая сводка за '.$date;

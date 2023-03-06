@@ -116,6 +116,8 @@ Route::get('/print_skv/{date}', [Controllers\ReportController::class, 'print_skv
     Route::get('/open_svodniy', [Controllers\BalansController::class, 'open_svodniy'])->name('open_svodniy');   //Открывает главную
     Route::get('/get_svodniy/{date}', [Controllers\BalansController::class, 'get_svodniy'])->name('get_svodniy');   //Получаем инфу в таблицу
     Route::get('/print_svodniy/{date}', [Controllers\BalansController::class, 'print_svodniy'])->name('print_svodniy');  //Отправляем на печать
+    Route::get('/update_param_svodniy/{param_name}/{timestamp}/{id}/{val}', [Controllers\BalansController::class, 'update_param_svodniy'])->name('update_param_svodniy');  //Сохраняем в базу
+
     Route::get('/svodniy_setting', [Controllers\BalansController::class, 'svodniy_setting'])->name('svodniy_setting');  //Переход на страницу настройки
     Route::get('/get_all_params', [Controllers\MainTableController::class, 'get_all_params'])->name('get_all_params');   //Получаем все параметры (без объектов)
     Route::get('/save_param_svodniy/{params}/{hfrpok}', [Controllers\BalansController::class, 'save_param_svodniy'])->name('save_param_svodniy');  //Сохраняем настройки

@@ -58,7 +58,7 @@ class HourSvodkaExport implements FromView, WithStyles, ShouldAutoSize
 //        ];
 //
 //        $sheet->getStyle('A1')->applyFromArray($styleArray2);
-        $sheet->getStyle('A1:M3')->applyFromArray($styleArray);
+        $sheet->getStyle('A1:M27')->applyFromArray($styleArray);
 //        $sheet->getRowDimension('1')->setRowHeight(50);
     }
 

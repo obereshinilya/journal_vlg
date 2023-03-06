@@ -138,81 +138,51 @@
                 success: function (res) {
                     var body = document.getElementById('time_id')
                     body.innerText = ''
+                    var start_hour = 10
+                    var param_array = ['in_gas', 'out_gas', 'skv_job', 'skv_res', 'skv_rem', 't_in', 't_out', 'p_in', 'p_out', 'gpa_job', 'gpa_res', 'gpa_rem']
                     for (var i = 0; i < 24; i++) {
-                        var hour = Number(res[i]['hours'])
-                        if (hour < 10) {
+                        if (start_hour == 24)
+                            start_hour = 0
+                        var hour = start_hour
+                        if (hour < 10)
                             hour = '0' + hour
-                        }
                         var tr = document.createElement('tr')
                         tr.innerHTML += `<td style="font-size:${14 * localStorage.getItem('font')}px ;text-align: center; padding: 0px; min-width: 20px"><p>${hour + ':00'}</p></td>`
-                        if (res[i]['in_gas'] != '...') {
-                            tr.innerHTML += `<td style="font-size:${14 * localStorage.getItem('font')}px ;text-align: center; padding: 0px; min-width: 20px"><p>${Math.round(Number(res[i]['in_gas'])).toFixed(3)}</p></td>`
-                        } else {
-                            tr.innerHTML += `<td style="font-size:${14 * localStorage.getItem('font')}px ;text-align: center; padding: 0px; min-width: 20px"><p>${res[i]['in_gas']}</p></td>`
+                        for (var param_name of param_array){
+                            console.log(res[i][param_name]['xml_create'])
+                            if (res[i][param_name]['xml_create']){
+                                tr.innerHTML += `<td style="font-size:${14 * localStorage.getItem('font')}px ;text-align: center; padding: 0px; min-width: 20px"><p style="background-color: #1ab585">${res[i][param_name]['val']}</p></td>`
+                            }else {
+                                tr.innerHTML += `<td style="font-size:${14 * localStorage.getItem('font')}px ;text-align: center; padding: 0px; min-width: 20px"><p contenteditable="true" onblur="save_param(this)" param-name="${param_name}" data-timestamp="${res[i][param_name]['timestamp']}" data-id="${res[i][param_name]['id']}">${res[i][param_name]['val']}</p></td>`
+                            }
                         }
-                        if (res[i]['out_gas'] != '...') {
-                            tr.innerHTML += `<td style="font-size:${14 * localStorage.getItem('font')}px ;text-align: center; padding: 0px; min-width: 20px"><p>${Number(res[i]['out_gas']).toFixed(3)}</p></td>`
-                        } else {
-                            tr.innerHTML += `<td style="font-size:${14 * localStorage.getItem('font')}px ;text-align: center; padding: 0px; min-width: 20px"><p>${res[i]['out_gas']}</p></td>`
-                        }
-                        if (res[i]['skv_job'] != '...') {
-                            tr.innerHTML += `<td style="font-size:${14 * localStorage.getItem('font')}px ;text-align: center; padding: 0px; min-width: 20px"><p>${Number(res[i]['skv_job']).toFixed(0)}</p></td>`
-                        } else {
-                            tr.innerHTML += `<td style="font-size:${14 * localStorage.getItem('font')}px ;text-align: center; padding: 0px; min-width: 20px"><p>${res[i]['skv_job']}</p></td>`
-                        }
-                        if (res[i]['skv_res'] != '...') {
-                            tr.innerHTML += `<td style="font-size:${14 * localStorage.getItem('font')}px ;text-align: center; padding: 0px; min-width: 20px"><p>${Number(res[i]['skv_res']).toFixed(0)}</p></td>`
-                        } else {
-                            tr.innerHTML += `<td style="font-size:${14 * localStorage.getItem('font')}px ;text-align: center; padding: 0px; min-width: 20px"><p>${res[i]['skv_res']}</p></td>`
-                        }
-                        if (res[i]['skv_rem'] != '...') {
-                            tr.innerHTML += `<td style="font-size:${14 * localStorage.getItem('font')}px ;text-align: center; padding: 0px; min-width: 20px"><p>${Number(res[i]['skv_rem']).toFixed(0)}</p></td>`
-                        } else {
-                            tr.innerHTML += `<td style="font-size:${14 * localStorage.getItem('font')}px ;text-align: center; padding: 0px; min-width: 20px"><p>${res[i]['skv_rem']}</p></td>`
-                        }
-                        if (res[i]['t_in'] != '...') {
-                            tr.innerHTML += `<td style="font-size:${14 * localStorage.getItem('font')}px ;text-align: center; padding: 0px; min-width: 20px"><p>${Number(res[i]['t_in']).toFixed(3)}</p></td>`
-                        } else {
-                            tr.innerHTML += `<td style="font-size:${14 * localStorage.getItem('font')}px ;text-align: center; padding: 0px; min-width: 20px"><p>${res[i]['t_in']}</p></td>`
-                        }
-                        if (res[i]['t_out'] != '...') {
-                            tr.innerHTML += `<td style="font-size:${14 * localStorage.getItem('font')}px ;text-align: center; padding: 0px; min-width: 20px"><p>${Number(res[i]['t_out']).toFixed(3)}</p></td>`
-                        } else {
-                            tr.innerHTML += `<td style="font-size:${14 * localStorage.getItem('font')}px ;text-align: center; padding: 0px; min-width: 20px"><p>${res[i]['t_out']}</p></td>`
-                        }
-                        if (res[i]['p_in'] != '...') {
-                            tr.innerHTML += `<td style="font-size:${14 * localStorage.getItem('font')}px ;text-align: center; padding: 0px; min-width: 20px"><p>${Number(res[i]['p_in']).toFixed(3)}</p></td>`
-                        } else {
-                            tr.innerHTML += `<td style="font-size:${14 * localStorage.getItem('font')}px ;text-align: center; padding: 0px; min-width: 20px"><p>${res[i]['p_in']}</p></td>`
-                        }
-                        if (res[i]['p_out'] != '...') {
-                            tr.innerHTML += `<td style="font-size:${14 * localStorage.getItem('font')}px ;text-align: center; padding: 0px; min-width: 20px"><p>${Number(res[i]['p_out']).toFixed(3)}</p></td>`
-                        } else {
-                            tr.innerHTML += `<td style="font-size:${14 * localStorage.getItem('font')}px ;text-align: center; padding: 0px; min-width: 20px"><p>${res[i]['p_out']}</p></td>`
-                        }
-
-                        if (res[i]['gpa_job'] != '...') {
-                            tr.innerHTML += `<td style="font-size:${14 * localStorage.getItem('font')}px ;text-align: center; padding: 0px; min-width: 20px"><p>${Number(res[i]['gpa_job']).toFixed(0)}</p></td>`
-                        } else {
-                            tr.innerHTML += `<td style="font-size:${14 * localStorage.getItem('font')}px ;text-align: center; padding: 0px; min-width: 20px"><p>${res[i]['gpa_job']}</p></td>`
-                        }
-                        if (res[i]['gpa_res'] != '...') {
-                            tr.innerHTML += `<td style="font-size:${14 * localStorage.getItem('font')}px ;text-align: center; padding: 0px; min-width: 20px"><p>${Number(res[i]['gpa_res']).toFixed(0)}</p></td>`
-                        } else {
-                            tr.innerHTML += `<td style="font-size:${14 * localStorage.getItem('font')}px ;text-align: center; padding: 0px; min-width: 20px"><p>${res[i]['gpa_res']}</p></td>`
-                        }
-                        if (res[i]['gpa_rem'] != '...') {
-                            tr.innerHTML += `<td style="font-size:${14 * localStorage.getItem('font')}px ;text-align: center; padding: 0px; min-width: 20px"><p>${Number(res[i]['gpa_rem']).toFixed(0)}</p></td>`
-                        } else {
-                            tr.innerHTML += `<td style="font-size:${14 * localStorage.getItem('font')}px ;text-align: center; padding: 0px; min-width: 20px"><p>${res[i]['gpa_rem']}</p></td>`
-                        }
-
+                        start_hour++
                         body.appendChild(tr);
                     }
 
                 },
                 async: true
             })
+        }
+
+        function save_param(p){
+            try {
+                p.textContent = p.textContent.replace(',', '.')
+            }catch (e){
+
+            }
+            if (Number(p.textContent) !== 'NaN'){
+                $.ajax({
+                    url:'/update_param_svodniy/'+p.getAttribute('param-name')+'/'+p.getAttribute('data-timestamp')+'/'+p.getAttribute('data-id')+'/'+p.textContent,
+                    type:'GET',
+                    success:(res)=>{
+                        get_table_data()
+                        open_modal_ober('Данные успешно сохранены!')
+                    }, async: false
+                })
+            }else {
+                open_modal_ober('Неверный формат числа!')
+            }
         }
 
 
