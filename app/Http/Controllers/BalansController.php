@@ -139,59 +139,59 @@ class BalansController extends Controller
     }
 
     public function get_svodniy($date){
-        $start_day = date('Y-m-d 13:00:00', strtotime($date));
-        for ($i=0; $i<24; $i++){
-            $data[$i] = SvodniyReport::orderbyDesc('id')->where('config', '=', false)
-                ->wherebetween('timestamp', [date('Y-m-d H:00:00', strtotime($start_day.' +'.$i.' hours')), date('Y-m-d H:00:00', strtotime($start_day.' +'.($i+1).' hours'))])
-                ->first();
-            $data_to_report[$i]['hours'] = (int)date('H', strtotime($start_day.' +'.$i.' hours'));
-            try {
-                $data_to_report[$i]['in_gas'] = $data[$i]->in_gas;
-                $data_to_report[$i]['out_gas'] = $data[$i]->out_gas;
-                $data_to_report[$i]['skv_job'] = $data[$i]->skv_job;
-                $data_to_report[$i]['skv_res'] = $data[$i]->skv_res;
-                $data_to_report[$i]['skv_rem'] = $data[$i]->skv_rem;
-                $data_to_report[$i]['gpa_job'] = $data[$i]->gpa_job;
-                $data_to_report[$i]['gpa_res'] = $data[$i]->gpa_res;
-                $data_to_report[$i]['gpa_rem'] = $data[$i]->gpa_rem;
-                $data_to_report[$i]['t_in'] = $data[$i]->t_in;
-                $data_to_report[$i]['t_out'] = $data[$i]->t_out;
-                $data_to_report[$i]['p_in'] = $data[$i]->p_in;
-                $data_to_report[$i]['p_out'] = $data[$i]->p_out;
-            } catch (\Throwable $e){
-                $data_to_report[$i]['in_gas'] = '...';
-                $data_to_report[$i]['out_gas'] = '...';
-                $data_to_report[$i]['skv_job'] = '...';
-                $data_to_report[$i]['skv_res'] = '...';
-                $data_to_report[$i]['skv_rem'] = '...';
-                $data_to_report[$i]['gpa_job'] = '...';
-                $data_to_report[$i]['gpa_res'] = '...';
-                $data_to_report[$i]['gpa_rem'] = '...';
-                $data_to_report[$i]['t_in'] = '...';
-                $data_to_report[$i]['t_out'] = '...';
-                $data_to_report[$i]['p_in'] = '...';
-                $data_to_report[$i]['p_out'] = '...';
+        $start_day = date('Y-m-d 09:00:00', strtotime($date));
+        $param_hfrpoks = [];
+        $config = SvodniyReport::where('config', '=', true)->select('in_gas', 'out_gas', 'skv_job', 'skv_res', 'skv_rem', 'gpa_job', 'gpa_res', 'gpa_rem', 't_in', 't_out', 'p_in', 'p_out')->first()->toArray();
+        $keys = array_keys($config);
+        for($i=0; $i<count($keys); $i++){
+            array_push($param_hfrpoks, (int) $config[$keys[$i]]);
+        }
+        $from_hour_param = Hour_params::wherebetween('timestamp', [$start_day, date('Y-m-d H:i:s', strtotime($start_day. '+ 23 hours 59 minutes'))])->wherein('hfrpok_id', $param_hfrpoks)
+            ->select('id', 'val', 'hfrpok_id', 'timestamp', 'xml_create')->get();
+        $data_to_report = [];
+        for ($j=0; $j<24; $j++){
+            foreach ($keys as $key){
+                $data_to_report[$j][$key]['val'] = '...';
+                $data_to_report[$j][$key]['id'] = 'false';
+                $data_to_report[$j][$key]['xml_create'] = false;
+                $data_to_report[$j][$key]['timestamp'] = date('Y-m-d H:45:s', strtotime($start_day. '+ '.$j.'hours'));
+            }
+            $buff_data = $from_hour_param->wherebetween('timestamp', [date('Y-m-d H:i:s', strtotime($start_day. '+ '.$j.'hours')), date('Y-m-d H:i:s', strtotime($start_day. '+ '.($j+1).'hours'))])->toArray();
+            foreach ($buff_data as $row){
+                $param_name = array_search($row['hfrpok_id'], $config);
+                $data_to_report[$j][$param_name]['val'] = $row['val'];
+                $data_to_report[$j][$param_name]['id'] = $row['id'];
+                $data_to_report[$j][$param_name]['xml_create'] = $row['xml_create'];
             }
         }
-
         return $data_to_report;
     }
 
-    public function create_record_svodniy(){
-        $hfrpok = SvodniyReport::orderbyDesc('id')->where('config', '=', true)->first()->toArray();
-        $keys = array_keys($hfrpok);
-        foreach ($keys as $key) {
-            if ($key != 'config' & $key != 'timestamp' & $key != 'id'){
-                try {
-                    $to_table[$key] = Hour_params::orderbyDesc('id')->where('hfrpok_id', '=', stristr($hfrpok[$key], '.', true))->first()->val;
-                }catch (\Throwable $e){
-                    $to_table[$key] = 0;
-                }
-            }
+    public function update_param_svodniy($param_name, $timestamp, $id, $val){
+        if ($id=='false'){
+            $hfrpok = SvodniyReport::where('config', '=', true)->first()->$param_name;
+            Hour_params::create(['hfrpok_id'=>(int)$hfrpok, 'val'=>$val, 'timestamp'=>$timestamp, 'manual'=>true]);
+        }else{
+            Hour_params::where('id', '=', $id)->first()->update(['val'=>$val]);
         }
-        $to_table['timestamp'] = date('Y-m-d H:i:s');
-        SvodniyReport::create($to_table);
     }
+
+
+//    public function create_record_svodniy(){
+//        $hfrpok = SvodniyReport::orderbyDesc('id')->where('config', '=', true)->first()->toArray();
+//        $keys = array_keys($hfrpok);
+//        foreach ($keys as $key) {
+//            if ($key != 'config' & $key != 'timestamp' & $key != 'id'){
+//                try {
+//                    $to_table[$key] = Hour_params::orderbyDesc('id')->where('hfrpok_id', '=', stristr($hfrpok[$key], '.', true))->first()->val;
+//                }catch (\Throwable $e){
+//                    $to_table[$key] = 0;
+//                }
+//            }
+//        }
+//        $to_table['timestamp'] = date('Y-m-d H:i:s');
+//        SvodniyReport::create($to_table);
+//    }
 
     public function print_svodniy($date){
         $new_log  = (new MainTableController)->create_log_record('Распечатал сводный отчет за ' . $date);

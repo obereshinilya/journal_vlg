@@ -45,13 +45,20 @@
     </tr>
     </thead>
     <tbody>
+    <?php $start_hour = 10?>
+
     @foreach($data_to_report as $row)
         <tr>
-            @if($row['hours']<10)
-                <td>{{'0'.$row['hours'].':00'}}</td>
+            <?php
+            if ($start_hour == 24)
+            $start_hour = 0
+            ?>
+            @if($start_hour<10)
+                <td>{{'0'.$start_hour.':00'}}</td>
             @else
-                <td>{{$row['hours'].':00'}}</td>
+                <td>{{$start_hour.':00'}}</td>
             @endif
+                <?php $start_hour++ ?>
             <td>{{$row['in_gas']}}</td>
             <td>{{$row['out_gas']}}</td>
             <td>{{$row['skv_job']}}</td>

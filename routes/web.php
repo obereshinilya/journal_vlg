@@ -120,6 +120,8 @@ Route::get('/print_skv/{date}', [Controllers\ReportController::class, 'print_skv
     Route::get('/open_svodniy', [Controllers\BalansController::class, 'open_svodniy'])->name('open_svodniy');   //Открывает главную
     Route::get('/get_svodniy/{date}', [Controllers\BalansController::class, 'get_svodniy'])->name('get_svodniy');   //Получаем инфу в таблицу
     Route::get('/print_svodniy/{date}', [Controllers\BalansController::class, 'print_svodniy'])->name('print_svodniy');  //Отправляем на печать
+    Route::get('/update_param_svodniy/{param_name}/{timestamp}/{id}/{val}', [Controllers\BalansController::class, 'update_param_svodniy'])->name('update_param_svodniy');  //Сохраняем в базу
+
     Route::get('/svodniy_setting', [Controllers\BalansController::class, 'svodniy_setting'])->name('svodniy_setting');  //Переход на страницу настройки
     Route::get('/get_all_params', [Controllers\MainTableController::class, 'get_all_params'])->name('get_all_params');   //Получаем все параметры (без объектов)
     Route::get('/save_param_svodniy/{params}/{hfrpok}', [Controllers\BalansController::class, 'save_param_svodniy'])->name('save_param_svodniy');  //Сохраняем настройки
@@ -152,6 +154,7 @@ Route::get('/print_skv/{date}', [Controllers\ReportController::class, 'print_skv
 
 
 /////Суточный журнал смены
+    Route::get('/last_DZ/{date}', [Controllers\SutJournalController::class, 'last_DZ'])->name('last_DZ');    //открытие формы
     Route::get('/open_journal_smeny', [Controllers\SutJournalController::class, 'open_journal_smeny'])->name('open_journal_smeny');    //открытие формы
     Route::post('/save_journal_smeny/{date}', [Controllers\SutJournalController::class, 'save_journal_smeny'])->name('save_journal_smeny');   //сохранение строки
     Route::get('/get_insert_tabels/{timestamp}/{name_table}', [Controllers\SutJournalController::class, 'get_insert_tabels'])->name('get_insert_tabels');    //получение вложенных таблиц
@@ -200,6 +203,7 @@ Route::get('/print_skv/{date}', [Controllers\ReportController::class, 'print_skv
     Route::get('/check_smena', [Controllers\DZController::class, 'check_smena'])->name('check_smena');   ///проверка, что в логах сдачи смены
     Route::get('/confirm_smena', [Controllers\DZController::class, 'confirm_smena'])->name('confirm_smena');   ///проверка, что в логах сдачи смены
     Route::get('/pass_smena', [Controllers\DZController::class, 'pass_smena'])->name('pass_smena');   ///проверка, что в логах сдачи смены
+    Route::get('/log_smena', [Controllers\DZController::class, 'log_smena'])->name('log_smena');   ///страница с историей приема\сдачи смены
 ///Грфик за период
     Route::get('/get_graph_history/{hfrpok}/{date_start}/{date_Stop}/{type}', [Controllers\DZController::class, 'get_graph_history'])->name('get_graph_history');   ///проверка, что в логах сдачи смены
 

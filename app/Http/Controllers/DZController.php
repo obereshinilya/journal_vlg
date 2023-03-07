@@ -112,6 +112,10 @@ class DZController extends Controller
         }
         return $data_to_graph;
     }
+
+    public function log_smena(){
+        return view();
+    }
 }
 
 ?>
