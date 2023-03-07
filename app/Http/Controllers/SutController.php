@@ -45,10 +45,10 @@ class SutController extends Controller
         return view('web.pdf_form.pdf_sut_param', compact('date', 'parent', 'search'));
     }
 
-    public function print_sut_area($date, $parent, $search, \Illuminate\Http\Request $request)
+    public function print_sut_area($date, \Illuminate\Http\Request $request)
     {
         $data = $request->all();
-        return view('web.pdf_form.pdf_sut_param_area', compact('date', 'parent', 'search', 'data'));
+        return view('web.pdf_form.pdf_sut_param_area', compact('date',  'data'));
     }
 
 

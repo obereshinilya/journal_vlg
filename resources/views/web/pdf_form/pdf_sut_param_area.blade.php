@@ -38,8 +38,6 @@
 <script src="{{ asset('js/app.js') }}"></script>
 
 <p id="date" style="display: none">{{$date}}</p>
-<p id="parent" style="display: none">{{$parent}}</p>
-<p id="search" style="display: none">{{$search}}</p>
 
 <div style="display: inline-flex; width: 100%;">
     <h3 style="width: 100%; text-align: center">Суточные показатели за {{$date}}</h3>
@@ -85,11 +83,7 @@
 <script>
 
     $(document).ready(function () {
-        get_table_data(document.getElementById('date').textContent, document.getElementById('parent').textContent)
-        if (document.getElementById('parent').textContent !== 'undefined') {
-            hide_row()
-        }
-        search_result()
+        get_table_data(document.getElementById('date').textContent)
     })
 
     // function get_table_data() {
@@ -174,7 +168,7 @@
     }, 1500)
     var div = document.getElementById("redirect")
     div.onclick = function () {
-        document.location.href = "/"
+        document.location.href = "/sut"
     }
 
 

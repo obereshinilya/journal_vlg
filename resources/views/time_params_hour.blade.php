@@ -379,18 +379,14 @@
                 data.params.push(param)
 
             }
-
-
-            console.log(data)
-
+            localStorage.setItem('day', $('#table_date_start').val().split('-')[2])
+            localStorage.setItem('month', $('#table_date_start').val().split('-')[1])
+            localStorage.setItem('year', $('#table_date_start').val().split('-')[0])
             $.ajax({
-                url: '/print_hour_area/' + $('#table_date_start').val() + '/' + $('.tableItem.choiced').attr('data-id') + '/' + text,
+                url: '/print_hour_area/' + $('#table_date_start').val(),
                 method: 'POST',
                 data: data,
                 success: function (res) {
-                    localStorage.setItem('day', $('#table_date_start').val().split('-')[2])
-                    localStorage.setItem('month', $('#table_date_start').val().split('-')[1])
-                    localStorage.setItem('year', $('#table_date_start').val().split('-')[0])
                     document.write(res)
                 }
             })
@@ -469,14 +465,11 @@
                 data.params.push(param)
 
             }
-
-
-            console.log(data)
-
-            document.getElementById('form').getElementsByTagName('input')[0].value = data,
-                document.getElementById('form').getElementsByTagName('input')[1].click();
-
-
+            document.getElementById('form').getElementsByTagName('input')[0].value = data
+            document.getElementById('form').getElementsByTagName('input')[1].click();
+            localStorage.setItem('day', $('#table_date_start').val().split('-')[2])
+            localStorage.setItem('month', $('#table_date_start').val().split('-')[1])
+            localStorage.setItem('year', $('#table_date_start').val().split('-')[0])
             $.ajax({
                 xhrFields: {
                     responseType: 'blob',

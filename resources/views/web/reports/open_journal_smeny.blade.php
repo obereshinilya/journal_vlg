@@ -67,7 +67,7 @@
         <h5 style="opacity: 0.6; margin-left: 20px">Диспетчерское задание:</h5>
         <h5 style="opacity: 0.6; margin-left: 10px" id="dz"></h5>
         <div style="position: absolute; right: 50px; margin-top: 10px">
-            <button onclick="window.location.href = '' " class="button button1" style="float: left; margin-top: 1%">Журнал принятия смены</button>
+            <button onclick="window.location.href = '/log_smena' " class="button button1" style="float: left; margin-top: 1%">Журнал принятия смены</button>
             <button id="print" class="button button1" style="float: left; margin-top: 1%">Печать</button>
             <button id="dz" class="button button1" style="float: left; margin-top: 1%">Журнал ДЗ</button>
         </div>

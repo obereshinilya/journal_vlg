@@ -438,10 +438,6 @@
     }
 
     function mouseenter_func() {
-        // $(this).toggleClass('selected_td');   // присваиваем класс
-
-        // $('.selected_td').toggleClass('selected_td')   //очищаем класс у всех
-
         $('#itemInfoTable td')
             .mousedown(function () {
                 localStorage.setItem('start_td_row', this.parentNode.rowIndex)   //нумерация с 1
@@ -455,8 +451,8 @@
             .mouseup(function () {
                 if (document.querySelectorAll('.selected_td').length > 1) {
                     print_region()
-                    $('td').off('mouseenter');
                 }
+                $('td').off('mouseenter');
             });
 
         function mark_region() {

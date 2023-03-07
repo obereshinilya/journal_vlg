@@ -77,11 +77,14 @@ class HoursController extends Controller
         return view('web.pdf_form.pdf_hour_param', compact('date', 'parent', 'search'));
     }
 
-    public function print_hour_area($date, $parent, $search, \Illuminate\Http\Request $request)
+    public function print_hour_area($date, \Illuminate\Http\Request $request)
     {
-        $data = $request->all();
-
-        return view('web.pdf_form.pdf_hour_param_area', compact('date', 'parent', 'search', 'data'));
+        try {
+            $data = $request->all();
+            return view('web.pdf_form.pdf_hour_param_area', compact('date',  'data'));
+        }catch (\Throwable $e){
+            return $e;
+        }
     }
 
 }

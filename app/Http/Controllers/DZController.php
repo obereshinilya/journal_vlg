@@ -114,7 +114,10 @@ class DZController extends Controller
     }
 
     public function log_smena(){
-        return view();
+        return view('web.journal_log_smena');
+    }
+    public function get_journal_log_smena(){
+        return LogSmena::orderby('start_smena')->get();
     }
 }
 

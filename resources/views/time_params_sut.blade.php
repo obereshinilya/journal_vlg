@@ -528,18 +528,13 @@
                 data.params.push(param)
 
             }
-
-
-            console.log(data)
-
+            localStorage.setItem('to_month', $('#table_date_start').val())
             $.ajax({
-                url: '/print_sut_area/' + $('#table_date_start').val() + '/' + $('.tableItem.choiced').attr('data-id') + '/' + text,
+                url: '/print_sut_area/' + $('#table_date_start').val(),
                 method: 'POST',
                 data: data,
                 success: function (res) {
-                    localStorage.setItem('day', $('#table_date_start').val().split('-')[2])
-                    localStorage.setItem('month', $('#table_date_start').val().split('-')[1])
-                    localStorage.setItem('year', $('#table_date_start').val().split('-')[0])
+
                     document.write(res)
                 }
             })
@@ -618,11 +613,7 @@
                 data.params.push(param)
 
             }
-
-
-            console.log(data)
-
-
+            localStorage.setItem('to_month', $('#table_date_start').val())
             $.ajax({
                 xhrFields: {
                     responseType: 'blob',
