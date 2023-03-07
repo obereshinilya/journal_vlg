@@ -126,8 +126,10 @@
             });
 /////
             get_table_data()
+            mouseenter_func()
             $('#table_date_start').change(function () {
                 get_table_data()
+                mouseenter_func()
             })
         })
 
@@ -208,6 +210,7 @@
                     static_table_body.classList.add('tbody_for_search');  //для поиска
                     table_body.style.fontSize = 14 * localStorage.getItem('font') + 'px';
                     var charts = {}
+                    let font_size = 14 * localStorage.getItem('font')
                     var index_thead = false
                     var tr_thead = document.createElement('tr')
                     for (var row of res) {
@@ -215,8 +218,8 @@
                         var static_tr = document.createElement('tr')
                         tr.setAttribute('data-id', row['hfrpok'])
                         static_tr.setAttribute('data-id', row['hfrpok'])
-                        static_tr.innerHTML += `<td style="font-size:${14 * localStorage.getItem('font')}px" ><span style="background-color: rgba(0, 0, 0, 0); text-align: center; width: 70%; padding-left: 0px; padding-right: 0px">${row['shortname']}</span><img onclick="get_graph(${row['hfrpok']})" onmouseover="this.style.border = '2px solid black'" onmouseout="this.style.border = 'none'" style="width: 20%; float: right; margin-top: 6px" src="assets/images/icons/ober_graph.png"></td>`
-                        static_tr.innerHTML += `<td style="font-size:${14 * localStorage.getItem('font')}px" onmouseover="get_parent_name(this)" data-name="namepar1">${row['namepar1']}</td>`
+                        static_tr.innerHTML += `<td style="font-size:${font_size}px" ><span style="background-color: rgba(0, 0, 0, 0); text-align: center; width: 70%; padding-left: 0px; padding-right: 0px">${row['shortname']}</span><img onclick="get_graph(${row['hfrpok']})" onmouseover="this.style.border = '2px solid black'" onmouseout="this.style.border = 'none'" style="width: 20%; float: right; margin-top: 6px" src="assets/images/icons/ober_graph.png"></td>`
+                        static_tr.innerHTML += `<td style="font-size:${font_size}px" onmouseover="get_parent_name(this)" data-name="namepar1">${row['namepar1']}</td>`
 
                         // var data = [];
                         // var xaxis = [];
@@ -230,30 +233,30 @@
                                 } else {
                                     var day = id
                                 }
-                                tr_thead.innerHTML += `<th style="font-size:${14 * localStorage.getItem('font')}px"  class="timeCell" onclick="goToDay(${id})" style="width: 2%; text-align: center" data-time-id="${id}" oncontextmenu="all_param_accepted(this)" ><h4>${day + '.' + month} <img src=\"assets/images/icons/accept_ober.png\" style="height: 14px; display: none"/> </h4></th>`
+                                tr_thead.innerHTML += `<th style="font-size:${font_size}px"  class="timeCell" onclick="goToDay(${id})" style="width: 2%; text-align: center" data-time-id="${id}" oncontextmenu="all_param_accepted(this)" ><h4>${day + '.' + month} <img src=\"assets/images/icons/accept_ober.png\" style="height: 14px; display: none"/> </h4></th>`
                             }
                             if (row[id]['id']) {
                                 if (Boolean(row[id]['xml_create'] === true)) {
                                     if (Boolean(row[id]['manual']) === true) {
-                                        tr.innerHTML += `<td style="font-size:${14 * localStorage.getItem('font')}px" data-time-id="${id}" class="hour-value-${row['hfrpok']}" data-time="${row[id]['timestamp']}" style="background-color: #1ab585"><span contenteditable="false" style="background-color: #1ab585" class="changeable_td tooltip" xml-create="true" data-column="val" data-row-id="${row[id]['id']}" spellcheck="false" data-type="float" numbercolumn="${id}" data-title="Изменил: ${row[id]['change_by']}">${row[id]['val']}</span></td>`
+                                        tr.innerHTML += `<td style="font-size:${font_size}px" data-time-id="${id}" class=" unselectable hour-value-${row['hfrpok']}" data-time="${row[id]['timestamp']}" style="background-color: #1ab585"><span contenteditable="false" style="background-color: #1ab585" class="changeable_td tooltip" xml-create="true" data-column="val" data-row-id="${row[id]['id']}" spellcheck="false" data-type="float" numbercolumn="${id}" data-title="Изменил: ${row[id]['change_by']}">${row[id]['val']}</span></td>`
                                     } else {
-                                        tr.innerHTML += `<td  style="font-size:${14 * localStorage.getItem('font')}px" data-time-id="${id}" class="hour-value-${row['hfrpok']}" data-time="${row[id]['timestamp']}" style="background-color: #1ab585"><span contenteditable="false" style="background-color: #1ab585" class="changeable_td" xml-create="true" data-column="val" data-row-id="${row[id]['id']}" spellcheck="false" data-type="float" numbercolumn="${id}">${row[id]['val']}</span></td>`
+                                        tr.innerHTML += `<td  style="font-size:${font_size}px" data-time-id="${id}" class="unselectable hour-value-${row['hfrpok']}" data-time="${row[id]['timestamp']}" style="background-color: #1ab585"><span contenteditable="false" style="background-color: #1ab585" class="changeable_td" xml-create="true" data-column="val" data-row-id="${row[id]['id']}" spellcheck="false" data-type="float" numbercolumn="${id}">${row[id]['val']}</span></td>`
                                     }
                                 } else {
                                     if (Boolean(row[id]['manual']) === true) {
-                                        tr.innerHTML += `<td style="font-size:${14 * localStorage.getItem('font')}px" data-time-id="${id}" class="hour-value-${row['hfrpok']}" data-time="${row[id]['timestamp']}" style="background-color: indianred" ><span contenteditable="true" class="changeable_td tooltip" numbercolumn="${id}" style="background-color: indianred" data-column="val" data-row-id="${row[id]['id']}"  spellcheck="false" data-type="float" data-title="Изменил: ${row[id]['change_by']}">${row[id]['val']}</span></td>`
+                                        tr.innerHTML += `<td style="font-size:${font_size}px" data-time-id="${id}" class="unselectable hour-value-${row['hfrpok']}" data-time="${row[id]['timestamp']}" style="background-color: indianred" ><span contenteditable="true" class="changeable_td tooltip" numbercolumn="${id}" style="background-color: indianred" data-column="val" data-row-id="${row[id]['id']}"  spellcheck="false" data-type="float" data-title="Изменил: ${row[id]['change_by']}">${row[id]['val']}</span></td>`
                                     } else {
                                         if (accept_ids.includes(id)) {
                                             if (row[id]['change_by'] != '') {
-                                                tr.innerHTML += `<td style="font-size:${14 * localStorage.getItem('font')}px" data-time-id="${id}" class="hour-value-${row['hfrpok']}" data-time="${row[id]['timestamp']}"><span contenteditable="false" class="changeable_td tooltip" numbercolumn="${id}" style="background-color: rgba(0, 0, 0, 0)" data-column="val" data-row-id="${row[id]['id']}"  spellcheck="false" data-type="float" data-title="${row[id]['change_by']}" >${row[id]['val']}</span></td>`
+                                                tr.innerHTML += `<td style="font-size:${font_size}px" data-time-id="${id}" class="unselectable hour-value-${row['hfrpok']}" data-time="${row[id]['timestamp']}"><span contenteditable="false" class="changeable_td tooltip" numbercolumn="${id}" style="background-color: rgba(0, 0, 0, 0)" data-column="val" data-row-id="${row[id]['id']}"  spellcheck="false" data-type="float" data-title="${row[id]['change_by']}" >${row[id]['val']}</span></td>`
                                             } else {
-                                                tr.innerHTML += `<td style="font-size:${14 * localStorage.getItem('font')}px" data-time-id="${id}" class="hour-value-${row['hfrpok']}" data-time="${row[id]['timestamp']}"><span class="changeable_td" contenteditable="false" style="background-color: rgba(0, 0, 0, 0)" oncopy="return false" numbercolumn="${id}" oncut="return false" onpaste="return false" data-column="val" data-row-id="${row[id]['id']}"  spellcheck="false" data-type="float">${row[id]['val']}</span></td>`
+                                                tr.innerHTML += `<td style="font-size:${font_size}px" data-time-id="${id}" class="unselectable hour-value-${row['hfrpok']}" data-time="${row[id]['timestamp']}"><span class="changeable_td" contenteditable="false" style="background-color: rgba(0, 0, 0, 0)" oncopy="return false" numbercolumn="${id}" oncut="return false" onpaste="return false" data-column="val" data-row-id="${row[id]['id']}"  spellcheck="false" data-type="float">${row[id]['val']}</span></td>`
                                             }
                                         } else {
                                             if (row[id]['change_by'] != '') {
-                                                tr.innerHTML += `<td style="font-size:${14 * localStorage.getItem('font')}px" data-time-id="${id}" class="hour-value-${row['hfrpok']}" data-time="${row[id]['timestamp']}"><span contenteditable="true" class="changeable_td tooltip" numbercolumn="${id}" style="background-color: rgba(0, 0, 0, 0)" data-column="val" data-row-id="${row[id]['id']}"  spellcheck="false" data-type="float" data-title="${row[id]['change_by']}" >${row[id]['val']}</span></td>`
+                                                tr.innerHTML += `<td style="font-size:${font_size}px" data-time-id="${id}" class="unselectable hour-value-${row['hfrpok']}" data-time="${row[id]['timestamp']}"><span contenteditable="true" class="changeable_td tooltip" numbercolumn="${id}" style="background-color: rgba(0, 0, 0, 0)" data-column="val" data-row-id="${row[id]['id']}"  spellcheck="false" data-type="float" data-title="${row[id]['change_by']}" >${row[id]['val']}</span></td>`
                                             } else {
-                                                tr.innerHTML += `<td style="font-size:${14 * localStorage.getItem('font')}px" data-time-id="${id}" class="hour-value-${row['hfrpok']}" data-time="${row[id]['timestamp']}"><span class="changeable_td" contenteditable="true" style="background-color: white" oncopy="return false" numbercolumn="${id}" oncut="return false" onpaste="return false" data-column="val" data-row-id="${row[id]['id']}"  spellcheck="false" data-type="float">${row[id]['val']}</span></td>`
+                                                tr.innerHTML += `<td style="font-size:${font_size}px" data-time-id="${id}" class="unselectable hour-value-${row['hfrpok']}" data-time="${row[id]['timestamp']}"><span class="changeable_td" contenteditable="true" style="background-color: white" oncopy="return false" numbercolumn="${id}" oncut="return false" onpaste="return false" data-column="val" data-row-id="${row[id]['id']}"  spellcheck="false" data-type="float">${row[id]['val']}</span></td>`
                                             }
                                         }
                                     }
@@ -261,7 +264,7 @@
                                 // xaxis.push(id)
                                 // data.push(parseFloat(row[id]['val']))
                             } else {
-                                tr.innerHTML += `<td style="font-size:${14 * localStorage.getItem('font')}px" data-time-id="${id}" class="hour-value-${row['hfrpok']}" ><span class="create_td" style="background-color: rgba(0, 0, 0, 0)" oncopy="return false" oncut="return false" onpaste="return false" data-column="val"   numbercolumn="${id}" hfrpok="${row['hfrpok']}" spellcheck="false" data-type="float">...</span></td>`
+                                tr.innerHTML += `<td style="font-size:${font_size}px" data-time-id="${id}" class="unselectable hour-value-${row['hfrpok']}" ><span class="create_td" style="background-color: rgba(0, 0, 0, 0)" oncopy="return false" oncut="return false" onpaste="return false" data-column="val"   numbercolumn="${id}" hfrpok="${row['hfrpok']}" spellcheck="false" data-type="float">...</span></td>`
                             }
                         }
                         index_thead = true
@@ -284,6 +287,7 @@
             make_paint()
             $('#main_content').width($(document.body).width() - $('#side_menu').width() - 50);
         }
+
         function get_parent_name(td) {
             $.ajax({
                 url: '/get_parent_name/' + td.parentNode.getAttribute('data-id'),
@@ -295,12 +299,13 @@
                 async: false
             })
         }
+
         function get_graph(hfrpok) {
-            if (document.getElementById('modal_graph').classList.contains('many_param')){ ///если надо отобразить несколько параметров
-                document.getElementById('text_graph').textContent += ' '+hfrpok
+            if (document.getElementById('modal_graph').classList.contains('many_param')) { ///если надо отобразить несколько параметров
+                document.getElementById('text_graph').textContent += ' ' + hfrpok
                 document.getElementById('modal_graph').style.display = 'flex'
                 get_graph_history()
-            }else {
+            } else {
                 var data = [];
                 var xaxis = [];
                 var static_tr = document.getElementById('statickItemInfoTable').querySelector(`tr[data-id="${hfrpok}"]`).querySelector(`td[data-name="namepar1"]`).textContent
@@ -366,6 +371,7 @@
                 chart.render();
             }
         }
+
         ///Для создания перекрестия
         function make_paint() {
             var all_td = document.getElementsByClassName('with_selector')[0].querySelectorAll('td');
@@ -431,6 +437,7 @@
                 });
             }
         }
+
         function CallPrint() {
             if (!document.getElementById('search_row').value) {
                 var text = false
@@ -439,6 +446,7 @@
             }
             window.location.href = '/print_sut/' + $('#table_date_start').val() + '/' + $('.tableItem.choiced').attr('data-id') + '/' + text
         }
+
         function CallExcel() {
             if (!document.getElementById('search_row').value) {
                 var text = false
@@ -447,6 +455,200 @@
             }
             window.location.href = '/excel_sut/' + $('#table_date_start').val() + '/' + $('.tableItem.choiced').attr('data-id') + '/' + text
             document.getElementById('modal_export_ober').style.display = 'none'
+        }
+
+        function CallPrint_area() {
+            if (!document.getElementById('search_row').value) {
+                var text = false
+            } else {
+                var text = document.getElementById('search_row').value
+            }
+            let data = {
+                'namepar1': [],
+                'shortname': [],
+                'time': [],
+                'params': []
+            };
+            if (Number(localStorage.getItem('start_td_row')) < Number(localStorage.getItem('stop_td_row'))) {
+                for (let i = localStorage.getItem('start_td_row'); i <= localStorage.getItem('stop_td_row'); i++) {
+                    data.namepar1.push(document.querySelector('.with_selector_statick').getElementsByTagName('tr')[i - 1].getElementsByTagName('td')[1].textContent)
+                    data.shortname.push(document.querySelector('.with_selector_statick').getElementsByTagName('tr')[i - 1].getElementsByTagName('td')[0].textContent)
+                }
+            } else {
+                for (let i = Number(localStorage.getItem('stop_td_row')); i <= Number(localStorage.getItem('start_td_row')); i++) {
+                    data.namepar1.push(document.querySelector('.with_selector_statick').getElementsByTagName('tr')[i - 1].getElementsByTagName('td')[1].textContent)
+                    data.shortname.push(document.querySelector('.with_selector_statick').getElementsByTagName('tr')[i - 1].getElementsByTagName('td')[0].textContent)
+                }
+            }
+            if (Number(localStorage.getItem('start_td_cell')) < Number(Number(localStorage.getItem('stop_td_cell')))) {
+                for (let i = Number(localStorage.getItem('start_td_cell')); i <= Number(localStorage.getItem('stop_td_cell')); i++) {
+                    data.time.push(document.getElementById('itemInfoTable').getElementsByTagName('th')[i].textContent.trim())
+                    console.log('время')
+                }
+            } else {
+                for (let i = Number(localStorage.getItem('stop_td_cell')); i <= Number(localStorage.getItem('start_td_cell')); i++) {
+                    data.time.push(document.getElementById('itemInfoTable').getElementsByTagName('th')[i].textContent.trim())
+                    console.log('время')
+                }
+            }
+            let param = [];
+            if (Number(localStorage.getItem('start_td_row')) < Number(localStorage.getItem('stop_td_row'))) {
+
+                for (let i = localStorage.getItem('start_td_row'); i <= localStorage.getItem('stop_td_row'); i++) {
+                    param = [];
+                    if (Number(localStorage.getItem('start_td_cell')) < Number(Number(localStorage.getItem('stop_td_cell')))) {
+
+                        for (let j = Number(localStorage.getItem('start_td_cell')); j <= Number(localStorage.getItem('stop_td_cell')); j++) {
+
+                            param.push(document.querySelector('.with_selector').getElementsByTagName('tr')[i - 1].getElementsByTagName('td')[j].textContent)
+
+                        }
+                    } else {
+                        for (let j = Number(localStorage.getItem('stop_td_cell')); j <= Number(localStorage.getItem('start_td_cell')); j++) {
+                            param.push(document.querySelector('.with_selector').getElementsByTagName('tr')[i - 1].getElementsByTagName('td')[j].textContent)
+                        }
+                    }
+
+                    data.params.push(param)
+
+                }
+            } else {
+                for (let i = localStorage.getItem('stop_td_row'); i <= localStorage.getItem('start_td_row'); i++) {
+                    param = [];
+                    if (Number(localStorage.getItem('start_td_cell')) < Number(Number(localStorage.getItem('stop_td_cell')))) {
+                        for (let j = Number(localStorage.getItem('start_td_cell')); j <= Number(localStorage.getItem('stop_td_cell')); j++) {
+                            param.push(document.querySelector('.with_selector').getElementsByTagName('tr')[i - 1].getElementsByTagName('td')[j].textContent)
+                        }
+                    } else {
+                        for (let j = Number(localStorage.getItem('stop_td_cell')); j <= Number(localStorage.getItem('start_td_cell')); j++) {
+                            param.push(document.querySelector('.with_selector').getElementsByTagName('tr')[i - 1].getElementsByTagName('td')[j].textContent)
+                        }
+                    }
+                }
+                data.params.push(param)
+
+            }
+
+
+            console.log(data)
+
+            $.ajax({
+                url: '/print_sut_area/' + $('#table_date_start').val() + '/' + $('.tableItem.choiced').attr('data-id') + '/' + text,
+                method: 'POST',
+                data: data,
+                success: function (res) {
+                    localStorage.setItem('day', $('#table_date_start').val().split('-')[2])
+                    localStorage.setItem('month', $('#table_date_start').val().split('-')[1])
+                    localStorage.setItem('year', $('#table_date_start').val().split('-')[0])
+                    document.write(res)
+                }
+            })
+
+
+        }
+
+        function CallExcel_area() {
+            if (!document.getElementById('search_row').value) {
+                var text = false
+            } else {
+                var text = document.getElementById('search_row').value
+            }
+            let data = {
+                'namepar1': [],
+                'shortname': [],
+                'time': [],
+                'params': []
+            };
+            if (Number(localStorage.getItem('start_td_row')) < Number(localStorage.getItem('stop_td_row'))) {
+                for (let i = localStorage.getItem('start_td_row'); i <= localStorage.getItem('stop_td_row'); i++) {
+                    data.namepar1.push(document.querySelector('.with_selector_statick').getElementsByTagName('tr')[i - 1].getElementsByTagName('td')[1].textContent)
+                    data.shortname.push(document.querySelector('.with_selector_statick').getElementsByTagName('tr')[i - 1].getElementsByTagName('td')[0].textContent)
+                }
+            } else {
+                for (let i = Number(localStorage.getItem('stop_td_row')); i <= Number(localStorage.getItem('start_td_row')); i++) {
+                    data.namepar1.push(document.querySelector('.with_selector_statick').getElementsByTagName('tr')[i - 1].getElementsByTagName('td')[1].textContent)
+                    data.shortname.push(document.querySelector('.with_selector_statick').getElementsByTagName('tr')[i - 1].getElementsByTagName('td')[0].textContent)
+                }
+            }
+            if (Number(localStorage.getItem('start_td_cell')) < Number(Number(localStorage.getItem('stop_td_cell')))) {
+                for (let i = Number(localStorage.getItem('start_td_cell')); i <= Number(localStorage.getItem('stop_td_cell')); i++) {
+                    data.time.push(document.getElementById('itemInfoTable').getElementsByTagName('th')[i].textContent.trim())
+                    console.log('время')
+                }
+            } else {
+                for (let i = Number(localStorage.getItem('stop_td_cell')); i <= Number(localStorage.getItem('start_td_cell')); i++) {
+                    data.time.push(document.getElementById('itemInfoTable').getElementsByTagName('th')[i].textContent.trim())
+                    console.log('время')
+                }
+            }
+            let param = [];
+            if (Number(localStorage.getItem('start_td_row')) < Number(localStorage.getItem('stop_td_row'))) {
+
+                for (let i = localStorage.getItem('start_td_row'); i <= localStorage.getItem('stop_td_row'); i++) {
+                    param = [];
+                    if (Number(localStorage.getItem('start_td_cell')) < Number(Number(localStorage.getItem('stop_td_cell')))) {
+
+                        for (let j = Number(localStorage.getItem('start_td_cell')); j <= Number(localStorage.getItem('stop_td_cell')); j++) {
+
+                            param.push(document.querySelector('.with_selector').getElementsByTagName('tr')[i - 1].getElementsByTagName('td')[j].textContent)
+
+                        }
+                    } else {
+                        for (let j = Number(localStorage.getItem('stop_td_cell')); j <= Number(localStorage.getItem('start_td_cell')); j++) {
+                            param.push(document.querySelector('.with_selector').getElementsByTagName('tr')[i - 1].getElementsByTagName('td')[j].textContent)
+                        }
+                    }
+
+                    data.params.push(param)
+
+                }
+            } else {
+                for (let i = localStorage.getItem('stop_td_row'); i <= localStorage.getItem('start_td_row'); i++) {
+                    param = [];
+                    if (Number(localStorage.getItem('start_td_cell')) < Number(Number(localStorage.getItem('stop_td_cell')))) {
+                        for (let j = Number(localStorage.getItem('start_td_cell')); j <= Number(localStorage.getItem('stop_td_cell')); j++) {
+                            param.push(document.querySelector('.with_selector').getElementsByTagName('tr')[i - 1].getElementsByTagName('td')[j].textContent)
+                        }
+                    } else {
+                        for (let j = Number(localStorage.getItem('stop_td_cell')); j <= Number(localStorage.getItem('start_td_cell')); j++) {
+                            param.push(document.querySelector('.with_selector').getElementsByTagName('tr')[i - 1].getElementsByTagName('td')[j].textContent)
+                        }
+                    }
+                }
+                data.params.push(param)
+
+            }
+
+
+            console.log(data)
+
+
+            $.ajax({
+                xhrFields: {
+                    responseType: 'blob',
+                },
+                url: '/excel_sut_area/' + $('#table_date_start').val(),
+                method: 'POST',
+                data: data,
+                success: function (result, status, xhr) {
+                    var disposition = xhr.getResponseHeader('content-disposition');
+                    var filename = disposition.split('=')[1];
+                    // The actual download
+                    var blob = new Blob([result], {
+                        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+                    });
+                    var link = document.createElement('a');
+                    link.href = window.URL.createObjectURL(blob);
+                    link.download = filename;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    window.location.href = '/sut'
+                }
+            })
+
+            // window.location.href = '/excel_hour/' + $('#table_date_start').val() + '/' + $('.tableItem.choiced').attr('data-id') + '/' + text
+            // document.getElementById('modal_export_ober').style.display = 'none'
         }
     </script>
     <style>
@@ -473,6 +675,21 @@
             font-size: 12px
         }
 
+        .unselectable {
+            -webkit-touch-callout: none; /* iOS Safari */
+            -webkit-user-select: none; /* Chrome/Safari/Opera */
+            -khtml-user-select: none; /* Konqueror */
+            -moz-user-select: none; /* Firefox */
+            -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none;
+            /* Non-prefixed version, currently
+                                   not supported by any browser */
+        }
+
+        .selected_td {
+            background: yellow;
+            background-color: yellow;
+        }
     </style>
     @include('include.font_size-change')
 
