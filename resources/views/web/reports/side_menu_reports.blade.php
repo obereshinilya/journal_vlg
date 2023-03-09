@@ -81,6 +81,9 @@
                                     <ul id="ppr">
                                         <li><a id="8" class="tableItem">График ППР</a></li>
                                     </ul>
+                                    <ul id="com_log">
+                                        <li><a id="12" class="tableItem">Журнал замечаний</a></li>
+                                    </ul>
                                 </div>`
                 side_tree.innerHTML=new_data;
                 document.getElementById('side_menu').style.width = 'auto'
@@ -155,6 +158,9 @@
                 document.location.href = '/report_skv'
             }else if(vibrano === '99'){
                 document.location.href = '/report_oper_skv_main'
+            }
+            else if(vibrano === '12'){
+                document.location.href = '/open_comment_log'
             }
         }
 

@@ -153,6 +153,16 @@ Route::get('/print_skv/{date}', [Controllers\ReportController::class, 'print_skv
     Route::get('/print_ppr/{year}', [Controllers\PPRController::class, 'print_ppr'])->name('print_ppr');
 
 
+    Route::get('/open_comment_log', [Controllers\CommentLogController::class, 'open_comment_log'])->name('open_comment_log');
+    Route::get('/get_comment_log', [Controllers\CommentLogController::class, 'get_comment_log'])->name('get_comment_log');
+    Route::get('/create_comment_log', [Controllers\CommentLogController::class, 'create_comment_log'])->name('create_comment_log');
+    Route::post('/save_comment_log', [Controllers\CommentLogController::class, 'save_comment_log'])->name('save_comment_log');
+    Route::get('/delete_record_comment_logs/{id}', [Controllers\CommentLogController::class, 'delete_record_comment_log'])->name('delete_record_comment_log');    //получение данных
+    Route::get('/edit_comment_log/{id}', [Controllers\CommentLogController::class, 'edit_comment_log'])->name('edit_comment_log');
+    Route::post('/update_comment_log/{id}', [Controllers\CommentLogController::class, 'update_comment_log'])->name('update_comment_log');
+    Route::get('/delete_event_comment_logs/{id}',[Controllers\CommentLogController::class, 'delete_event_comment_log'])->name('delete_event_comment_log');
+
+
 /////Суточный журнал смены
     Route::get('/last_DZ/{date}', [Controllers\SutJournalController::class, 'last_DZ'])->name('last_DZ');    //открытие формы
     Route::get('/open_journal_smeny', [Controllers\SutJournalController::class, 'open_journal_smeny'])->name('open_journal_smeny');    //открытие формы
