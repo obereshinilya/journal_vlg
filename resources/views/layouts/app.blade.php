@@ -38,6 +38,7 @@
 @include('include.modal_window_confirm')
 @include('include.modal_window_graph')
 @include('include.modal_window_export')
+@include('include.messenger')
 
 @yield('side_menu')
 
