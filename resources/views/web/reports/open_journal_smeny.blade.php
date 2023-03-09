@@ -870,6 +870,7 @@
                 }
                 get_insert_tables()
                 get_tds()
+                check_last_dz()
             })
         })
         function check_last_dz(){

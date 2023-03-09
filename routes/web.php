@@ -207,6 +207,12 @@ Route::get('/print_skv/{date}', [Controllers\ReportController::class, 'print_skv
     Route::get('/get_journal_log_smena', [Controllers\DZController::class, 'get_journal_log_smena'])->name('get_journal_log_smena');   ///страница с историей приема\сдачи смены
 ///Грфик за период
     Route::get('/get_graph_history/{hfrpok}/{date_start}/{date_Stop}/{type}', [Controllers\DZController::class, 'get_graph_history'])->name('get_graph_history');   ///проверка, что в логах сдачи смены
+///Блок для чата
+    Route::get('/get_people_block', [Controllers\ChatController::class, 'get_people_block'])->name('get_people_block');   ///получаем список людей
+    Route::get('/get_chat/{name}', [Controllers\ChatController::class, 'get_chat'])->name('get_chat');   ///получаем текст чата
+    Route::get('/set_type_messege/{id}/{type}', [Controllers\ChatController::class, 'set_type_messege'])->name('set_type_messege');   ///устанавливаем тип сообщения
+    Route::post('/send_messege', [Controllers\ChatController::class, 'send_messege'])->name('send_messege');   ///отправляем сообщение
+    Route::get('/update_people_block', [Controllers\ChatController::class, 'update_people_block'])->name('update_people_block');   ///обновляем список
 
 
 //ГЛАВНАЯ ТАБЛИЦА
