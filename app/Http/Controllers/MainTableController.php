@@ -115,9 +115,11 @@ class MainTableController extends Controller
             $data_user = UserAuth::orderbyDesc('id')->where('ip', '=', $record['ip'])->first();
             $record['username'] = $data_user->username;
             $record['domain_name'] = $data_user->domain_name;
+            $record['level'] = $data_user->level;
         } catch (\Throwable $e){
             $record['username'] = 'Неизвестно';
             $record['domain_name'] = 'Неизвестно';
+            $record['level'] = 'Неизвестно';
         }
         $record['date'] = date('Y-m-d H:i:s');
         try {
@@ -129,10 +131,15 @@ class MainTableController extends Controller
         }
     }
 
-
-
-
-
+    public function register_new_user($name, $level, $domain_name){
+        UserAuth::create([
+            'username'=>$name,
+            'ip'=>\request()->ip(),
+            'level'=>$level,
+            'domain_name'=>$domain_name
+        ]);
+        return redirect('/');
+    }
 }
 
 ?>

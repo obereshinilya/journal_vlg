@@ -71,7 +71,11 @@ class XMLController extends Controller
     }
     public function journal_xml(){
         $new_log  = (new MainTableController)->create_log_record('Открыл журнал отправки XML');
-        return view('web.journal_xml');
+        if (UserAuth::orderbyDesc('id')->where('ip', '=', \request()->ip())->first()->level == 'cdp'){
+            return view('web.journal_xml_cdp');
+        }else{
+            return view('web.journal_xml_rdp');
+        }
     }
     public function get_journal_xml_data(){
         $data = Events::orderByDesc('id')->get();

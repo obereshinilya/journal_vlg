@@ -9,7 +9,7 @@ class LogSmena extends Model{
     public $timestamps = false;
     public $primaryKey = 'id';
     protected $fillable = [
-        'name_user', 'start_smena', 'stop_smena',
+        'name_user', 'start_smena', 'stop_smena', 'level'
     ];
 
 

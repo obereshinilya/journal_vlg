@@ -9,7 +9,7 @@ class UserAuth extends Model{
     public $timestamps = false;
     public $primaryKey = 'id';
     protected $fillable = [
-        'username', 'ip', 'domain_name',
+        'username', 'ip', 'domain_name', 'level'
     ];
 
 

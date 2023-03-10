@@ -49,7 +49,7 @@ class DZController extends Controller
     }
 
     public function check_smena(){
-        $log_smena = LogSmena::orderbydesc('id')->first();
+        $log_smena = LogSmena::orderbydesc('id')->where('level', '=', UserAuth::orderbydesc('id')->where('ip', '=', \request()->ip())->first()->level)->first();
         $name_active_user = UserAuth::orderbydesc('id')->where('ip', '=', \request()->ip())->first()->username;
         if ($log_smena){
             if ($log_smena->name_user == $name_active_user && $log_smena->stop_smena){   //если текущий пользователь сдал смену
@@ -65,10 +65,8 @@ class DZController extends Controller
                 $to_view['commit_smena'] = false;    //принять смену нельзя
             }
         }else{
-            LogSmena::create(
-                ['name_user'=>$name_active_user,
-                'start_smena'=>date('Y-m-d H:i:s')]);
-            $to_view['commit_smena'] = false;    //принять смену нельзя
+            $to_view['text'] = 'Принять смену?';
+            $to_view['commit_smena'] = true;    //принять смену можно
         }
         return $to_view;
     }
@@ -76,11 +74,14 @@ class DZController extends Controller
     public function confirm_smena(){
         $name_active_user = UserAuth::orderbydesc('id')->where('ip', '=', \request()->ip())->first()->username;
         LogSmena::create(['name_user'=>$name_active_user,
-            'start_smena'=>date('Y-m-d H:i:s')]);
+            'start_smena'=>date('Y-m-d H:i:s'),
+            'level'=>UserAuth::orderbydesc('id')->where('ip', '=', \request()->ip())->first()->level]);
         $new_log  = (new MainTableController)->create_log_record('Принял смену');
     }
     public function pass_smena(){
-        LogSmena::orderbydesc('id')->first()->update(['stop_smena'=>date('Y-m-d H:i:s')]);
+        LogSmena::where('name_user', '=', UserAuth::orderbydesc('id')->where('ip', '=', \request()->ip())->first()->username)
+            ->where('level', '=', UserAuth::orderbydesc('id')->where('ip', '=', \request()->ip())->first()->level)
+            ->orderbydesc('start_smena')->first()->update(['stop_smena'=>date('Y-m-d H:i:s')]);
         $new_log  = (new MainTableController)->create_log_record('Сдал смену');
     }
 

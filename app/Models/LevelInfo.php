@@ -4,12 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Log extends Model{
-    protected $table='events.log';
+class LevelInfo extends Model{
+    protected $table='app_info.level_info';
     public $timestamps = false;
     public $primaryKey = 'id';
     protected $fillable = [
-        'username', 'ip', 'event', 'domain_name', 'date', 'level'
+        'short_name', 'full_name',
     ];
 
 

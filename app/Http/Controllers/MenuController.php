@@ -43,22 +43,6 @@ class MenuController extends Controller
        return $data;
    }
 
-   public function get_level(Request $request)
-   {
-       $data = $request->ip();
-       if ($data == '10.45.24.10' || $data == '10.45.24.30' || $data == '10.45.24.9' || $data == '10.45.24.29'){
-           $data = 'cdp_rdp';
-           return $data_1;
-       } else{
-           $data = 'gdu';
-           return $data;
-       }
-   }
-
-
-
-
-
 }
 
 ?>

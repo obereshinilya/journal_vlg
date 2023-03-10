@@ -4,6 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 
+
+Route::get('/register_new_user/{name}/{level}/{domain_name}', [Controllers\MainTableController::class, 'register_new_user'])->name('register_new_user');
+
 Route::get('/check_new_dz', [Controllers\ReportController::class, 'check_new_dz'])->name('check_new_dz');
 Route::get('/check_error_xml', [Controllers\XMLController::class, 'check_error_xml'])->name('check_error_xml');
 
@@ -24,7 +27,6 @@ Route::get('/print_skv/{date}', [Controllers\ReportController::class, 'print_skv
 
 
     //Для разграничения уровней ГП и АДМ
-    Route::get('/get_level', [Controllers\MenuController::class, 'get_level'])->name('get_level');
 	Route::get('/create_xml_hand/{hours_xml}', [Controllers\XMLController::class, 'create_xml_hand'])->name('create_xml_hand');
         Route::get('/check_status_gpa', [Controllers\TestController::class, 'check_status_gpa'])->name('check_status_gpa');
         Route::get('/check_hour_param', [Controllers\TestController::class, 'check_hour_param'])->name('check_hour_param');
