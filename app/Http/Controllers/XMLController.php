@@ -104,6 +104,11 @@ class XMLController extends Controller
         if ($hours_xml == 1) {
 //            $name_xml = 'PT1H_'.date('Y_m_d_H_i_s', strtotime(' -2 hours'));
             $name_xml = 'PT1H_' . date('Y_m_d_H_i_s');
+            $first_check = DB::table('app_info.test_table')->where('test_table.guid_masdu_hours', '!=', '')->count();
+            $second_check = DB::table('app_info.test_table')->where('test_table.guid_masdu_day', '!=', '')->
+            join('app_info.sut_params', 'test_table.hfrpok', '=', 'sut_params.hfrpok_id')
+                ->where('sut_params.timestamp', '=', date('Y-m-d', strtotime($timestamp)))
+                ->select('test_table.hfrpok')->count();
             $data_to_xml = DB::table('app_info.test_table')->where('test_table.guid_masdu_hours', '!=', '')->
             join('app_info.hour_params', 'test_table.hfrpok', '=', 'hour_params.hfrpok_id')
                 ->where('hour_params.timestamp', '<', $timestamp)
@@ -141,14 +146,20 @@ class XMLController extends Controller
                 $path = (string)$path;
                 $xml = new DOMDocument();
                 $xml->load($path . 'buffer_xml_hand/PT1H.xml');
-                if (!$xml->schemaValidate($path . 'schema_xml/PT1H.xsd')) {
-                    $data_in_journal['option'] = 'Файл сеансовых данных не соответствует формату передачи сеансовых данных!';
-                    $data_in_journal['event'] = 'Отправка XML ' . $name_xml;
-//                    $data_in_journal['option'] = 'Отсутствие связи с sftp-сервером!';
-                    $data_in_journal['timestamp'] = date('Y-m-d H:i:s');
-                    $record = Events::create($data_in_journal);
-                    return '0';
+                if (!$first_check) {
+                    $data_in_journal['option'] = 'Нет данных для отправки';
+                } elseif (($first_check > $second_check)) {
+                    $data_in_journal['option'] = 'Файл не соответствует полноте наполнения';
+                } else {
+                    if (!$xml->schemaValidate($path . 'schema_xml/PT1H.xsd')) {
+                        $data_in_journal['option'] = 'Файл сеансовых данных не соответствует формату передачи сеансовых данных!';
+                    }
                 }
+                $data_in_journal['event'] = 'Отправка XML ' . $name_xml;
+//                    $data_in_journal['option'] = 'Отсутствие связи с sftp-сервером!';
+                $data_in_journal['timestamp'] = date('Y-m-d H:i:s');
+                $record = Events::create($data_in_journal);
+                return '0';
             } catch (\Throwable $e) {
                 $data_in_journal['option'] = 'Файл сеансовых данных не соответствует формату передачи сеансовых данных!';
                 $data_in_journal['event'] = 'Отправка XML ' . $name_xml;
@@ -159,6 +170,11 @@ class XMLController extends Controller
             }
         } elseif ($hours_xml == 24) {
             $name_xml = 'PT24H_' . date('Y_m_d_H_i_s');
+            $first_check = DB::table('app_info.test_table')->where('test_table.guid_masdu_day', '!=', '')->count();
+            $second_check = DB::table('app_info.test_table')->where('test_table.guid_masdu_day', '!=', '')->
+            join('app_info.sut_params', 'test_table.hfrpok', '=', 'sut_params.hfrpok_id')
+                ->where('sut_params.timestamp', '=', date('Y-m-d', strtotime($timestamp)))
+                ->select('test_table.hfrpok')->count();
             $data_to_xml = DB::table('app_info.test_table')->where('test_table.guid_masdu_day', '!=', '')->
             join('app_info.sut_params', 'test_table.hfrpok', '=', 'sut_params.hfrpok_id')
                 ->where('sut_params.timestamp', '=', date('Y-m-d', strtotime($timestamp)))
@@ -203,14 +219,21 @@ class XMLController extends Controller
                 $path = (string)$path;
                 $xml = new DOMDocument();
                 $xml->load($path . 'buffer_xml_hand/PT24H.xml');
-                if (!$xml->schemaValidate($path . 'schema_xml/PT24H.xsd')) {
-                    $data_in_journal['option'] = 'Файл сеансовых данных не соответствует формату передачи сеансовых данных!';
-                    $data_in_journal['event'] = 'Отправка XML ' . $name_xml;
-//                    $data_in_journal['option'] = 'Отсутствие связи с sftp-сервером!';
-                    $data_in_journal['timestamp'] = date('Y-m-d H:i:s');
-                    $record = Events::create($data_in_journal);
-                    return '0';
+
+                if (!$first_check) {
+                    $data_in_journal['option'] = 'Нет данных для отправки';
+                } elseif (!($second_check == $first_check)) {
+                    $data_in_journal['option'] = 'Файл не соответствует полноте наполнения';
+                } else {
+                    if (!$xml->schemaValidate($path . 'schema_xml/PT1H.xsd')) {
+                        $data_in_journal['option'] = 'Файл сеансовых данных не соответствует формату передачи сеансовых данных!';
+                    }
                 }
+                $data_in_journal['event'] = 'Отправка XML ' . $name_xml;
+//                    $data_in_journal['option'] = 'Отсутствие связи с sftp-сервером!';
+                $data_in_journal['timestamp'] = date('Y-m-d H:i:s');
+                $record = Events::create($data_in_journal);
+                return '0';
             } catch (\Throwable $e) {
                 $data_in_journal['option'] = 'Файл сеансовых данных не соответствует формату передачи сеансовых данных!';
                 $data_in_journal['event'] = 'Отправка XML ' . $name_xml;

@@ -69,7 +69,8 @@
                 <tr>
                     <span style="display: flex; justify-content: space-between; flex-direction: column">
                     <input type="date" class="date_input" max="{{date('Y-m-d')}}" id="choice_sut">
-                    <button class="button button1" onclick="xml_masdu(24)">Отправить</button>
+                    <button class="button button1"
+                            onclick="xml_masdu(24); document.getElementById('modal_choice_sut').style.display='none'">Отправить</button>
 </span>
                 </tr>
                 </tbody>
@@ -97,7 +98,8 @@
                         <select disabled class="date_input" id="select_hour">
 
                         </select>
-                    <button class="button button1" onclick="xml_masdu(1)">Отправить</button>
+                    <button class="button button1"
+                            onclick="xml_masdu(1);  document.getElementById('modal_choice_hour').style.display='none'">Отправить</button>
 </span>
                 </tr>
                 </tbody>
@@ -115,6 +117,7 @@
             let today = new Date();
             let select = document.getElementById('select_hour');
             let option
+            select.innerHTML = '';
             if (date.getFullYear() === today.getFullYear() &&
                 date.getMonth() === today.getMonth() &&
                 date.getDate() === today.getDate()) {
