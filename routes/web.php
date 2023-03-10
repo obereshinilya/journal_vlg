@@ -10,7 +10,7 @@ Route::get('/register_new_user/{name}/{level}/{domain_name}', [Controllers\MainT
 Route::get('/check_new_dz', [Controllers\ReportController::class, 'check_new_dz'])->name('check_new_dz');
 Route::get('/check_error_xml', [Controllers\XMLController::class, 'check_error_xml'])->name('check_error_xml');
 
-Route::get('/hand_for_masdu/{hours_xml}', [Controllers\XMLController::class, 'hand_for_masdu'])->name('hand_for_masdu');
+Route::get('/hand_for_masdu/{hours_xml}/{date}/{hour}', [Controllers\XMLController::class, 'hand_for_masdu'])->name('hand_for_masdu');
 Route::get('/save_fact_month/{year}/{month}/{obj}/{val}', [Controllers\ReportController::class, 'save_fact_month'])->name('save_fact_month');
 Route::get('/create_month_xml', [Controllers\ReportController::class, 'create_month_xml'])->name('create_month_xml');
 

@@ -20,10 +20,12 @@
     <div id="content-header" style="margin-top: 10px"><h3 style="width: 30%; display: inline-block">Журнал событий по
             отправке XML</h3>
 
-        <button class="button button1" style="float: right; display: inline-block" onclick="xml_masdu(1)">Отправка СД.
+        <button class="button button1" style="float: right; display: inline-block" onclick="open_modal_choice_hour()">
+            Отправка СД.
             Час
         </button>
-        <button class="button button1" style="float: right; display: inline-block" onclick="xml_masdu(24)">Отправка СД.
+        <button class="button button1" style="float: right; display: inline-block" onclick="open_modal_choice_sut()">
+            Отправка СД.
             Сутки
         </button>
         {{--        <button class="button button1" style="float: right; display: inline-block" onclick="sut_xml()">Отправка СД. Месяц</button>--}}
@@ -55,8 +57,100 @@
         </table>
         {{--        <a class="paginate_button first disabled" aria-controls="itemInfoTable" style="float: right" data-dt-idx="0" tabindex="-1" id="to_print">Печать</a>--}}
     </div>
+    <div class="modal_choice_sut" id="modal_choice_sut">
+        <div class="modal-window-choice_sut">
+            <p style="float: right; top: 0px; margin: 0px; opacity: 0.5"
+               onclick="document.getElementById('modal_choice_sut').style.display = 'none'">x</p>
+            <table style="display: table; table-layout: fixed">
+                <tbody>
+                <tr>
+                    <h2>Выберите дату</h2>
+                </tr>
+                <tr>
+                    <span style="display: flex; justify-content: space-between; flex-direction: column">
+                    <input type="date" class="date_input" max="{{date('Y-m-d')}}" id="choice_sut">
+                    <button class="button button1" onclick="xml_masdu(24)">Отправить</button>
+</span>
+                </tr>
+                </tbody>
+            </table>
 
+        </div>
+        <div class="overlay_choice_sut" id="overlay_choice_sut">
+
+        </div>
+    </div>
+
+    <div class="modal_choice_hour" id="modal_choice_hour">
+        <div class="modal-window-choice_hour">
+            <p style="float: right; top: 0px; margin: 0px; opacity: 0.5"
+               onclick="document.getElementById('modal_choice_hour').style.display = 'none'">x</p>
+            <table style="display: table; table-layout: fixed">
+                <tbody>
+                <tr>
+                    <h2>Выберите дату и время</h2>
+                </tr>
+                <tr>
+                    <span style="display: flex; justify-content: space-between; flex-direction: column">
+                    <input type="date" class="date_input" max="{{date('Y-m-d')}}" onchange="select_hour(this)"
+                           id="choice_hour">
+                        <select disabled class="date_input" id="select_hour">
+
+                        </select>
+                    <button class="button button1" onclick="xml_masdu(1)">Отправить</button>
+</span>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+        <div class="overlay_choice_hour" id="overlay_choice_hour">
+
+        </div>
+    </div>
     <script>
+
+        function select_hour(el) {
+            let date = new Date(el.value);
+            let today = new Date();
+            let select = document.getElementById('select_hour');
+            let option
+            if (date.getFullYear() === today.getFullYear() &&
+                date.getMonth() === today.getMonth() &&
+                date.getDate() === today.getDate()) {
+                for (i = 0; i < today.getHours(); i++) {
+                    option = document.createElement('option')
+                    option.value = i;
+                    if (i < 10) {
+                        option.textContent = '0' + i + ':00'
+                    } else {
+                        option.textContent = i + ':00'
+                    }
+                    select.append(option)
+                }
+            } else {
+                for (i = 0; i <= 23; i++) {
+                    option = document.createElement('option')
+                    option.value = i;
+                    if (i < 10) {
+                        option.textContent = '0' + i + ':00'
+                    } else {
+                        option.textContent = i + ':00'
+                    }
+                    select.append(option)
+                }
+
+            }
+            select.removeAttribute('disabled')
+        }
+
+        function open_modal_choice_sut() {
+            document.getElementById('modal_choice_sut').style.display = 'flex'
+        }
+
+        function open_modal_choice_hour() {
+            document.getElementById('modal_choice_hour').style.display = 'flex'
+        }
 
         $(document).ready(function () {
 
@@ -126,8 +220,16 @@
         }
 
         function xml_masdu(type) {
+            let hour, date
+            if (type > 1) {
+                hour = false;
+                date = document.getElementById('choice_sut').value
+            } else {
+                hour = document.getElementById('select_hour').value
+                date = document.getElementById('choice_hour').value
+            }
             $.ajax({
-                url: '/hand_for_masdu/' + type,
+                url: '/hand_for_masdu/' + type + '/' + date + '/' + hour,
                 data: 1,
                 type: 'GET',
                 success: (res) => {
@@ -150,6 +252,118 @@
         }
 
     </script>
+    <style>
+        /*.none div{*/
+        /*    display: none;*/
+        /*}*/
+
+        .date_div {
+            position: relative;
+            /*padding: 15px 0 0;*/
+            /*margin-top: 10px;*/
+            width: 100%;
+            display: table;
+        }
+
+        .date_input {
+            font-family: inherit;
+            width: 100%;
+            border: 0;
+            border-bottom: 2px solid #9b9b9b;
+            outline: 0;
+            font-size: 1.3rem;
+            color: black;
+            padding: 7px 0;
+            background: transparent;
+            transition: border-color 0.2s;
+        }
+
+        .date-input-group {
+            /*width: 30%;*/
+            margin: 8px 5px;
+            display: table-cell;
+            padding-left: 5px;
+            padding-right: 10px;
+            float: left;
+        }
+
+        input[type=date]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            display: none;
+        }
+
+        input[type=date]::-webkit-clear-button {
+            -webkit-appearance: none;
+            display: none;
+        }
+
+
+        .date_input::placeholder {
+            color: transparent;
+        }
+
+        .date_input:placeholder-shown ~ .form__label {
+            font-size: 1.3rem;
+            cursor: text;
+            top: 20px;
+        }
+
+        .table_date_label {
+            position: absolute;
+            top: 0;
+            display: block;
+            transition: 0.2s;
+            font-size: 1rem;
+            color: #9b9b9b;
+        }
+
+        .date_input:focus {
+            /*padding-bottom: 6px;*/
+            font-weight: 700;
+            /*border-width: 3px;*/
+            border-image: linear-gradient(to right, black, gray);
+            border-image-slice: 1;
+        }
+
+        .date_input:focus ~ .table_date_label {
+            position: absolute;
+            top: 0;
+            display: block;
+            transition: 0.2s;
+            font-size: 1rem;
+            color: black;
+            font-weight: 700;
+        }
+
+        .choice-period-btn {
+            /*box-sizing: border-box;*/
+            display: inline-block;
+            min-width: 1.5em;
+            padding: .5em 1em;
+            text-align: center;
+            text-decoration: none !important;
+            cursor: pointer;
+            color: #fff;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            background-color: #0079c2;
+            /*margin-left: 15px;*/
+            /*margin-right: 5px;*/
+            /*position: absolute;*/
+            /*top: calc(50% - 8px);*/
+            width: 110px;
+        }
+
+        .period-btns {
+            display: inline-block;
+            text-align: center;
+            text-decoration: none !important;
+            cursor: pointer;
+            position: absolute;
+            top: calc(50% - 8px);
+        }
+
+    </style>
     @include('include.font_size-change')
 
 @endsection

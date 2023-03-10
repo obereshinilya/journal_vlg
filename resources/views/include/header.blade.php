@@ -35,7 +35,7 @@
                 }
             </style>
             <style>
-                .modal_font, .modal_export_area {
+                .modal_font, .modal_export_area, .modal_choice_sut, .modal_choice_hour {
                     position: absolute;
                     top: 0;
                     left: 0;
@@ -48,7 +48,7 @@
                 }
 
                 .modal_font .overlay_font,
-                .modal_export_area .overlay_export_area {
+                .modal_export_area .overlay_export_area, .modal_choice_sut .overlay_choice_sut, .overlay_choice_hour  {
                     position: absolute;
                     top: 0;
                     left: 0;
@@ -60,7 +60,7 @@
                 }
 
                 .modal-window-font,
-                .modal-window-export-area {
+                .modal-window-export-area, .modal-window-choice_sut, .modal-window-choice_hour {
                     z-index: 9999999;
                     position: relative;
                     width: 300px;
