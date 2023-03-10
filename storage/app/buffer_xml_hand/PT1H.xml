@@ -3,9 +3,9 @@
    <HeaderSection>
      <Sender id="ГП ПХГ"/>
      <Receiver id="М АСДУ ЕСГ"/>
-     <Generated at="2023-03-04T12:58:42+03:00"/>
+     <Generated at="2023-03-10T11:47:29+03:00"/>
      <Comment>Сеансовые данные (1ч)</Comment>
-     <ReferenceTime time="2023-03-04T12:00:00+03:00"/>
+     <ReferenceTime time="2023-03-10T11:00:00+03:00"/>
      <Scale>PT1H</Scale>
      <Template id="G_PHG.PT1H.RT.V1"/>
    </HeaderSection>

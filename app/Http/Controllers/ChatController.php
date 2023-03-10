@@ -13,6 +13,31 @@ use function Livewire\str;
 
 class ChatController extends Controller
 {
+    public function download_file_chat($filename){
+        $path = 'storage/chat_document/'.$filename;
+        return response()->download($path, basename($path));
+    }
+    public function upload_file_chat(Request $request, $recipient){
+        try {
+            foreach ($request->file() as $file) {
+                foreach ($file as $f) {
+                    if (!file_exists((public_path('storage/chat_document/' . $f->getClientOriginalName())))) {       // проверка на существование файла
+                        $f->move(public_path('storage/chat_document/'), $f->getClientOriginalName()); //public\storage\docs
+                    }
+                    Message_chat::create([
+                        'user_sender'=>UserAuth::where('ip', '=', \request()->ip())->orderbydesc('id')->first()->username,
+                        'user_recipent'=>$recipient,
+                        'message'=> $f->getClientOriginalName(),
+                        'file'=>true,
+                        'timestamp'=>date('Y-m-d H:i:s')
+                    ]);
+                }
+            }
+        }catch (\Throwable $e){
+            return $e;
+        }
+
+    }
     public function set_type_messege($id, $type){
         if ($type == '-'){
             $message = Message_chat::where('id', '=', $id)->first()->update(['type_message'=>'']);
@@ -20,6 +45,7 @@ class ChatController extends Controller
             $message = Message_chat::where('id', '=', $id)->first()->update(['type_message'=>$type]);
         }
     }
+
     public function send_messege(Request $request){
         Message_chat::create([
             'user_sender'=>UserAuth::where('ip', '=', \request()->ip())->orderbydesc('id')->first()->username,

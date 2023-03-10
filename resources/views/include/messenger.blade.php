@@ -30,11 +30,14 @@
             </table>
         </div>
         <div class="input_message">
-            <div style="width: 75%; float: left; height: 100%; position:relative; vertical-align: center">
+            <div style="width: 70%; float: left; height: 100%; position:relative; vertical-align: center">
                 <input class="text-field__input" type="text" id="sender_text" style="width: 100%; float: left; margin-left: 2%; position: absolute; top: 50%; transform: translate(0, -50%)" placeholder="Новое сообщение...">
             </div>
-            <div style="width: 15%; float: right; height: 100%" onclick="send_messege()">
-                <svg xmlns="http://www.w3.org/2000/svg" width="80%" height="80%" viewBox="0 0 24 24" style="fill: rgba(186, 196, 245, 1);transform: ;msFilter:; margin-top: 10%"><path d="m21.426 11.095-17-8A.999.999 0 0 0 3.03 4.242L4.969 12 3.03 19.758a.998.998 0 0 0 1.396 1.147l17-8a1 1 0 0 0 0-1.81zM5.481 18.197l.839-3.357L12 12 6.32 9.16l-.839-3.357L18.651 12l-13.17 6.197z"></path></svg>
+            <div class="img_message" style="width: 10%; float: right; height: 100%; text-align: center" onclick="send_messege()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="60%" height="80%" viewBox="0 0 24 24" style="fill: rgba(186, 196, 245, 1);transform: ;msFilter:; margin-top: 10%"><path d="m21.426 11.095-17-8A.999.999 0 0 0 3.03 4.242L4.969 12 3.03 19.758a.998.998 0 0 0 1.396 1.147l17-8a1 1 0 0 0 0-1.81zM5.481 18.197l.839-3.357L12 12 6.32 9.16l-.839-3.357L18.651 12l-13.17 6.197z"></path></svg>
+            </div>
+            <div class="img_message" style="width: 10%; float: right; height: 100%; text-align: center" onclick="file_open()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="60%" height="80%" viewBox="0 0 24 24" style="fill: rgba(186, 196, 245, 1); margin-top: 10%;transform: rotate(90deg);msFilter:progid:DXImageTransform.Microsoft.BasicImage(rotation=1);"><path d="M17.004 5H9c-1.838 0-3.586.737-4.924 2.076C2.737 8.415 2 10.163 2 12c0 1.838.737 3.586 2.076 4.924C5.414 18.263 7.162 19 9 19h8v-2H9c-1.303 0-2.55-.529-3.51-1.49C4.529 14.55 4 13.303 4 12c0-1.302.529-2.549 1.49-3.51C6.45 7.529 7.697 7 9 7h8V6l.001 1h.003c.79 0 1.539.314 2.109.886.571.571.886 1.322.887 2.116a2.966 2.966 0 0 1-.884 2.11A2.988 2.988 0 0 1 17 13H9a.99.99 0 0 1-.698-.3A.991.991 0 0 1 8 12c0-.252.11-.507.301-.698A.987.987 0 0 1 9 11h8V9H9c-.79 0-1.541.315-2.114.889C6.314 10.461 6 11.211 6 12s.314 1.54.888 2.114A2.974 2.974 0 0 0 9 15h8.001a4.97 4.97 0 0 0 3.528-1.473 4.967 4.967 0 0 0-.001-7.055A4.95 4.95 0 0 0 17.004 5z"></path></svg>
             </div>
             <button class="button button1" style="margin-left: 15px; display: none" onclick="set_type_messege('Пожар', this)">Пожар</button>
             <button class="button button1" style="margin-left: 15px; display: none" onclick="set_type_messege('Тренировка', this)">Тренировка</button>
@@ -44,10 +47,20 @@
     </div>
 </div>
 
-
+<form id="form_upload_chat" method="POST" enctype="multipart/form-data" style="display: none">
+    <input type="file" onchange="upload_file()" name="myfile" id="button_form_file" multiple="multiple">
+    <input type="submit" id="button_form_button">
+</form>
 
 <script>
 
+    $(document).ready(function() {
+        $('#sender_text').keydown(function(e) {
+            if(e.keyCode === 13) {
+                send_messege()
+            }
+        });
+    });
     setInterval(get_chat, 5000)
     function set_type_messege(type, button){
         var id = button.getAttribute('data-id')
@@ -131,7 +144,6 @@
             }
         })
     }
-
     function create_chat(name){
         $.ajax({
             url: '/get_chat/'+name,
@@ -153,17 +165,41 @@
                     for (var messege of data[keys[j]]){
                         var tr = document.createElement('tr')
                         if (messege['user_sender'] !== name){ //если пишем мы
-                            tr.innerHTML = `<td class="mine_td">
-                            <p class="info_mine_p">${messege['type_message']}</p>
-                            <p class="info_mine_p">${messege['timestamp'].split(' ')[1].slice(0, -3)}</p>
-                            <p class="mine_text" data-id="${messege['id']}" oncontextmenu="select_type(this)">${messege['message']}</p>
-                        </td>`
+                            if (!messege['file']){
+                                tr.innerHTML = `<td class="mine_td">
+                                                    <p class="info_mine_p">${messege['type_message']}</p>
+                                                    <p class="info_mine_p">${messege['timestamp'].split(' ')[1].slice(0, -3)}</p>
+                                                    <p class="mine_text" data-id="${messege['id']}" oncontextmenu="select_type(this)">${messege['message']}</p>
+                                                </td>`
+                            }else {
+                                tr.innerHTML = `<td class="mine_td">
+                                                    <p class="info_mine_p">${messege['type_message']}</p>
+                                                    <p class="info_mine_p">${messege['timestamp'].split(' ')[1].slice(0, -3)}</p>
+                                                    <p class="mine_text" data-id="${messege['id']}" onclick="download_file_chat('${messege['message']}')" oncontextmenu="select_type(this)">
+                                                        <svg style="height: 30px; rgba(78, 69, 69, 1)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19.937 8.68c-.011-.032-.02-.063-.033-.094a.997.997 0 0 0-.196-.293l-6-6a.997.997 0 0 0-.293-.196c-.03-.014-.062-.022-.094-.033a.991.991 0 0 0-.259-.051C13.04 2.011 13.021 2 13 2H6c-1.103 0-2 .897-2 2v16c0 1.103.897 2 2 2h12c1.103 0 2-.897 2-2V9c0-.021-.011-.04-.013-.062a.99.99 0 0 0-.05-.258zM16.586 8H14V5.414L16.586 8zM6 20V4h6v5a1 1 0 0 0 1 1h5l.002 10H6z"></path></svg>
+                                                        <br>
+                                                        ${messege['message']}
+                                                    </p>
+                                                </td>`
+                            }
                         }else {    //если пишут нам
-                            tr.innerHTML = `<td class="other_td">
-                            <p class="other_text">${messege['message']}</p>
-                            <p class="info_other_p">${messege['type_message']}</p>
-                            <p class="info_other_p">${messege['timestamp'].split(' ')[1].slice(0, -3)}</p>
-                        </td>`
+                            if (messege['file']){
+                                tr.innerHTML = `<td class="other_td">
+                                                    <p class="other_text" onclick="download_file_chat('${messege['message']}')">
+                                                        <svg style="height: 30px; rgba(78, 69, 69, 1)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19.937 8.68c-.011-.032-.02-.063-.033-.094a.997.997 0 0 0-.196-.293l-6-6a.997.997 0 0 0-.293-.196c-.03-.014-.062-.022-.094-.033a.991.991 0 0 0-.259-.051C13.04 2.011 13.021 2 13 2H6c-1.103 0-2 .897-2 2v16c0 1.103.897 2 2 2h12c1.103 0 2-.897 2-2V9c0-.021-.011-.04-.013-.062a.99.99 0 0 0-.05-.258zM16.586 8H14V5.414L16.586 8zM6 20V4h6v5a1 1 0 0 0 1 1h5l.002 10H6z"></path></svg>
+                                                        <br>
+                                                        ${messege['message']}
+                                                    </p>
+                                                    <p class="info_other_p">${messege['type_message']}</p>
+                                                    <p class="info_other_p">${messege['timestamp'].split(' ')[1].slice(0, -3)}</p>
+                                                </td>`
+                            }else {
+                                tr.innerHTML = `<td class="other_td">
+                                                    <p class="other_text">${messege['message']}</p>
+                                                    <p class="info_other_p">${messege['type_message']}</p>
+                                                    <p class="info_other_p">${messege['timestamp'].split(' ')[1].slice(0, -3)}</p>
+                                                </td>`
+                            }
                         }
                         body_chat.appendChild(tr)
                     }
@@ -172,6 +208,9 @@
                 chat_window.scrollTo(0, chat_window.scrollHeight)
             }
         })
+    }
+    function download_file_chat(name_file){
+        window.open('/download_file_chat/'+name_file, 'Скачивание')
     }
 
     function send_messege(){
@@ -192,10 +231,6 @@
         }
 
     }
-
-
-
-
     function open_messenger(){
         if (document.getElementById('messenger').style.display === 'none'){
             document.getElementById('messenger').style.display = 'block'
@@ -206,7 +241,44 @@
             document.getElementById('messenger_mini').style.display = ''
         }
     }
+    function file_open(){
+        document.getElementById('button_form_file').click()
+    }
+    function upload_file(){
+        var formData = new FormData();
+        if(($('#button_form_file')[0].files).length !=0){
+            $.each($('#button_form_file')[0].files, function(i, file){
+                formData.append("file[" + i + "]", file);
+            });
+        }
+        $.ajax({
+            type: "POST",
+            url: '/upload_file_chat/'+document.getElementById('name_people').textContent,
+            cache:false,
+            dataType:"json",
+            contentType: false,
+            processData: false,
+            data: formData,
+            success: function(data){
+                console.log(data)
+                console.log('ok')
+                get_chat()
+            },
+        });
 
+
+        // $.ajax({
+        //     url: '/upload_file_chat/'+document.getElementById('name_people').textContent,
+        //     data: document.getElementById('button_form_file').files,
+        //     method: 'POST',
+        //     processData: false,
+        //     success: function (res) {
+        //         console.log(res)
+        //     },
+        //     async: false
+        // })
+        // get_chat()
+    }
     var input_people = document.getElementById('search_people')
     input_people.oninput = function() {
         search_people()
@@ -227,7 +299,9 @@
 </script>
 
 <style>
-
+    .img_message svg:hover{
+        height: 90%;
+    }
     .body_chat tr td{
         margin-top: 5px;
     }
@@ -252,6 +326,9 @@
         padding: 10px;
         margin: 0px;
     }
+    .mine_text svg{
+        margin-left: calc(50% - 15px);
+    }
     .other_text{
         width: auto;
         max-width: 60%;
@@ -260,6 +337,9 @@
         border-radius: 10px;
         padding: 10px;
         margin: 0px;
+    }
+    .other_text svg{
+        margin-left: calc(50% - 15px);
     }
     .input_message{
         position: absolute;
@@ -393,7 +473,7 @@
         background: white;
         z-index: 888;
         box-shadow: 10px 5px 45px black;
-        display: none;
+        /*display: none;*/
     }
     .messenger_mini{
         width: 80px;

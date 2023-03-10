@@ -3,11 +3,11 @@
    <HeaderSection>
      <Sender id="ГП ПХГ"/>
      <Receiver id="М АСДУ ЕСГ"/>
-     <Generated at="2023-03-04T12:58:37+03:00"/>
+     <Generated at="2023-03-10T11:48:15+03:00"/>
      <Comment>Сеансовые данные (24ч)</Comment>
-     <ReferenceTime time="2023-03-03T10:00:00+03:00"/>
+     <ReferenceTime time="2023-03-10T10:00:00+03:00"/>
      <Scale>PT24H</Scale>
      <Template id="G_PHG.PT24H.RT.V1"/>
-     <FullName>AdminQA</FullName>
+     <FullName>Илья</FullName>
    </HeaderSection>
 </BusinessMessage>

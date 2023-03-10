@@ -225,7 +225,8 @@ Route::get('/print_skv/{date}', [Controllers\ReportController::class, 'print_skv
     Route::get('/set_type_messege/{id}/{type}', [Controllers\ChatController::class, 'set_type_messege'])->name('set_type_messege');   ///устанавливаем тип сообщения
     Route::post('/send_messege', [Controllers\ChatController::class, 'send_messege'])->name('send_messege');   ///отправляем сообщение
     Route::get('/update_people_block', [Controllers\ChatController::class, 'update_people_block'])->name('update_people_block');   ///обновляем список
-
+    Route::post('/upload_file_chat/{recipient}', [Controllers\ChatController::class, 'upload_file_chat'])->name('upload_file_chat');   ///обновляем список
+    Route::get('/download_file_chat/{file_name}', [Controllers\ChatController::class, 'download_file_chat'])->name('download_file_chat');   ///обновляем список
 
 //ГЛАВНАЯ ТАБЛИЦА
     Route::post('/add-index', [Controllers\MainTableController::class, 'add_index']);
