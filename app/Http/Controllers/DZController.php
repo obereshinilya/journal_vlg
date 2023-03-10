@@ -53,26 +53,32 @@ class DZController extends Controller
     }
 
     public function check_smena(){
-        $log_smena = LogSmena::orderbydesc('id')->where('level', '=', UserAuth::orderbydesc('id')->where('ip', '=', \request()->ip())->first()->level)->first();
-        $name_active_user = UserAuth::orderbydesc('id')->where('ip', '=', \request()->ip())->first()->username;
-        if ($log_smena){
-            if ($log_smena->name_user == $name_active_user && $log_smena->stop_smena){   //если текущий пользователь сдал смену
-                $to_view['text'] = 'Смена вами сдана!';
-                $to_view['commit_smena'] = false;    //принять смену нельзя
-            }elseif ($log_smena->name_user == $name_active_user && !$log_smena->stop_smena){  //если текущий пользователь не сдал смену
-                $to_view['commit_smena'] = false;    //принять смену нельзя
-            }elseif ($log_smena->name_user != $name_active_user && $log_smena->stop_smena){    //если зашел другой пользователь, когда смена была сдана предыдущим
+        try {
+            $log_smena = LogSmena::orderbydesc('id')->where('level', '=', UserAuth::orderbydesc('id')->where('ip', '=', \request()->ip())->first()->level)->first();
+            $name_active_user = UserAuth::orderbydesc('id')->where('ip', '=', \request()->ip())->first()->username;
+            if ($log_smena){
+                if ($log_smena->name_user == $name_active_user && $log_smena->stop_smena){   //если текущий пользователь сдал смену
+                    $to_view['text'] = 'Смена вами сдана!';
+                    $to_view['commit_smena'] = false;    //принять смену нельзя
+                }elseif ($log_smena->name_user == $name_active_user && !$log_smena->stop_smena){  //если текущий пользователь не сдал смену
+                    $to_view['commit_smena'] = false;    //принять смену нельзя
+                }elseif ($log_smena->name_user != $name_active_user && $log_smena->stop_smena){    //если зашел другой пользователь, когда смена была сдана предыдущим
+                    $to_view['text'] = 'Принять смену?';
+                    $to_view['commit_smena'] = true;    //принять смену можно
+                }elseif ($log_smena->name_user != $name_active_user && !$log_smena->stop_smena){   //если зашел другой пользователь, когда смена не была сдана предыдущим
+                    $to_view['text'] = 'Смена еще не сдана!';
+                    $to_view['commit_smena'] = false;    //принять смену нельзя
+                }
+            }else{
                 $to_view['text'] = 'Принять смену?';
                 $to_view['commit_smena'] = true;    //принять смену можно
-            }elseif ($log_smena->name_user != $name_active_user && !$log_smena->stop_smena){   //если зашел другой пользователь, когда смена не была сдана предыдущим
-                $to_view['text'] = 'Смена еще не сдана!';
-                $to_view['commit_smena'] = false;    //принять смену нельзя
             }
-        }else{
-            $to_view['text'] = 'Принять смену?';
-            $to_view['commit_smena'] = true;    //принять смену можно
+            return $to_view;
+        }catch (\Throwable $e){
+            $to_view['text'] = 'Вы не авторизованы!';
+            $to_view['commit_smena'] = false;    //принять смену можно
+            return $to_view;
         }
-        return $to_view;
     }
 
     public function confirm_smena(){
