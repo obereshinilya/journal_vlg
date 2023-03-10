@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Models\DzMasdu;
 use App\Models\JournalSmeny;
 use App\Models\JournalSmeny_table;
+use App\Models\UserAuth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use function Livewire\str;
@@ -59,7 +60,11 @@ class SutJournalController extends Controller
     public function open_journal_smeny()
     {
         $new_log = (new MainTableController)->create_log_record('Открыл журнал смены');
-        return view('web.reports.open_journal_smeny');
+        if (UserAuth::orderbyDesc('id')->where('ip', '=', \request()->ip())->first()->level == 'cdp'){
+            return view('web.reports.open_journal_smeny_cdp');
+        }else{
+            return view('web.reports.open_journal_smeny_rdp');
+        }
     }
 
     public function save_journal_smeny(Request $request, $date)

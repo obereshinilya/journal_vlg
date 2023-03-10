@@ -805,7 +805,7 @@
                     <input type="date" id="table_print_end" class="date_input" style="width: 45%" required
                            onkeydown="return false">
                 </div>
-                <button class="button button1" onclick="print_pdf()">Печать</button>
+                <button class="button button1" style="margin-top: 15px" onclick="print_pdf()">Печать</button>
             </div>
         </div>
         <div class="overlay_print" onclick="this.parentNode.style.display = 'none'">

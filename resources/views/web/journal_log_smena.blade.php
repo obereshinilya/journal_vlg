@@ -28,13 +28,15 @@
     <div id="tableDiv">
         <table id="itemInfoTable" class="itemInfoTable" style="width: 100%; table-layout: fixed">
             <colgroup>
-                <col style="width: 33%"/>
-                <col style="width: 33%"/>
-                <col style="width: 33%"/>
+                <col style="width: 25%"/>
+                <col style="width: 25%"/>
+                <col style="width: 25%"/>
+                <col style="width: 25%"/>
             </colgroup>
             <thead style="width: 100%">
             <tr>
                 <th style="text-align: center">Пользователь</th>
+                <th style="text-align: center">Объект</th>
                 <th style="text-align: center">Время принятия</th>
                 <th style="text-align: center">Время сдачи</th>
             </tr>
@@ -68,6 +70,7 @@
                     for (var i = 0; i < res.length; i++) {
                         var tr = document.createElement('tr')
                         tr.innerHTML += `<td style="font-size:${14 * localStorage.getItem('font')}px"><span data-type="text" style="text-align: center">${res[i]['name_user']}</span></td>`
+                        tr.innerHTML += `<td style="font-size:${14 * localStorage.getItem('font')}px"><span data-type="text" style="text-align: center">${res[i]['full_name']}</span></td>`
                         tr.innerHTML += `<td style="font-size:${14 * localStorage.getItem('font')}px"><span data-type="text" style="text-align: center">${res[i]['start_smena']}</span></td>`
                         if (res[i]['stop_smena']){
                             tr.innerHTML += `<td style="font-size:${14 * localStorage.getItem('font')}px"><span data-type="text" style="text-align: center">${res[i]['stop_smena']}</span></td>`

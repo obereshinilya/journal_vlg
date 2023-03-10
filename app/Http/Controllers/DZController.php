@@ -29,7 +29,11 @@ class DZController extends Controller
     }
     public function journal_dz(){
         $new_log  = (new MainTableController)->create_log_record('Открыл журнал диспетчерских заданий');
-        return view('web.journal_dz');
+        if (UserAuth::orderbyDesc('id')->where('ip', '=', \request()->ip())->first()->level == 'cdp'){
+            return view('web.journal_dz_cdp');
+        }else{
+            return view('web.journal_dz_rdp');
+        }
     }
     public function save_comment_dz($id, $text){
         DzMasdu::where('id', '=', $id)->update(['comment'=>$text]);
@@ -118,7 +122,12 @@ class DZController extends Controller
         return view('web.journal_log_smena');
     }
     public function get_journal_log_smena(){
-        return LogSmena::orderby('start_smena')->get();
+        $level = UserAuth::orderbyDesc('id')->where('ip', '=', \request()->ip())->first()->level;
+        if ($level == 'cdp'){
+            return LogSmena::orderby('start_smena')->join('app_info.level_info', 'log_smena.level', '=', 'level_info.short_name')->get();
+        }else{
+            return LogSmena::orderby('start_smena')->join('app_info.level_info', 'log_smena.level', '=', 'level_info.short_name')->where('level', '=', $level)->get();
+        }
     }
 }
 

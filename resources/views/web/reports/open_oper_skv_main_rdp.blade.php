@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title')
-    Журнал отправки XML
+    Оперативное состояние режима работы
 @endsection
 
 @section('side_menu')
@@ -21,9 +21,7 @@
     @endpush
 
     <div id="content-header" style="margin-top: 10px"><h3 style="width: 30%; display: inline-block">Реестр отчетов</h3>
-        <button class="button button1" style="float: right; display: inline-block; margin-top: 1%"
-                onclick="create_record()">Добавить запись
-        </button>
+
     </div>
     <style>
         .content {
@@ -53,33 +51,13 @@
                     @if($row['timestamp'] == 'Данные отсутствуют')
                         <td style="text-align: center"></td>
                     @else
-                        @if($row['content_editable'])
                             <td style="text-align: center">
                                 <button class="button button1"
                                         onclick="window.location.href = '/report_oper_skv/'+this.parentNode.parentNode.getElementsByClassName('timestamp')[0].textContent">
                                     Просмотр
                                 </button>
-                                <button class="button button1" onclick="editable(false, this)"
-                                        style="background: #20B2AA">Запретить редактирование
-                                </button>
-                                <button class="button button1" onclick="remove(this)" style="background: #F08080">
-                                    Удалить
-                                </button>
                             </td>
-                        @else
-                            <td style="text-align: center">
-                                <button class="button button1"
-                                        onclick="window.location.href = '/report_oper_skv/'+this.parentNode.parentNode.getElementsByClassName('timestamp')[0].textContent">
-                                    Просмотр
-                                </button>
-                                <button class="button button1" onclick="editable(true, this)"
-                                        style="background: #98FB98">Разрешить редактирование
-                                </button>
-                                <button class="button button1" onclick="remove(this)" style="background: #F08080">
-                                    Удалить
-                                </button>
-                            </td>
-                        @endif
+
                     @endif
                 </tr>
             @endforeach
