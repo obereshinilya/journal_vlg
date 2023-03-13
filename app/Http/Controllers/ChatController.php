@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\LevelInfo;
 use App\Models\LogSmena;
 use App\Models\Message_chat;
+use App\Models\NewMessageToGDU;
 use App\Models\UserAuth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -50,14 +51,39 @@ class ChatController extends Controller
             ]);
         }
     }
-
     public function send_messege(Request $request){
+        $data_last_user = UserAuth::where('ip', '=', \request()->ip())->orderbydesc('id')->first();
         Message_chat::create([
-            'user_sender'=>UserAuth::where('ip', '=', \request()->ip())->orderbydesc('id')->first()->username,
+            'user_sender'=>$data_last_user->username,
             'user_recipent'=>$request['recipient'],
             'message'=> $request['text'],
             'timestamp'=>date('Y-m-d H:i:s')
         ]);
+        if ($request['recipient'] == LevelInfo::where('short_name', '=', 'vlg')->first()->full_name){
+            if ($data_last_user->level == 'cdp'){   //если отправка с уровня ЦДП
+                if (count(NewMessageToGDU::where('id', '=', 1)->get())>0){ //если есть запись уже
+                    $count_new = NewMessageToGDU::where('id', '=', 1)->first()->count + 1;
+                    NewMessageToGDU::where('id', '=', 1)->update(['count'=>$count_new]);
+                }else{
+                    NewMessageToGDU::create(['id'=>1, 'count'=>1]);
+                }
+            }else{  //если отправка с уровня ГДУ
+/*                $content = '<?xml version="1.0" encoding="UTF-8"?>';*/
+//                $content = $content.'<BusinessMessage>';
+//                $content = $content.'   <CountUnreadMessage>1</CountUnreadMessage>';
+//                $content = $content.'</BusinessMessage>';
+//                $disk = Storage::build([
+//                    'driver' => 'sftp',
+//                    'host' => '172.16.205.139',
+//                    'username' => 'horizont',
+//                    'password' => 'demodemo',
+//                    'visibility' => 'public',
+//                    'permPublic' => 0777, /// <- this one did the trick
+//                    'root' => '/usr/PROZESS/horizont/var/cc/dj/new_message/',
+//                ]);
+//                $disk->put('new_message_'.date('Y_m_d_H_i_s_').'.xml', $content, 'public');
+            }
+        }
         return $request->all();
     }
     public function get_chat($name){

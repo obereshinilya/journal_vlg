@@ -181,9 +181,8 @@
                             tr.style.background = 'yellow'
                             tr.innerHTML += `<td style="font-size:${14 * localStorage.getItem('font')}px"><span data-type="text" style="text-align: center">${res[i]['timestamp']}</span></td>`
                             tr.innerHTML += `<td style="font-size:${14 * localStorage.getItem('font')}px"><span data-type="text" style="text-align: center">${res[i]['event']}</span></td>`
-                            tr.innerHTML += `<td style="font-size:${14 * localStorage.getItem('font')}px"><span data-type="text" style="text-align: center; width: 50%">${res[i]['option']}</span>
-                            <button class="button button1" style="float: right; margin-right: 5%" onclick="hand_xml(${res[i]['id']})">Повторить</button>
-                            </td>`
+                            tr.innerHTML += `<td style="font-size:${14 * localStorage.getItem('font')}px"><span data-type="text" style="text-align: center; width: 50%">${res[i]['option']}</span></td>`
+                                // <button class="button button1" style="float: right; margin-right: 5%" onclick="hand_xml(${res[i]['id']})">Повторить</button>
                         } else {
                             tr.innerHTML += `<td style="font-size:${14 * localStorage.getItem('font')}px"><span data-type="text" style="text-align: center">${res[i]['timestamp'].split('.')[0]}</span></td>`
                             tr.innerHTML += `<td style="font-size:${14 * localStorage.getItem('font')}px"><span data-type="text" style="text-align: center">${res[i]['event']}</span></td>`

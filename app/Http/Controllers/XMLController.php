@@ -244,6 +244,31 @@ class XMLController extends Controller
             }
         }
         try {
+            try {
+                $setting_sftp = SftpServer::where('type', '=', 'osnovnoi')->first()->toArray();
+                $disk = Storage::build([
+                    'driver' => 'sftp',
+                    'host' => $setting_sftp['adres_sftp'],
+                    'username' => $setting_sftp['user'],
+                    'password' => $setting_sftp['password'],
+                    'visibility' => 'public',
+                    'permPublic' => 0777, /// <- this one did the trick
+                    'root' => $setting_sftp['path_sftp'].'log/',
+                ]);
+                $disk->put($name_xml . '.xml', $contents, 'public'); //можно дописать путь перед $name_xml
+            } catch (\Throwable $e) {
+                $setting_sftp = SftpServer::where('type', '=', 'reserv')->first()->toArray();
+                $disk = Storage::build([
+                    'driver' => 'sftp',
+                    'host' => $setting_sftp['adres_sftp'],
+                    'username' => $setting_sftp['user'],
+                    'password' => $setting_sftp['password'],
+                    'visibility' => 'public',
+                    'permPublic' => 0777, /// <- this one did the trick
+                    'root' => $setting_sftp['path_sftp'].'log/',
+                ]);
+                $disk->put($name_xml . '.xml', $contents, 'public'); //можно дописать путь перед $name_xml
+            }
 //            try {
 //                $setting_sftp = SftpServer::where('type', '=', 'osnovnoi')->first()->toArray();
 //                $disk = Storage::build([
@@ -258,16 +283,16 @@ class XMLController extends Controller
 //                $disk->put($name_xml . '.xml', $contents, 'public');
 //            } catch (\Throwable $e) {
 //                $setting_sftp = SftpServer::where('type', '=', 'reserv')->first()->toArray();
-                $disk = Storage::build([
-                    'driver' => 'sftp',
-                    'host' => '172.16.205.139',
-                    'username' => 'horizont',
-                    'password' => 'demodemo',
-                    'visibility' => 'public',
-                    'permPublic' => 0777, /// <- this one did the trick
-                    'root' => '/usr/PROZESS/horizont/var/cc/dj/log/',
-                ]);
-                $disk->put($name_xml . '.xml', $contents, 'public'); //можно дописать путь перед $name_xml
+//                $disk = Storage::build([
+//                    'driver' => 'sftp',
+//                    'host' => '172.16.205.139',
+//                    'username' => 'horizont',
+//                    'password' => 'demodemo',
+//                    'visibility' => 'public',
+//                    'permPublic' => 0777, /// <- this one did the trick
+//                    'root' => '/usr/PROZESS/horizont/var/cc/dj/log/',
+//                ]);
+//                $disk->put($name_xml . '.xml', $contents, 'public'); //можно дописать путь перед $name_xml
 //            }
 //            Storage::disk('local')->put('xml_hand/' . $name_xml . '.xml', $contents, 'public');
             $data_in_journal['event'] = 'Отправка XML ' . $name_xml;
@@ -491,31 +516,31 @@ class XMLController extends Controller
             }
 //                    Storage::disk('local')->put($name_xml . '.xml', $contents, 'public'); //можно дописать путь перед $name_xml
             try {
-//                try {
-//                    $setting_sftp = SftpServer::where('type', '=', 'osnovnoi')->first()->toArray();
-//                    $disk = Storage::build([
-//                        'driver' => 'sftp',
-//                        'host' => $setting_sftp['adres_sftp'],
-//                        'username' => $setting_sftp['user'],
-//                        'password' => $setting_sftp['password'],
-//                        'visibility' => 'public',
-//                        'permPublic' => 0777, /// <- this one did the trick
-//                        'root' => $setting_sftp['path_sftp'],
-//                    ]);
-//                    $disk->put($name_xml . '.xml', $contents, 'public');
-//                } catch (\Throwable $e) {
-//                    $setting_sftp = SftpServer::where('type', '=', 'reserv')->first()->toArray();
+                try {
+                    $setting_sftp = SftpServer::where('type', '=', 'osnovnoi')->first()->toArray();
                     $disk = Storage::build([
                         'driver' => 'sftp',
-                        'host' => '172.16.205.139',
-                        'username' => 'horizont',
-                        'password' => 'demodemo',
+                        'host' => $setting_sftp['adres_sftp'],
+                        'username' => $setting_sftp['user'],
+                        'password' => $setting_sftp['password'],
                         'visibility' => 'public',
                         'permPublic' => 0777, /// <- this one did the trick
-                        'root' => '/usr/PROZESS/horizont/var/cc/dj/log/',
+                        'root' => $setting_sftp['path_sftp'].'log/',
+                    ]);
+                    $disk->put($name_xml . '.xml', $contents, 'public');
+                } catch (\Throwable $e) {
+                    $setting_sftp = SftpServer::where('type', '=', 'reserv')->first()->toArray();
+                    $disk = Storage::build([
+                        'driver' => 'sftp',
+                        'host' => $setting_sftp['adres_sftp'],
+                        'username' => $setting_sftp['user'],
+                        'password' => $setting_sftp['password'],
+                        'visibility' => 'public',
+                        'permPublic' => 0777, /// <- this one did the trick
+                        'root' => $setting_sftp['path_sftp'].'log/',
                     ]);
                     $disk->put($name_xml . '.xml', $contents, 'public'); //можно дописать путь перед $name_xml
-//                }
+                }
 //                Storage::disk('local')->put('xml_auto/' . $name_xml . '.xml', $contents, 'public');
                 $data_in_journal['event'] = 'Отправка XML' . ' ' . $name_xml;
                 $data_in_journal['option'] = 'XML успешно отправлена!';

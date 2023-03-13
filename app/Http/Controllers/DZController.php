@@ -32,16 +32,42 @@ class DZController extends Controller
             $content = $content.'   <FactMeaning>'.$fact.'</FactMeaning>';
             $content = $content.'   <Deviation>'.$razn.'</Deviation>';
             $content = $content.'</BusinessMessage>';
-            $disk = Storage::build([
-                'driver' => 'sftp',
-                'host' => '172.16.205.139',
-                'username' => 'horizont',
-                'password' => 'demodemo',
-                'visibility' => 'public',
-                'permPublic' => 0777, /// <- this one did the trick
-                'root' => '/usr/PROZESS/horizont/var/cc/dj/import/',
-            ]);
-            $disk->put('new_dz_'.date('Y_m_d_H_i_s_').'.xml', $content, 'public');
+            try {
+                $setting_sftp = SftpServer::where('type', '=', 'osnovnoi')->first()->toArray();
+                $disk = Storage::build([
+                    'driver' => 'sftp',
+                    'host' => $setting_sftp['adres_sftp'],
+                    'username' => $setting_sftp['user'],
+                    'password' => $setting_sftp['password'],
+                    'visibility' => 'public',
+                    'permPublic' => 0777, /// <- this one did the trick
+                    'root' => $setting_sftp['path_sftp'].'import/',
+                ]);
+                $disk->put('new_dz_'.date('Y_m_d_H_i_s_').'.xml', $content, 'public');
+            } catch (\Throwable $e) {
+                $setting_sftp = SftpServer::where('type', '=', 'reserv')->first()->toArray();
+                $disk = Storage::build([
+                    'driver' => 'sftp',
+                    'host' => $setting_sftp['adres_sftp'],
+                    'username' => $setting_sftp['user'],
+                    'password' => $setting_sftp['password'],
+                    'visibility' => 'public',
+                    'permPublic' => 0777, /// <- this one did the trick
+                    'root' => $setting_sftp['path_sftp'].'import/',
+                ]);
+                $disk->put('new_dz_'.date('Y_m_d_H_i_s_').'.xml', $content, 'public');
+            }
+
+//            $disk = Storage::build([
+//                'driver' => 'sftp',
+//                'host' => '172.16.205.139',
+//                'username' => 'horizont',
+//                'password' => 'demodemo',
+//                'visibility' => 'public',
+//                'permPublic' => 0777, /// <- this one did the trick
+//                'root' => '/usr/PROZESS/horizont/var/cc/dj/import/',
+//            ]);
+//            $disk->put('new_dz_'.date('Y_m_d_H_i_s_').'.xml', $content, 'public');
             return 'ok';
         }catch (\Throwable $e){
             return $e;
