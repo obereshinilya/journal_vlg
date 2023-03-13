@@ -47,7 +47,7 @@
                 }
 
                 .modal_font .overlay_font,
-                .modal_export_area .overlay_export_area, .modal_choice_sut .overlay_choice_sut, .overlay_choice_hour  {
+                .modal_export_area .overlay_export_area, .modal_choice_sut .overlay_choice_sut, .overlay_choice_hour {
                     position: absolute;
                     top: 0;
                     left: 0;
@@ -176,23 +176,32 @@
                         class="fa fa-angle-down"></i></a>
             </li>
         </ul>
-        <div style="padding-top: 5px; display: inline-block; margin-left: 30px">
-            <a href="/send_mail_view">
-                <svg xmlns="http://www.w3.org/2000/svg" width="39" height="39" viewBox="0 0 24 24" style="fill: white;transform: ;msFilter:;"><path d="M20 4H6c-1.103 0-2 .897-2 2v5h2V8l6.4 4.8a1.001 1.001 0 0 0 1.2 0L20 8v9h-8v2h8c1.103 0 2-.897 2-2V6c0-1.103-.897-2-2-2zm-7 6.75L6.666 6h12.668L13 10.75z"></path><path d="M2 12h7v2H2zm2 3h6v2H4zm3 3h4v2H7z"></path></svg>
-            </a>
-        </div>
-        <div style="padding-top: 5px; display: inline-block; margin-left: 30px">
-            <a href="#" onclick="open_modal_font()">
-                <svg width="39" height="25" viewBox="0 0 64 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                        d="M9.04545 48H1.59091L18.3409 1.45454H26.4545L43.2045 48H35.75L22.5909 9.90909H22.2273L9.04545 48ZM10.2955 29.7727H34.4773V35.6818H10.2955V29.7727Z"
-                        fill="white"/>
-                    <path d="M54.5 41V27.5" stroke="white" stroke-width="5"/>
-                    <path d="M54.5 48L46.2728 39H62.7272L54.5 48Z" fill="white"/>
-                    <path d="M54.5 8V21.5" stroke="white" stroke-width="5"/>
-                    <path d="M54.5 1L62.7272 10H46.2728L54.5 1Z" fill="white"/>
-                </svg>
-            </a>
+        <div style=" display: inline-block; margin-left: 30px">
+            <table>
+                <tr>
+                    <td><a href="/send_mail_view">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="39" height="39" viewBox="0 0 24 24"
+                                 style="fill: white;transform: ;msFilter:;">
+                                <path
+                                    d="M20 4H6c-1.103 0-2 .897-2 2v5h2V8l6.4 4.8a1.001 1.001 0 0 0 1.2 0L20 8v9h-8v2h8c1.103 0 2-.897 2-2V6c0-1.103-.897-2-2-2zm-7 6.75L6.666 6h12.668L13 10.75z"></path>
+                                <path d="M2 12h7v2H2zm2 3h6v2H4zm3 3h4v2H7z"></path>
+                            </svg>
+                        </a></td>
+                    <td><a href="#" style="margin-left: 30px" onclick="open_modal_font()">
+                            <svg width="39" height="25" viewBox="0 0 64 50" fill="none"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M9.04545 48H1.59091L18.3409 1.45454H26.4545L43.2045 48H35.75L22.5909 9.90909H22.2273L9.04545 48ZM10.2955 29.7727H34.4773V35.6818H10.2955V29.7727Z"
+                                    fill="white"/>
+                                <path d="M54.5 41V27.5" stroke="white" stroke-width="5"/>
+                                <path d="M54.5 48L46.2728 39H62.7272L54.5 48Z" fill="white"/>
+                                <path d="M54.5 8V21.5" stroke="white" stroke-width="5"/>
+                                <path d="M54.5 1L62.7272 10H46.2728L54.5 1Z" fill="white"/>
+                            </svg>
+                        </a></td>
+                </tr>
+            </table>
+
         </div>
         <button class="button button1" style="float: right; margin-left: 15px"
                 onclick="pass_smena()">Сдать смену
