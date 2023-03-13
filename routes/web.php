@@ -231,6 +231,13 @@ Route::get('/print_skv/{date}', [Controllers\ReportController::class, 'print_skv
     Route::post('/upload_file_chat/{recipient}', [Controllers\ChatController::class, 'upload_file_chat'])->name('upload_file_chat');   ///обновляем список
     Route::get('/download_file_chat/{file_name}', [Controllers\ChatController::class, 'download_file_chat'])->name('download_file_chat');   ///обновляем список
 
+
+    Route::get('/send_mail_view', [Controllers\SendMailController::class, 'send_mail_view']);  ///просмотр сообщений
+    Route::get('/get_mail_info', [Controllers\SendMailController::class, 'get_mail']);  ///
+    Route::get('/new_mail', [Controllers\SendMailController::class, 'new_mail']);  ///просмотр сообщений
+    Route::post('/save_mail', [Controllers\SendMailController::class,'save_mail']);
+
+
 //ГЛАВНАЯ ТАБЛИЦА
     Route::post('/add-index', [Controllers\MainTableController::class, 'add_index']);
     Route::get('/maintable', [Controllers\MainTableController::class, 'index']);
