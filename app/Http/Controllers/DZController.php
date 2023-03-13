@@ -23,6 +23,36 @@ use function Livewire\str;
 
 class DZController extends Controller
 {
+    public function create_xml_dz($name, $dz, $fact, $razn){
+        try {
+            $content = '<?xml version="1.0" encoding="UTF-8"?>';
+            $content = $content.'<BusinessMessage>';
+            $content = $content.'   <NameBranch>'.$name.'</NameBranch>';
+            $content = $content.'   <NewExercise>'.$dz.'</NewExercise>';
+            $content = $content.'   <FactMeaning>'.$fact.'</FactMeaning>';
+            $content = $content.'   <Deviation>'.$razn.'</Deviation>';
+            $content = $content.'</BusinessMessage>';
+            $disk = Storage::build([
+                'driver' => 'sftp',
+                'host' => '172.16.205.139',
+                'username' => 'horizont',
+                'password' => 'demodemo',
+                'visibility' => 'public',
+                'permPublic' => 0777, /// <- this one did the trick
+                'root' => '/usr/PROZESS/horizont/var/cc/dj/import/',
+            ]);
+            $disk->put('new_dz_'.date('Y_m_d_H_i_s_').'.xml', $content, 'public');
+            return 'ok';
+        }catch (\Throwable $e){
+            return $e;
+        }
+    }
+    public function generator(){
+        return view('web.reports.generator');
+    }
+    public function dashboard(){
+        return view('web.reports.dashboard');
+    }
     public function get_journal_dz(){
         $data = DzMasdu::orderByDesc('create')->get();
         return $data;

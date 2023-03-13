@@ -15,7 +15,6 @@
                         localStorage.removeItem(localStorageKey)
                     }
                 }"><a href="/sut" style="padding-right: 37px;">Суточные показатели</a></li>
-            {{--                <li onclick="localStorage.clear()"><a href="/minutes" style="padding-right: 37px;">Реальное время</a></li>--}}
             <style>
                 .circle {
                     width: 20px;
@@ -170,12 +169,19 @@
                 </ul>
             </li>
             {{--                <li id="journal_operator_header"><a href="/open_user_log" style="padding-right: 37px;">Журнал действий оператора<i class="fa fa-angle-down"></i></a>--}}
-            <li id="journal_operator_header"><a href="/open_journal_smeny" style="padding-right: 10px;">Журнал смены<i
+            <li id="journal_operator_header"><a href="/open_journal_smeny" style="padding-right: 30px;">Журнал смены<i
                         class="fa fa-angle-down"></i></a>
             </li>
-
+            <li id="journal_operator_header"><a href="http://sdk_pb_astra.ru" style="padding-right: 10px;">Поток-ПБ<i
+                        class="fa fa-angle-down"></i></a>
+            </li>
         </ul>
-        <div style="padding-top: 5px; display: inline-block">
+        <div style="padding-top: 5px; display: inline-block; margin-left: 30px">
+            <a href="/send_mail_view">
+                <svg xmlns="http://www.w3.org/2000/svg" width="39" height="39" viewBox="0 0 24 24" style="fill: white;transform: ;msFilter:;"><path d="M20 4H6c-1.103 0-2 .897-2 2v5h2V8l6.4 4.8a1.001 1.001 0 0 0 1.2 0L20 8v9h-8v2h8c1.103 0 2-.897 2-2V6c0-1.103-.897-2-2-2zm-7 6.75L6.666 6h12.668L13 10.75z"></path><path d="M2 12h7v2H2zm2 3h6v2H4zm3 3h4v2H7z"></path></svg>
+            </a>
+        </div>
+        <div style="padding-top: 5px; display: inline-block; margin-left: 30px">
             <a href="#" onclick="open_modal_font()">
                 <svg width="39" height="25" viewBox="0 0 64 50" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path

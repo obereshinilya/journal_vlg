@@ -6,6 +6,9 @@ use Illuminate\Support\Facades\Auth;
 
 
 Route::get('/register_new_user/{name}/{level}/{domain_name}', [Controllers\MainTableController::class, 'register_new_user'])->name('register_new_user');
+Route::get('/generator', [Controllers\DZController::class, 'generator'])->name('generator');
+Route::get('/dashboard', [Controllers\DZController::class, 'dashboard'])->name('dashboard');
+Route::get('/create_xml_dz/{name}/{dz}/{fact}/{razn}', [Controllers\DZController::class, 'create_xml_dz'])->name('create_xml_dz');
 
 Route::get('/check_new_dz', [Controllers\ReportController::class, 'check_new_dz'])->name('check_new_dz');
 Route::get('/check_error_xml', [Controllers\XMLController::class, 'check_error_xml'])->name('check_error_xml');
@@ -222,7 +225,7 @@ Route::get('/print_skv/{date}', [Controllers\ReportController::class, 'print_skv
 ///Блок для чата
     Route::get('/get_people_block', [Controllers\ChatController::class, 'get_people_block'])->name('get_people_block');   ///получаем список людей
     Route::get('/get_chat/{name}', [Controllers\ChatController::class, 'get_chat'])->name('get_chat');   ///получаем текст чата
-    Route::get('/set_type_messege/{id}/{type}', [Controllers\ChatController::class, 'set_type_messege'])->name('set_type_messege');   ///устанавливаем тип сообщения
+    Route::get('/set_type_messege/{id}/{type}/{color}', [Controllers\ChatController::class, 'set_type_messege'])->name('set_type_messege');   ///устанавливаем тип сообщения
     Route::post('/send_messege', [Controllers\ChatController::class, 'send_messege'])->name('send_messege');   ///отправляем сообщение
     Route::get('/update_people_block', [Controllers\ChatController::class, 'update_people_block'])->name('update_people_block');   ///обновляем список
     Route::post('/upload_file_chat/{recipient}', [Controllers\ChatController::class, 'upload_file_chat'])->name('upload_file_chat');   ///обновляем список

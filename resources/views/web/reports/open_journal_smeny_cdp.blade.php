@@ -118,7 +118,7 @@
                     <th>П.Уметское ПХГ</th>
                     <td id="header_1" contenteditable="true" class="changeble_td zadanie"
                         ondblclick="change_color_td(this)" old-data="0"
-                        onblur="update_math(this.id, this.textContent)"></td>
+                        onblur="update_math(this.id, this.textContent); create_xml(this, 'П.Уметское ПХГ')"></td>
                     <td id="header_2" contenteditable="true" class="changeble_td fact"
                         ondblclick="change_color_td(this)" old-data="0"
                         onblur="update_math(this.id, this.textContent)"></td>
@@ -131,7 +131,7 @@
                     <th>Невское ПХГ</th>
                     <td id="header_6" contenteditable="true" class="changeble_td zadanie"
                         ondblclick="change_color_td(this)" old-data="0"
-                        onblur="update_math(this.id, this.textContent)"></td>
+                        onblur="update_math(this.id, this.textContent); create_xml(this, 'Невское ПХГ')"></td>
                     <td id="header_7" contenteditable="true" class="changeble_td fact"
                         ondblclick="change_color_td(this)" old-data="0"
                         onblur="update_math(this.id, this.textContent)"></td>
@@ -146,7 +146,7 @@
                     <th>Елшанское ПХГ</th>
                     <td id="header_11" contenteditable="true" class="changeble_td zadanie"
                         ondblclick="change_color_td(this)" old-data="0"
-                        onblur="update_math(this.id, this.textContent)"></td>
+                        onblur="update_math(this.id, this.textContent); create_xml(this, 'Елшанское ПХГ')"></td>
                     <td id="header_12" contenteditable="true" class="changeble_td fact"
                         ondblclick="change_color_td(this)" old-data="0"
                         onblur="update_math(this.id, this.textContent)"></td>
@@ -159,7 +159,7 @@
                     <th>Гатчинское ПХГ</th>
                     <td id="header_16" contenteditable="true" class="changeble_td zadanie"
                         ondblclick="change_color_td(this)" old-data="0"
-                        onblur="update_math(this.id, this.textContent)"></td>
+                        onblur="update_math(this.id, this.textContent); create_xml(this, 'Гатчинское ПХГ')"></td>
                     <td id="header_17" contenteditable="true" class="changeble_td fact"
                         ondblclick="change_color_td(this)" old-data="0"
                         onblur="update_math(this.id, this.textContent)"></td>
@@ -174,7 +174,7 @@
                     <th>Степновское ПХГ</th>
                     <td id="header_21" contenteditable="true" class="changeble_td zadanie"
                         ondblclick="change_color_td(this)" old-data="0"
-                        onblur="update_math(this.id, this.textContent)"></td>
+                        onblur="update_math(this.id, this.textContent); create_xml(this, 'Степновское ПХГ')"></td>
                     <td id="header_22" contenteditable="true" class="changeble_td fact"
                         ondblclick="change_color_td(this)" old-data="0"
                         onblur="update_math(this.id, this.textContent)"></td>
@@ -187,7 +187,7 @@
                     <th>Калининградское ПХГ</th>
                     <td id="header_26" contenteditable="true" class="changeble_td zadanie"
                         ondblclick="change_color_td(this)" old-data="0"
-                        onblur="update_math(this.id, this.textContent)"></td>
+                        onblur="update_math(this.id, this.textContent); create_xml(this, 'Калининградское ПХГ')"></td>
                     <td id="header_27" contenteditable="true" class="changeble_td fact"
                         ondblclick="change_color_td(this)" old-data="0"
                         onblur="update_math(this.id, this.textContent)"></td>
@@ -202,7 +202,7 @@
                     <th>Похвостневское УПХГ</th>
                     <td id="header_31" contenteditable="true" class="changeble_td zadanie"
                         ondblclick="change_color_td(this)" old-data="0"
-                        onblur="update_math(this.id, this.textContent)"></td>
+                        onblur="update_math(this.id, this.textContent); create_xml(this, 'Похвостневское УПХГ')"></td>
                     <td id="header_32" contenteditable="true" class="changeble_td fact"
                         ondblclick="change_color_td(this)" old-data="0"
                         onblur="update_math(this.id, this.textContent)"></td>
@@ -215,7 +215,7 @@
                     <th>Волгоградское УПХГ</th>
                     <td id="header_36" contenteditable="true" class="changeble_td zadanie"
                         ondblclick="change_color_td(this)" old-data="0"
-                        onblur="update_math(this.id, this.textContent)"></td>
+                        onblur="update_math(this.id, this.textContent); create_xml(this, 'Волгоградское УПХГ')"></td>
                     <td id="header_37" contenteditable="true" class="changeble_td fact"
                         ondblclick="change_color_td(this)" old-data="0"
                         onblur="update_math(this.id, this.textContent)"></td>
@@ -230,7 +230,7 @@
                     <th>Похвостневская пром.пл.</th>
                     <td id="header_41" contenteditable="true" class="changeble_td zadanie"
                         ondblclick="change_color_td(this)" old-data="0"
-                        onblur="update_math(this.id, this.textContent)"></td>
+                        onblur="update_math(this.id, this.textContent); create_xml(this, 'Похвостневская пром.пл.')"></td>
                     <td id="header_42" contenteditable="true" class="changeble_td fact"
                         ondblclick="change_color_td(this)" old-data="0"
                         onblur="update_math(this.id, this.textContent)"></td>
@@ -243,7 +243,7 @@
                     <th>с.Ставропольское ПХГ</th>
                     <td id="header_46" contenteditable="true" class="changeble_td zadanie"
                         ondblclick="change_color_td(this)" old-data="0"
-                        onblur="update_math(this.id, this.textContent)"></td>
+                        onblur="update_math(this.id, this.textContent); create_xml(this, 'с.Ставропольское ПХГ')"></td>
                     <td id="header_47" contenteditable="true" class="changeble_td fact"
                         ondblclick="change_color_td(this)" old-data="0"
                         onblur="update_math(this.id, this.textContent)"></td>
@@ -258,7 +258,7 @@
                     <th>Отрадневская пром.пл.</th>
                     <td id="header_51" contenteditable="true" class="changeble_td zadanie"
                         ondblclick="change_color_td(this)" old-data="0"
-                        onblur="update_math(this.id, this.textContent)"></td>
+                        onblur="update_math(this.id, this.textContent); create_xml(this, 'Отрадневская пром.пл.')"></td>
                     <td id="header_52" contenteditable="true" class="changeble_td fact"
                         ondblclick="change_color_td(this)" old-data="0"
                         onblur="update_math(this.id, this.textContent)"></td>
@@ -271,7 +271,7 @@
                     <th>Краснодарское ПХГ</th>
                     <td id="header_56" contenteditable="true" class="changeble_td zadanie"
                         ondblclick="change_color_td(this)" old-data="0"
-                        onblur="update_math(this.id, this.textContent)"></td>
+                        onblur="update_math(this.id, this.textContent); create_xml(this, 'Краснодарское ПХГ')"></td>
                     <td id="header_57" contenteditable="true" class="changeble_td fact"
                         ondblclick="change_color_td(this)" old-data="0"
                         onblur="update_math(this.id, this.textContent)"></td>
@@ -286,7 +286,7 @@
                     <th>Щелковское ПХГ</th>
                     <td id="header_61" contenteditable="true" class="changeble_td zadanie"
                         ondblclick="change_color_td(this)" old-data="0"
-                        onblur="update_math(this.id, this.textContent)"></td>
+                        onblur="update_math(this.id, this.textContent); create_xml(this, 'Щелковское ПХГ')"></td>
                     <td id="header_62" contenteditable="true" class="changeble_td fact"
                         ondblclick="change_color_td(this)" old-data="0"
                         onblur="update_math(this.id, this.textContent)"></td>
@@ -299,7 +299,7 @@
                     <th>Кущевское ПХГ</th>
                     <td id="header_66" contenteditable="true" class="changeble_td zadanie"
                         ondblclick="change_color_td(this)" old-data="0"
-                        onblur="update_math(this.id, this.textContent)"></td>
+                        onblur="update_math(this.id, this.textContent); create_xml(this, 'Кущевское ПХГ')"></td>
                     <td id="header_67" contenteditable="true" class="changeble_td fact"
                         ondblclick="change_color_td(this)" old-data="0"
                         onblur="update_math(this.id, this.textContent)"></td>
@@ -314,7 +314,7 @@
                     <th>Калужское ПХГ</th>
                     <td id="header_71" contenteditable="true" class="changeble_td zadanie"
                         ondblclick="change_color_td(this)" old-data="0"
-                        onblur="update_math(this.id, this.textContent)"></td>
+                        onblur="update_math(this.id, this.textContent); create_xml(this, 'Калужское ПХГ')"></td>
                     <td id="header_72" contenteditable="true" class="changeble_td fact"
                         ondblclick="change_color_td(this)" old-data="0"
                         onblur="update_math(this.id, this.textContent)"></td>
@@ -327,7 +327,7 @@
                     <th>Канчуринское ПХГ</th>
                     <td id="header_76" contenteditable="true" class="changeble_td zadanie"
                         ondblclick="change_color_td(this)" old-data="0"
-                        onblur="update_math(this.id, this.textContent)"></td>
+                        onblur="update_math(this.id, this.textContent); create_xml(this, 'Канчуринское ПХГ')"></td>
                     <td id="header_77" contenteditable="true" class="changeble_td fact"
                         ondblclick="change_color_td(this)" old-data="0"
                         onblur="update_math(this.id, this.textContent)"></td>
@@ -342,7 +342,7 @@
                     <th>Касимовское УПХГ</th>
                     <td id="header_81" contenteditable="true" class="changeble_td zadanie"
                         ondblclick="change_color_td(this)" old-data="0"
-                        onblur="update_math(this.id, this.textContent)"></td>
+                        onblur="update_math(this.id, this.textContent); create_xml(this, 'Касимовское УПХГ')"></td>
                     <td id="header_82" contenteditable="true" class="changeble_td fact"
                         ondblclick="change_color_td(this)" old-data="0"
                         onblur="update_math(this.id, this.textContent)"></td>
@@ -355,7 +355,7 @@
                     <th>Пунгинское ПХГ</th>
                     <td id="header_86" contenteditable="true" class="changeble_td zadanie"
                         ondblclick="change_color_td(this)" old-data="0"
-                        onblur="update_math(this.id, this.textContent)"></td>
+                        onblur="update_math(this.id, this.textContent); create_xml(this, 'Пунгинское ПХГ')"></td>
                     <td id="header_87" contenteditable="true" class="changeble_td fact"
                         ondblclick="change_color_td(this)" old-data="0"
                         onblur="update_math(this.id, this.textContent)"></td>
@@ -370,7 +370,7 @@
                     <th>Совхозное ПХГ</th>
                     <td id="header_91" contenteditable="true" class="changeble_td zadanie"
                         ondblclick="change_color_td(this)" old-data="0"
-                        onblur="update_math(this.id, this.textContent)"></td>
+                        onblur="update_math(this.id, this.textContent); create_xml(this, 'Совхозное ПХГ')"></td>
                     <td id="header_92" contenteditable="true" class="changeble_td fact"
                         ondblclick="change_color_td(this)" old-data="0"
                         onblur="update_math(this.id, this.textContent)"></td>
@@ -383,7 +383,7 @@
                     <th>Карашурское ПХГ</th>
                     <td id="header_96" contenteditable="true" class="changeble_td zadanie"
                         ondblclick="change_color_td(this)" old-data="0"
-                        onblur="update_math(this.id, this.textContent)"></td>
+                        onblur="update_math(this.id, this.textContent); create_xml(this, 'Карашурское ПХГ')"></td>
                     <td id="header_97" contenteditable="true" class="changeble_td fact"
                         ondblclick="change_color_td(this)" old-data="0"
                         onblur="update_math(this.id, this.textContent)"></td>
@@ -814,7 +814,30 @@
 
 
     <script>
-
+        function create_xml(td, name){
+            console.log('зашел')
+            var id = Number(td.id.split('_')[1])
+            var dz = td.textContent
+            var fact = document.getElementById('header_'+Number(id+1)).textContent
+            var razn = document.getElementById('header_'+Number(id+2)).textContent
+            if (dz === ''){
+                dz = 0
+            }
+            if (fact === ''){
+                fact = 0
+            }
+            if (razn === ''){
+                razn = 0
+            }
+            $.ajax({
+                url: '/create_xml_dz/' + name+'/'+dz+'/'+fact+'/'+razn,
+                method: 'get',
+                success: function (res) {
+                    console.log(res)
+                },
+                async: true
+            })
+        }
         function print_pdf() {
             switch (document.getElementById('print_type').value) {
                 case 'day':

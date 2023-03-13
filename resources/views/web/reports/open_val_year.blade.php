@@ -261,9 +261,9 @@
                         if (res[type][j] !== '...') {
                             buff_fakt += Number(res[type][j])
                             last_fakt = Number(res[type][j])
-                            td.innerHTML += `<span contenteditable="true" style="background-color: white" data-obj="${type}" data-month="${j}" onblur="save_month_fact(this)">${res[type][j]}</span>`
+                            td.innerHTML += `<span contenteditable="true" style="background-color: white" data-obj="fact_${type}" data-month="${j}" onblur="save_month_fact(this)">${res[type][j]}</span>`
                         } else {
-                            td.innerHTML += `<span contenteditable="true" style="background-color: white" data-obj="${type}"  data-month="${j}" onblur="save_month_fact(this)">0.000</span>`
+                            td.innerHTML += `<span contenteditable="true" style="background-color: white" data-obj="fact_${type}"  data-month="${j}" onblur="save_month_fact(this)">0.000</span>`
                         }
                         tr.appendChild(td);
                         var td_out = document.createElement('td')

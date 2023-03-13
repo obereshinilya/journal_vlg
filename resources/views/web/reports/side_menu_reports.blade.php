@@ -84,6 +84,12 @@
                                     <ul id="com_log">
                                         <li><a id="12" class="tableItem">Журнал замечаний</a></li>
                                     </ul>
+                                    <ul id="com_log">
+                                        <li><a id="9" class="tableItem">Генератор отчетов</a></li>
+                                    </ul>
+                                    <ul id="com_log">
+                                        <li><a id="999" class="tableItem">Дашборд</a></li>
+                                    </ul>
                                 </div>`
                 side_tree.innerHTML=new_data;
                 document.getElementById('side_menu').style.width = 'auto'
@@ -151,13 +157,15 @@
             }else if(vibrano === '8'){
                 document.location.href = '/open_ppr'
             }else if(vibrano === '9'){
-                document.location.href = '/open_astragaz'
+                document.location.href = '/generator'
             }else if(vibrano === '10'){
                 document.location.href = '/report_param_dks'
             }else if(vibrano === '11'){
                 document.location.href = '/report_skv'
             }else if(vibrano === '99'){
                 document.location.href = '/report_oper_skv_main'
+            }else if(vibrano === '999'){
+                document.location.href = '/dashboard'
             }
             else if(vibrano === '12'){
                 document.location.href = '/open_comment_log'
